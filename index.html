@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Source</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0b0f14;
+            color: white;
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 20px;
+            background: #111820;
+            border-bottom: 1px solid #26313d;
+        }
+
+        header h1 {
+            font-size: 24px;
+        }
+
+        header p {
+            color: #8b98a8;
+            margin-top: 6px;
+        }
+
+        nav {
+            display: flex;
+            gap: 10px;
+            padding: 15px;
+            overflow-x: auto;
+            background: #111820;
+        }
+
+        nav button {
+            background: #1a2430;
+            color: white;
+            border: 1px solid #2c3947;
+            padding: 10px 15px;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+
+        main {
+            padding: 15px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .card {
+            background: #111820;
+            border: 1px solid #26313d;
+            border-radius: 12px;
+            padding: 18px;
+        }
+
+        .card h3 {
+            color: #8b98a8;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .value {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .positive {
+            color: #20c997;
+        }
+
+        .negative {
+            color: #ff6b6b;
+        }
+
+        .section {
+            margin-top: 20px;
+            background: #111820;
+            border: 1px solid #26313d;
+            border-radius: 12px;
+            padding: 18px;
+        }
+
+        .section h2 {
+            margin-bottom: 15px;
+        }
+
+        .market-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid #26313d;
+        }
+
+        .market-row:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>📊 MARKET SOURCE</h1>
+        <p>Terminal d'analyse des marchés financiers</p>
+    </header>
+
+    <nav>
+        <button>Dashboard</button>
+        <button>Marchés</button>
+        <button>Scanner</button>
+        <button>Backtest</button>
+        <button>Journal</button>
+    </nav>
+
+    <main>
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>EUR/USD</h3>
+                <div class="value">1.0850</div>
+                <div class="positive">+0.42%</div>
+            </div>
+
+            <div class="card">
+                <h3>GBP/USD</h3>
+                <div class="value">1.2760</div>
+                <div class="negative">-0.18%</div>
+            </div>
+
+            <div class="card">
+                <h3>USD INDEX</h3>
+                <div class="value">104.25</div>
+                <div class="positive">+0.12%</div>
+            </div>
+
+            <div class="card">
+                <h3>BTC/USD</h3>
+                <div class="value">67,420</div>
+                <div class="positive">+1.24%</div>
+            </div>
+
+        </div>
+
+        <div class="section">
+            <h2>🌍 Marchés surveillés</h2>
+
+            <div class="market-row">
+                <span>EUR/USD</span>
+                <span class="positive">Haussier</span>
+            </div>
+
+            <div class="market-row">
+                <span>GBP/USD</span>
+                <span class="negative">Baissier</span>
+            </div>
+
+            <div class="market-row">
+                <span>USD/JPY</span>
+                <span class="positive">Haussier</span>
+            </div>
+
+            <div class="market-row">
+                <span>BTC/USD</span>
+                <span class="positive">Haussier</span>
+            </div>
+
+        </div>
+
+        <div class="section">
+            <h2>🧠 Analyse institutionnelle</h2>
+            <p>
+                Structure du marché, liquidité, zones d'intérêt,
+                ICT / SMC et Price Action seront intégrés progressivement.
+            </p>
+        </div>
+
+    </main>
+
+</body>
+  </html>
