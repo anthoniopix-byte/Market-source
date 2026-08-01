@@ -2,125 +2,109 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Terminal — Signal Fondamental</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#071018">
+<title>Market Source — Terminal d'analyse des marchés</title>
+<style>
+:root{--bg:#071018;--panel:#0d1822;--panel2:#111f2b;--line:#203241;--text:#edf5f8;--muted:#8da2af;--good:#35d49a;--bad:#ff6478;--warn:#f2c45c;--blue:#59a9ff}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#071018,#09131c 55%,#071018);color:var(--text);font:14px Inter,system-ui,sans-serif}
+button{font:inherit;color:inherit}.app{max-width:1450px;margin:auto;padding:16px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:4px 0 15px;position:sticky;top:0;background:rgba(7,16,24,.94);backdrop-filter:blur(12px);z-index:5}
+.brand{display:flex;align-items:center;gap:10px}.logo{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:#13283a;border:1px solid #28506b;font-weight:800;color:#7fc4ff}.brand h1{font-size:18px;margin:0}.brand p{margin:3px 0 0;color:var(--muted);font-size:11px}
+.status{display:flex;gap:7px;align-items:center}.pill{border:1px solid var(--line);background:var(--panel);padding:7px 9px;border-radius:999px;color:var(--muted);font-size:11px}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--good);margin-right:5px}
+.nav{display:flex;gap:7px;overflow:auto;padding:13px 0}.nav button{border:1px solid transparent;background:transparent;padding:9px 12px;border-radius:8px;color:var(--muted);white-space:nowrap;cursor:pointer}.nav button.active,.nav button:hover{background:var(--panel2);border-color:var(--line);color:var(--text)}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:14px}.cards{display:grid;grid-template-columns:repeat(5,minmax(130px,1fr));gap:10px}.card,.panel{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:12px}.card{padding:13px}.symbol{color:var(--muted);font-size:12px}.price{font:600 21px ui-monospace,monospace;margin:9px 0 5px}.change{font-weight:700}.up{color:var(--good)}.down{color:var(--bad)}.neutral{color:var(--warn)}
+.section{margin-top:15px}.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:9px}.section h2{font-size:14px;margin:0}.section small{color:var(--muted)}
+.panel{padding:14px}.bias-list{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.bias{padding:11px;border:1px solid var(--line);border-radius:9px;background:#0a151e}.bias strong{display:block;margin-bottom:6px}.tag{font-size:10px;padding:4px 7px;border-radius:999px;border:1px solid currentColor}
+.signal{display:grid;grid-template-columns:1fr 1fr;gap:10px}.signalbox{padding:12px;border:1px solid var(--line);border-radius:10px}.signalbox h3{margin:0 0 7px;font-size:12px}.meter{height:8px;background:#172733;border-radius:99px;overflow:hidden;margin:10px 0}.meter i{display:block;height:100%;width:70%;background:var(--good)}.metric{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #172733}.metric:last-child{border:0}
+table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;padding:10px 7px;border-bottom:1px solid #1a2b38}th{color:var(--muted);font-weight:500}.score{font-family:ui-monospace,monospace;font-weight:700}
+.news{display:grid;gap:7px}.newsrow{display:grid;grid-template-columns:90px 1fr 70px 75px;gap:8px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:9px;background:#0a151e}.impact{font-size:10px;font-weight:700}.high{color:var(--bad)}.medium{color:var(--warn)}
+.side{display:grid;gap:14px;align-content:start}.side h3{margin:0 0 11px;font-size:13px}.check{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #1a2b38;color:var(--muted)}.check:last-child{border:0}.ok{color:var(--good)}.todo{color:var(--warn)}
+.footer{color:var(--muted);font-size:10px;text-align:center;padding:22px 0 8px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}.bias-list{grid-template-columns:repeat(2,1fr)}.side{grid-template-columns:1fr 1fr}.status .pill:not(:first-child){display:none}}
+@media(max-width:560px){.app{padding:10px}.top{align-items:flex-start}.brand p{display:none}.cards{grid-template-columns:repeat(2,1fr)}.card:last-child{grid-column:span 2}.signal{grid-template-columns:1fr}.side{grid-template-columns:1fr}.newsrow{grid-template-columns:70px 1fr 55px}.newsrow .time{display:none}.price{font-size:18px}}
+</style>
 </head>
 <body>
 <div class="app">
+<header class="top">
+  <div class="brand"><div class="logo">MS</div><div><h1>MARKET SOURCE</h1><p>Terminal d'analyse des marchés financiers</p></div></div>
+  <div class="status"><span class="pill"><span class="dot"></span>Terminal actif</span><span class="pill" id="clock">--:--:--</span></div>
+</header>
 
-  <header class="topbar">
-    <div class="brand">
-      <span class="brand-mark">FX</span>
-      <div class="brand-text">
-        <h1>Terminal Signal Fondamental</h1>
-        <p>Décision auto — biais macro + filtre news, sans sur-analyse</p>
-      </div>
+<nav class="nav" aria-label="Navigation">
+  <button class="active" data-tab="dashboard">Dashboard</button><button data-tab="markets">Marchés</button><button data-tab="scanner">Scanner</button><button data-tab="backtest">Backtest</button><button data-tab="journal">Journal</button>
+</nav>
+
+<main class="grid">
+<section>
+  <div class="cards">
+    <article class="card"><span class="symbol">EUR/USD</span><div class="price">1.0850</div><div class="change up">+0.42%</div></article>
+    <article class="card"><span class="symbol">GBP/USD</span><div class="price">1.2760</div><div class="change down">-0.18%</div></article>
+    <article class="card"><span class="symbol">USD/JPY</span><div class="price">157.20</div><div class="change up">+0.31%</div></article>
+    <article class="card"><span class="symbol">XAU/USD</span><div class="price">2,348.6</div><div class="change up">+0.67%</div></article>
+    <article class="card"><span class="symbol">BTC/USD</span><div class="price">67,420</div><div class="change up">+1.24%</div></article>
+  </div>
+
+  <section class="section">
+    <div class="section-head"><h2>🌍 Marchés surveillés</h2><small id="data-note">Mode démonstration — données à connecter</small></div>
+    <div class="bias-list">
+      <div class="bias"><strong>EUR/USD</strong><span class="tag up">Haussier</span></div>
+      <div class="bias"><strong>GBP/USD</strong><span class="tag down">Baissier</span></div>
+      <div class="bias"><strong>USD/JPY</strong><span class="tag up">Haussier</span></div>
+      <div class="bias"><strong>BTC/USD</strong><span class="tag up">Haussier</span></div>
     </div>
-    <div class="topbar-status">
-      <span class="badge {{ 'ok' if fred_configured else 'warn' }}">FRED {{ 'connecté' if fred_configured else 'clé manquante' }}</span>
-      <span class="badge {{ 'ok' if fmp_configured else 'warn' }}">Calendrier {{ 'connecté' if fmp_configured else 'clé manquante' }}</span>
-      <span class="badge ok">COT — public</span>
-      <button id="refresh-btn" class="btn-refresh">↻ Actualiser</button>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2>🧠 Signal Market Source</h2><small>Confluence macro + structure + risque</small></div>
+    <div class="panel signal">
+      <div class="signalbox"><h3>EUR/USD — Biais actuel</h3><strong class="up">ACHAT / Haussier</strong><div class="meter"><i></i></div><div class="metric"><span>Force USD</span><b class="down">Faible</b></div><div class="metric"><span>Force EUR</span><b class="up">Forte</b></div><div class="metric"><span>Confiance</span><b>72%</b></div></div>
+      <div class="signalbox"><h3>Conditions d'entrée</h3><div class="metric"><span>Structure</span><b class="ok">✓ Confirmée</b></div><div class="metric"><span>Liquidité</span><b class="ok">✓ Surveillée</b></div><div class="metric"><span>News forte</span><b class="todo">⚠ À vérifier</b></div><div class="metric"><span>Décision</span><b class="neutral">ATTENDRE CONFIRMATION</b></div></div>
     </div>
-  </header>
+  </section>
 
-  <p class="last-updated" id="last-updated">Chargement des données en direct…</p>
+  <section class="section">
+    <div class="section-head"><h2>📊 Force macro</h2><small>Score indicatif de 1 à 5</small></div>
+    <div class="panel">
+      <table><thead><tr><th>Facteur</th><th>USD</th><th>EUR</th><th>GBP</th><th>XAU</th><th>BTC</th></tr></thead>
+      <tbody>
+        <tr><td>Politique monétaire</td><td class="score">3.5</td><td class="score">3.0</td><td class="score">3.2</td><td class="score">4.0</td><td class="score">3.4</td></tr>
+        <tr><td>Inflation</td><td class="score">3.1</td><td class="score">3.0</td><td class="score">3.3</td><td class="score">3.8</td><td class="score">3.2</td></tr>
+        <tr><td>Emploi</td><td class="score">3.8</td><td class="score">2.9</td><td class="score">3.0</td><td class="score">3.5</td><td class="score">3.1</td></tr>
+        <tr><td>Risque / sentiment</td><td class="score">3.0</td><td class="score">3.2</td><td class="score">3.1</td><td class="score">4.1</td><td class="score">3.9</td></tr>
+      </tbody></table>
+    </div>
+  </section>
 
-  <main class="grid">
+  <section class="section">
+    <div class="section-head"><h2>📰 Calendrier à fort impact</h2><small>À connecter aux données live</small></div>
+    <div class="panel news">
+      <div class="newsrow"><span>USD</span><strong>Décision de taux / FOMC</strong><span class="impact high">ÉLEVÉ</span><span class="time">À surveiller</span></div>
+      <div class="newsrow"><span>EUR</span><strong>CPI / Inflation</strong><span class="impact high">ÉLEVÉ</span><span class="time">À surveiller</span></div>
+      <div class="newsrow"><span>GBP</span><strong>PMI Services</strong><span class="impact medium">MOYEN</span><span class="time">À surveiller</span></div>
+    </div>
+  </section>
+</section>
 
-    <section class="col-main">
-
-      <h2 class="section-title">Signal final <span class="section-sub">une lecture par session, on agit, on n'y revient pas</span></h2>
-      <div id="signal-cards" class="signal-cards">
-        <div class="skeleton">Connexion aux sources (FRED, CFTC, calendrier)…</div>
-      </div>
-
-      <h2 class="section-title">Force macro <span class="section-sub">score 1 (très baissier) à 5 (très haussier), par critère</span></h2>
-      <div class="table-wrap">
-        <table class="force-table" id="force-table">
-          <thead>
-            <tr>
-              <th>Critère</th><th>USD</th><th>EUR</th><th>GBP</th><th>XAU</th><th>BTC</th>
-            </tr>
-          </thead>
-          <tbody id="force-table-body">
-            <tr><td colspan="6">Chargement…</td></tr>
-          </tbody>
-          <tfoot>
-            <tr class="avg-row">
-              <td>Score moyen /5</td>
-              <td id="avg-USD">—</td><td id="avg-EUR">—</td><td id="avg-GBP">—</td><td id="avg-XAU">—</td><td id="avg-BTC">—</td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-      <p class="legend-note">
-        Badge <span class="tag auto">auto</span> = valeur calculée depuis une source publique en direct ·
-        <span class="tag manual">manuel</span> = source indisponible pour ce critère, à compléter par ton propre jugement.
-      </p>
-
-      <h2 class="section-title">Filtre news <span class="section-sub">événements à fort impact des prochaines heures</span></h2>
-      <div id="news-list" class="news-list">
-        <p class="muted">Chargement…</p>
-      </div>
-
-    </section>
-
-    <aside class="col-side">
-
-      <div class="panel">
-        <h3>Règles anti-surtrading</h3>
-        <ol class="rules-list">
-          {% for r in rules %}<li>{{ r }}</li>{% endfor %}
-        </ol>
-      </div>
-
-      <div class="panel">
-        <h3>Indicateurs clés à surveiller</h3>
-        <dl class="glossary">
-          {% for g in glossary %}
-          <dt>{{ g.category }}</dt>
-          <dd>{{ g.items }}</dd>
-          {% endfor %}
-        </dl>
-      </div>
-
-      <div class="panel">
-        <h3>Banques centrales à suivre</h3>
-        <dl class="glossary">
-          {% for b in banks %}
-          <dt>{{ b.currency }}</dt>
-          <dd>{{ b.bank }}</dd>
-          {% endfor %}
-        </dl>
-      </div>
-
-      <div class="panel">
-        <h3>Liens directs</h3>
-        {% for group in links %}
-        <p class="link-group-title">{{ group.category }}</p>
-        <ul class="link-list">
-          {% for s in group.sites %}
-          <li><a href="{{ s.url }}" target="_blank" rel="noopener">{{ s.name }} ↗</a></li>
-          {% endfor %}
-        </ul>
-        {% endfor %}
-      </div>
-
-    </aside>
-
-  </main>
-
-  <footer class="app-footer">
-    Sources : FRED (Federal Reserve Bank of St. Louis) · CFTC Commitments of Traders (public) ·
-    Financial Modeling Prep (calendrier économique, optionnel). Outil d'aide à la décision personnel —
-    ne constitue pas un conseil en investissement.
-  </footer>
-
+<aside class="side">
+  <div class="panel"><h3>🔎 Scanner</h3>
+    <div class="check"><span>EUR/USD</span><b class="ok">Biais +</b></div><div class="check"><span>GBP/USD</span><b class="todo">Biais −</b></div><div class="check"><span>USD/JPY</span><b class="ok">Biais +</b></div><div class="check"><span>XAU/USD</span><b class="ok">Biais +</b></div><div class="check"><span>BTC/USD</span><b class="ok">Biais +</b></div>
+  </div>
+  <div class="panel"><h3>🛡️ Contrôles risque</h3>
+    <div class="check"><span>Risque / trade</span><b>1%</b></div><div class="check"><span>RR minimum</span><b>1:2</b></div><div class="check"><span>News majeure</span><b class="todo">Vérifier</b></div><div class="check"><span>Surtrading</span><b class="ok">Bloqué</b></div>
+  </div>
+  <div class="panel"><h3>🧭 Prochaine évolution</h3>
+    <div class="check"><span>Données live</span><b class="todo">V2</b></div><div class="check"><span>Graphiques</span><b class="todo">V2</b></div><div class="check"><span>Backtest réel</span><b class="todo">V3</b></div><div class="check"><span>Journal</span><b class="todo">V3</b></div>
+  </div>
+</aside>
+</main>
+<footer class="footer">MARKET SOURCE — outil d'analyse et d'aide à la décision. Les données affichées ici sont démonstratives tant qu'aucune source live n'est connectée.</footer>
 </div>
-<script src="{{ url_for('static', filename='app.js') }}"></script>
+<script>
+const clock=document.getElementById('clock');
+setInterval(()=>clock.textContent=new Date().toLocaleTimeString('fr-FR'),1000);
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');}));
+</script>
 </body>
 </html>
