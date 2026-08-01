@@ -1,196 +1,126 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Market Source</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #0b0f14;
-            color: white;
-            min-height: 100vh;
-        }
-
-        header {
-            padding: 20px;
-            background: #111820;
-            border-bottom: 1px solid #26313d;
-        }
-
-        header h1 {
-            font-size: 24px;
-        }
-
-        header p {
-            color: #8b98a8;
-            margin-top: 6px;
-        }
-
-        nav {
-            display: flex;
-            gap: 10px;
-            padding: 15px;
-            overflow-x: auto;
-            background: #111820;
-        }
-
-        nav button {
-            background: #1a2430;
-            color: white;
-            border: 1px solid #2c3947;
-            padding: 10px 15px;
-            border-radius: 8px;
-            white-space: nowrap;
-        }
-
-        main {
-            padding: 15px;
-        }
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px;
-        }
-
-        .card {
-            background: #111820;
-            border: 1px solid #26313d;
-            border-radius: 12px;
-            padding: 18px;
-        }
-
-        .card h3 {
-            color: #8b98a8;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .value {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .positive {
-            color: #20c997;
-        }
-
-        .negative {
-            color: #ff6b6b;
-        }
-
-        .section {
-            margin-top: 20px;
-            background: #111820;
-            border: 1px solid #26313d;
-            border-radius: 12px;
-            padding: 18px;
-        }
-
-        .section h2 {
-            margin-bottom: 15px;
-        }
-
-        .market-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 14px 0;
-            border-bottom: 1px solid #26313d;
-        }
-
-        .market-row:last-child {
-            border-bottom: none;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terminal — Signal Fondamental</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-
 <body>
+<div class="app">
 
-    <header>
-        <h1>📊 MARKET SOURCE</h1>
-        <p>Terminal d'analyse des marchés financiers</p>
-    </header>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">FX</span>
+      <div class="brand-text">
+        <h1>Terminal Signal Fondamental</h1>
+        <p>Décision auto — biais macro + filtre news, sans sur-analyse</p>
+      </div>
+    </div>
+    <div class="topbar-status">
+      <span class="badge {{ 'ok' if fred_configured else 'warn' }}">FRED {{ 'connecté' if fred_configured else 'clé manquante' }}</span>
+      <span class="badge {{ 'ok' if fmp_configured else 'warn' }}">Calendrier {{ 'connecté' if fmp_configured else 'clé manquante' }}</span>
+      <span class="badge ok">COT — public</span>
+      <button id="refresh-btn" class="btn-refresh">↻ Actualiser</button>
+    </div>
+  </header>
 
-    <nav>
-        <button>Dashboard</button>
-        <button>Marchés</button>
-        <button>Scanner</button>
-        <button>Backtest</button>
-        <button>Journal</button>
-    </nav>
+  <p class="last-updated" id="last-updated">Chargement des données en direct…</p>
 
-    <main>
+  <main class="grid">
 
-        <div class="cards">
+    <section class="col-main">
 
-            <div class="card">
-                <h3>EUR/USD</h3>
-                <div class="value">1.0850</div>
-                <div class="positive">+0.42%</div>
-            </div>
+      <h2 class="section-title">Signal final <span class="section-sub">une lecture par session, on agit, on n'y revient pas</span></h2>
+      <div id="signal-cards" class="signal-cards">
+        <div class="skeleton">Connexion aux sources (FRED, CFTC, calendrier)…</div>
+      </div>
 
-            <div class="card">
-                <h3>GBP/USD</h3>
-                <div class="value">1.2760</div>
-                <div class="negative">-0.18%</div>
-            </div>
+      <h2 class="section-title">Force macro <span class="section-sub">score 1 (très baissier) à 5 (très haussier), par critère</span></h2>
+      <div class="table-wrap">
+        <table class="force-table" id="force-table">
+          <thead>
+            <tr>
+              <th>Critère</th><th>USD</th><th>EUR</th><th>GBP</th><th>XAU</th><th>BTC</th>
+            </tr>
+          </thead>
+          <tbody id="force-table-body">
+            <tr><td colspan="6">Chargement…</td></tr>
+          </tbody>
+          <tfoot>
+            <tr class="avg-row">
+              <td>Score moyen /5</td>
+              <td id="avg-USD">—</td><td id="avg-EUR">—</td><td id="avg-GBP">—</td><td id="avg-XAU">—</td><td id="avg-BTC">—</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <p class="legend-note">
+        Badge <span class="tag auto">auto</span> = valeur calculée depuis une source publique en direct ·
+        <span class="tag manual">manuel</span> = source indisponible pour ce critère, à compléter par ton propre jugement.
+      </p>
 
-            <div class="card">
-                <h3>USD INDEX</h3>
-                <div class="value">104.25</div>
-                <div class="positive">+0.12%</div>
-            </div>
+      <h2 class="section-title">Filtre news <span class="section-sub">événements à fort impact des prochaines heures</span></h2>
+      <div id="news-list" class="news-list">
+        <p class="muted">Chargement…</p>
+      </div>
 
-            <div class="card">
-                <h3>BTC/USD</h3>
-                <div class="value">67,420</div>
-                <div class="positive">+1.24%</div>
-            </div>
+    </section>
 
-        </div>
+    <aside class="col-side">
 
-        <div class="section">
-            <h2>🌍 Marchés surveillés</h2>
+      <div class="panel">
+        <h3>Règles anti-surtrading</h3>
+        <ol class="rules-list">
+          {% for r in rules %}<li>{{ r }}</li>{% endfor %}
+        </ol>
+      </div>
 
-            <div class="market-row">
-                <span>EUR/USD</span>
-                <span class="positive">Haussier</span>
-            </div>
+      <div class="panel">
+        <h3>Indicateurs clés à surveiller</h3>
+        <dl class="glossary">
+          {% for g in glossary %}
+          <dt>{{ g.category }}</dt>
+          <dd>{{ g.items }}</dd>
+          {% endfor %}
+        </dl>
+      </div>
 
-            <div class="market-row">
-                <span>GBP/USD</span>
-                <span class="negative">Baissier</span>
-            </div>
+      <div class="panel">
+        <h3>Banques centrales à suivre</h3>
+        <dl class="glossary">
+          {% for b in banks %}
+          <dt>{{ b.currency }}</dt>
+          <dd>{{ b.bank }}</dd>
+          {% endfor %}
+        </dl>
+      </div>
 
-            <div class="market-row">
-                <span>USD/JPY</span>
-                <span class="positive">Haussier</span>
-            </div>
+      <div class="panel">
+        <h3>Liens directs</h3>
+        {% for group in links %}
+        <p class="link-group-title">{{ group.category }}</p>
+        <ul class="link-list">
+          {% for s in group.sites %}
+          <li><a href="{{ s.url }}" target="_blank" rel="noopener">{{ s.name }} ↗</a></li>
+          {% endfor %}
+        </ul>
+        {% endfor %}
+      </div>
 
-            <div class="market-row">
-                <span>BTC/USD</span>
-                <span class="positive">Haussier</span>
-            </div>
+    </aside>
 
-        </div>
+  </main>
 
-        <div class="section">
-            <h2>🧠 Analyse institutionnelle</h2>
-            <p>
-                Structure du marché, liquidité, zones d'intérêt,
-                ICT / SMC et Price Action seront intégrés progressivement.
-            </p>
-        </div>
+  <footer class="app-footer">
+    Sources : FRED (Federal Reserve Bank of St. Louis) · CFTC Commitments of Traders (public) ·
+    Financial Modeling Prep (calendrier économique, optionnel). Outil d'aide à la décision personnel —
+    ne constitue pas un conseil en investissement.
+  </footer>
 
-    </main>
-
+</div>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
-  </html>
+</html>
