@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#071018">
-<title>Market Source — V1.1 Signal Engine</title>
+<title>Market Source — V1.2 Structure & Liquidity</title>
 <style>
 :root{--bg:#071018;--panel:#0d1822;--panel2:#111f2b;--line:#203241;--text:#edf5f8;--muted:#8da2af;--good:#35d49a;--bad:#ff6478;--warn:#f2c45c;--blue:#59a9ff}
 *{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#071018,#09131c 55%,#071018);color:var(--text);font:14px Inter,system-ui,sans-serif}
@@ -27,6 +27,10 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;p
 
 .engine{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-top:10px}.enginebox{padding:10px;border:1px solid var(--line);border-radius:9px;background:#0a151e}.enginebox small{display:block;color:var(--muted);margin-bottom:5px}.scorebig{font:700 25px ui-monospace,monospace}.rule{font-size:11px;color:var(--muted);line-height:1.45;margin-top:10px}.decisionBadge{display:inline-block;padding:7px 10px;border-radius:999px;border:1px solid currentColor;font-weight:800;font-size:12px}.buy{color:var(--good)}.sell{color:var(--bad)}.wait{color:var(--warn)}
 @media(max-width:700px){.engine{grid-template-columns:1fr}}
+
+
+.structure-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:10px}.structurebox{padding:10px;border:1px solid var(--line);border-radius:9px;background:#0a151e}.structurebox small{display:block;color:var(--muted);margin-bottom:5px}.structure-value{font-weight:800;font-size:16px}.liquidity{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px}.liqbox{padding:10px;border:1px solid var(--line);border-radius:9px;background:#0a151e}.liqbox b{display:block;margin-top:5px}.tf-note{font-size:11px;color:var(--muted);line-height:1.45;margin-top:10px}
+@media(max-width:800px){.structure-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.liquidity{grid-template-columns:1fr}}
 
 </style>
 </head>
@@ -91,6 +95,25 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;p
   </section>
 
   <section class="section">
+    <div class="section-head"><h2>📐 Structure + Liquidité V1.2</h2><small>M5/M15 — en attente d'une série de bougies intraday</small></div>
+    <div class="panel">
+      <div class="structure-grid">
+        <div class="structurebox"><small>Tendance</small><div id="trendState" class="structure-value wait">NON DISPONIBLE</div></div>
+        <div class="structurebox"><small>BOS</small><div id="bosState" class="structure-value wait">À CALCULER</div></div>
+        <div class="structurebox"><small>CHOCH</small><div id="chochState" class="structure-value wait">À CALCULER</div></div>
+        <div class="structurebox"><small>Structure</small><div id="structureState" class="structure-value wait">EN ATTENTE</div></div>
+      </div>
+      <div class="liquidity">
+        <div class="liqbox"><small>Liquidité au-dessus</small><b id="buySideLiquidity" class="wait">Non disponible</b></div>
+        <div class="liqbox"><small>Liquidité au-dessous</small><b id="sellSideLiquidity" class="wait">Non disponible</b></div>
+      </div>
+      <div class="tf-note">
+        <b>Pourquoi « en attente » ?</b> Le flux FX actuel de V1.1 fournit des taux de référence, pas les bougies M5/M15 nécessaires pour calculer honnêtement BOS, CHOCH, swing highs/lows et pools de liquidité. V1.2 ne fabrique donc aucun niveau.
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="section-head"><h2>📊 Macro USD — FRED</h2><small>Dernière observation disponible</small></div>
     <div class="panel">
       <table><thead><tr><th>Facteur</th><th>Valeur</th><th>Date</th><th>Source</th></tr></thead>
@@ -146,6 +169,7 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;p
   <div class="panel"><h3>🧭 Roadmap</h3>
     <div class="check"><span>V1 données</span><b class="ok">ACTIF</b></div>
     <div class="check"><span>V1.1 moteur décision</span><b class="ok">ACTIF</b></div>
+    <div class="check"><span>V1.2 structure/liquidité</span><b class="todo">À CONNECTER</b></div>
     <div class="check"><span>Graphiques</span><b class="todo">V2</b></div>
     <div class="check"><span>Backtest réel</span><b class="todo">V3</b></div>
     <div class="check"><span>Journal</span><b class="todo">V3</b></div>
@@ -153,7 +177,7 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;p
 </aside>
 </main>
 
-<footer class="footer">MARKET SOURCE V1.1 — outil d'analyse et d'aide à la décision. Vérifier les données et le contexte avant toute décision de trading.</footer>
+<footer class="footer">MARKET SOURCE V1.2 — outil d'analyse et d'aide à la décision. Vérifier les données et le contexte avant toute décision de trading.</footer>
 </div>
 
 <script>
@@ -273,16 +297,12 @@ function updateSignal(){
 
 
 function updateDecisionEngine(){
-  // Conservative V1.1: no invented EUR macro feed and no unverified news feed.
-  // The engine only scores what is actually available.
   const fed=state.macro?.fed;
   const cpi=state.macro?.cpi;
   const unrate=state.macro?.unrate;
   const fxOk=!!state.fx?.EURUSD;
   const macroOk=[fed,cpi,unrate].some(v=>v!==null && Number.isFinite(v));
 
-  // USD macro component: neutral baseline because one observation alone cannot establish direction.
-  // Displayed as "NEUTRE" rather than pretending to know a bullish/bearish USD regime.
   $('usdMacroScore').textContent=macroOk?'NEUTRE':'—';
   $('eurMacroScore').textContent='—';
   $('confluenceScore').textContent=fxOk&&macroOk?'PARTIELLE':'—';
@@ -291,12 +311,18 @@ function updateDecisionEngine(){
   $('eurForce').textContent='Non déterminée';
   $('eurForce').className='neutral';
 
+  // V1.2 structure engine: deliberately locked until M5/M15 OHLC candles are available.
+  $('trendState').textContent='NON DISPONIBLE'; $('trendState').className='structure-value wait';
+  $('bosState').textContent='À CALCULER'; $('bosState').className='structure-value wait';
+  $('chochState').textContent='À CALCULER'; $('chochState').className='structure-value wait';
+  $('structureState').textContent='EN ATTENTE'; $('structureState').className='structure-value wait';
+  $('buySideLiquidity').textContent='Non disponible'; $('buySideLiquidity').className='wait';
+  $('sellSideLiquidity').textContent='Non disponible'; $('sellSideLiquidity').className='wait';
+
   let score=0;
-  if(fxOk) score+=30;
-  if(macroOk) score+=20;
-  // News, EUR macro, structure and liquidity are not yet connected, so they cannot add points.
-  const criticalMissing=!fxOk || !macroOk || true;
-  const confidence=Math.min(score,50);
+  if(fxOk) score+=25;
+  if(macroOk) score+=15;
+  const confidence=score;
 
   $('engineScore').textContent=score+' / 100';
   $('confidence').textContent=confidence+'%';
@@ -307,7 +333,10 @@ function updateDecisionEngine(){
   badge.className='decisionBadge wait';
   $('newsCheck').textContent='⚠ Non vérifiée';
   $('newsCheck').className='todo';
+  $('decision').textContent='ATTENDRE';
+  $('decision').className='neutral';
 }
+
 
 async function refreshAll(){
   $('statusText').textContent='Actualisation…';
