@@ -4,107 +4,270 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#071018">
-<title>Market Source — Terminal d'analyse des marchés</title>
+<title>Market Source — V1 Live</title>
 <style>
 :root{--bg:#071018;--panel:#0d1822;--panel2:#111f2b;--line:#203241;--text:#edf5f8;--muted:#8da2af;--good:#35d49a;--bad:#ff6478;--warn:#f2c45c;--blue:#59a9ff}
 *{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#071018,#09131c 55%,#071018);color:var(--text);font:14px Inter,system-ui,sans-serif}
-button{font:inherit;color:inherit}.app{max-width:1450px;margin:auto;padding:16px}
+button,input{font:inherit;color:inherit}.app{max-width:1450px;margin:auto;padding:16px}
 .top{display:flex;align-items:center;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:4px 0 15px;position:sticky;top:0;background:rgba(7,16,24,.94);backdrop-filter:blur(12px);z-index:5}
 .brand{display:flex;align-items:center;gap:10px}.logo{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:#13283a;border:1px solid #28506b;font-weight:800;color:#7fc4ff}.brand h1{font-size:18px;margin:0}.brand p{margin:3px 0 0;color:var(--muted);font-size:11px}
-.status{display:flex;gap:7px;align-items:center}.pill{border:1px solid var(--line);background:var(--panel);padding:7px 9px;border-radius:999px;color:var(--muted);font-size:11px}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--good);margin-right:5px}
+.status{display:flex;gap:7px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.pill{border:1px solid var(--line);background:var(--panel);padding:7px 9px;border-radius:999px;color:var(--muted);font-size:11px}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--good);margin-right:5px}
 .nav{display:flex;gap:7px;overflow:auto;padding:13px 0}.nav button{border:1px solid transparent;background:transparent;padding:9px 12px;border-radius:8px;color:var(--muted);white-space:nowrap;cursor:pointer}.nav button.active,.nav button:hover{background:var(--panel2);border-color:var(--line);color:var(--text)}
 .grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:14px}.cards{display:grid;grid-template-columns:repeat(5,minmax(130px,1fr));gap:10px}.card,.panel{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:12px}.card{padding:13px}.symbol{color:var(--muted);font-size:12px}.price{font:600 21px ui-monospace,monospace;margin:9px 0 5px}.change{font-weight:700}.up{color:var(--good)}.down{color:var(--bad)}.neutral{color:var(--warn)}
-.section{margin-top:15px}.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:9px}.section h2{font-size:14px;margin:0}.section small{color:var(--muted)}
+.section{margin-top:15px}.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:9px;gap:10px}.section h2{font-size:14px;margin:0}.section small{color:var(--muted)}
 .panel{padding:14px}.bias-list{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.bias{padding:11px;border:1px solid var(--line);border-radius:9px;background:#0a151e}.bias strong{display:block;margin-bottom:6px}.tag{font-size:10px;padding:4px 7px;border-radius:999px;border:1px solid currentColor}
-.signal{display:grid;grid-template-columns:1fr 1fr;gap:10px}.signalbox{padding:12px;border:1px solid var(--line);border-radius:10px}.signalbox h3{margin:0 0 7px;font-size:12px}.meter{height:8px;background:#172733;border-radius:99px;overflow:hidden;margin:10px 0}.meter i{display:block;height:100%;width:70%;background:var(--good)}.metric{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #172733}.metric:last-child{border:0}
+.signal{display:grid;grid-template-columns:1fr 1fr;gap:10px}.signalbox{padding:12px;border:1px solid var(--line);border-radius:10px}.signalbox h3{margin:0 0 7px;font-size:12px}.meter{height:8px;background:#172733;border-radius:99px;overflow:hidden;margin:10px 0}.meter i{display:block;height:100%;width:50%;background:var(--good);transition:.3s}.metric{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid #172733}.metric:last-child{border:0}
 table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;padding:10px 7px;border-bottom:1px solid #1a2b38}th{color:var(--muted);font-weight:500}.score{font-family:ui-monospace,monospace;font-weight:700}
-.news{display:grid;gap:7px}.newsrow{display:grid;grid-template-columns:90px 1fr 70px 75px;gap:8px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:9px;background:#0a151e}.impact{font-size:10px;font-weight:700}.high{color:var(--bad)}.medium{color:var(--warn)}
-.side{display:grid;gap:14px;align-content:start}.side h3{margin:0 0 11px;font-size:13px}.check{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #1a2b38;color:var(--muted)}.check:last-child{border:0}.ok{color:var(--good)}.todo{color:var(--warn)}
-.footer{color:var(--muted);font-size:10px;text-align:center;padding:22px 0 8px}
-@media(max-width:900px){.grid{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}.bias-list{grid-template-columns:repeat(2,1fr)}.side{grid-template-columns:1fr 1fr}.status .pill:not(:first-child){display:none}}
-@media(max-width:560px){.app{padding:10px}.top{align-items:flex-start}.brand p{display:none}.cards{grid-template-columns:repeat(2,1fr)}.card:last-child{grid-column:span 2}.signal{grid-template-columns:1fr}.side{grid-template-columns:1fr}.newsrow{grid-template-columns:70px 1fr 55px}.newsrow .time{display:none}.price{font-size:18px}}
+.news{display:grid;gap:7px}.newsrow{display:grid;grid-template-columns:90px 1fr 90px 115px;gap:8px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:9px;background:#0a151e}.impact{font-size:10px;font-weight:700}.high{color:var(--bad)}.medium{color:var(--warn)}
+.side{display:grid;gap:14px;align-content:start}.side h3{margin:0 0 11px;font-size:13px}.check{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid #1a2b38;color:var(--muted)}.check:last-child{border:0}.ok{color:var(--good)}.todo{color:var(--warn)}
+.btn{border:1px solid var(--line);background:var(--panel2);padding:8px 10px;border-radius:8px;cursor:pointer}.btn:hover{border-color:#3a5970}.sources{display:flex;gap:7px;flex-wrap:wrap}.source{font-size:10px;padding:5px 7px;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
+.note{padding:10px;border-left:3px solid var(--blue);background:#0a151e;color:var(--muted);font-size:11px;line-height:1.5;border-radius:5px}.error{color:var(--bad)}.footer{color:var(--muted);font-size:10px;text-align:center;padding:22px 0 8px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}.bias-list{grid-template-columns:repeat(2,1fr)}.side{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.app{padding:10px}.top{align-items:flex-start}.brand p{display:none}.cards{grid-template-columns:repeat(2,1fr)}.card:last-child{grid-column:span 2}.signal{grid-template-columns:1fr}.side{grid-template-columns:1fr}.newsrow{grid-template-columns:65px 1fr 65px}.newsrow .time{display:none}.price{font-size:18px}}
 </style>
 </head>
 <body>
 <div class="app">
 <header class="top">
-  <div class="brand"><div class="logo">MS</div><div><h1>MARKET SOURCE</h1><p>Terminal d'analyse des marchés financiers</p></div></div>
-  <div class="status"><span class="pill"><span class="dot"></span>Terminal actif</span><span class="pill" id="clock">--:--:--</span></div>
+  <div class="brand"><div class="logo">MS</div><div><h1>MARKET SOURCE</h1><p>Terminal d'analyse des marchés — V1</p></div></div>
+  <div class="status"><span class="pill"><span class="dot" id="statusDot"></span><span id="statusText">Connexion live…</span></span><span class="pill" id="clock">--:--:--</span><button class="btn" id="refreshBtn">↻ Actualiser</button></div>
 </header>
 
-<nav class="nav" aria-label="Navigation">
-  <button class="active" data-tab="dashboard">Dashboard</button><button data-tab="markets">Marchés</button><button data-tab="scanner">Scanner</button><button data-tab="backtest">Backtest</button><button data-tab="journal">Journal</button>
-</nav>
+<nav class="nav"><button class="active" data-tab="dashboard">Dashboard</button><button data-tab="markets">Marchés</button><button data-tab="scanner">Scanner</button><button data-tab="backtest">Backtest</button><button data-tab="journal">Journal</button></nav>
 
 <main class="grid">
 <section>
   <div class="cards">
-    <article class="card"><span class="symbol">EUR/USD</span><div class="price">1.0850</div><div class="change up">+0.42%</div></article>
-    <article class="card"><span class="symbol">GBP/USD</span><div class="price">1.2760</div><div class="change down">-0.18%</div></article>
-    <article class="card"><span class="symbol">USD/JPY</span><div class="price">157.20</div><div class="change up">+0.31%</div></article>
-    <article class="card"><span class="symbol">XAU/USD</span><div class="price">2,348.6</div><div class="change up">+0.67%</div></article>
-    <article class="card"><span class="symbol">BTC/USD</span><div class="price">67,420</div><div class="change up">+1.24%</div></article>
+    <article class="card"><span class="symbol">EUR/USD</span><div class="price" id="eurusd">—</div><div class="change neutral" id="eurusdChange">référence</div></article>
+    <article class="card"><span class="symbol">GBP/USD</span><div class="price" id="gbpusd">—</div><div class="change neutral" id="gbpusdChange">référence</div></article>
+    <article class="card"><span class="symbol">USD/JPY</span><div class="price" id="usdjpy">—</div><div class="change neutral" id="usdjpyChange">référence</div></article>
+    <article class="card"><span class="symbol">XAU/USD</span><div class="price" id="xauusd">—</div><div class="change neutral">source à connecter</div></article>
+    <article class="card"><span class="symbol">BTC/USD</span><div class="price" id="btcusd">—</div><div class="change neutral" id="btcChange">live</div></article>
   </div>
 
   <section class="section">
-    <div class="section-head"><h2>🌍 Marchés surveillés</h2><small id="data-note">Mode démonstration — données à connecter</small></div>
+    <div class="section-head"><h2>🌍 Marchés surveillés</h2><small id="data-note">Initialisation des sources…</small></div>
     <div class="bias-list">
-      <div class="bias"><strong>EUR/USD</strong><span class="tag up">Haussier</span></div>
-      <div class="bias"><strong>GBP/USD</strong><span class="tag down">Baissier</span></div>
-      <div class="bias"><strong>USD/JPY</strong><span class="tag up">Haussier</span></div>
-      <div class="bias"><strong>BTC/USD</strong><span class="tag up">Haussier</span></div>
+      <div class="bias"><strong>EUR/USD</strong><span class="tag neutral" id="bias-eur">Calcul…</span></div>
+      <div class="bias"><strong>GBP/USD</strong><span class="tag neutral" id="bias-gbp">Calcul…</span></div>
+      <div class="bias"><strong>USD/JPY</strong><span class="tag neutral" id="bias-jpy">Calcul…</span></div>
+      <div class="bias"><strong>BTC/USD</strong><span class="tag neutral" id="bias-btc">Live</span></div>
     </div>
   </section>
 
   <section class="section">
-    <div class="section-head"><h2>🧠 Signal Market Source</h2><small>Confluence macro + structure + risque</small></div>
+    <div class="section-head"><h2>🧠 Signal Market Source</h2><small>V1 = données disponibles + filtre de sécurité</small></div>
     <div class="panel signal">
-      <div class="signalbox"><h3>EUR/USD — Biais actuel</h3><strong class="up">ACHAT / Haussier</strong><div class="meter"><i></i></div><div class="metric"><span>Force USD</span><b class="down">Faible</b></div><div class="metric"><span>Force EUR</span><b class="up">Forte</b></div><div class="metric"><span>Confiance</span><b>72%</b></div></div>
-      <div class="signalbox"><h3>Conditions d'entrée</h3><div class="metric"><span>Structure</span><b class="ok">✓ Confirmée</b></div><div class="metric"><span>Liquidité</span><b class="ok">✓ Surveillée</b></div><div class="metric"><span>News forte</span><b class="todo">⚠ À vérifier</b></div><div class="metric"><span>Décision</span><b class="neutral">ATTENDRE CONFIRMATION</b></div></div>
+      <div class="signalbox"><h3>EUR/USD — Biais V1</h3><strong id="signalText" class="neutral">ATTENDRE</strong><div class="meter"><i id="confidenceBar"></i></div>
+        <div class="metric"><span>Force USD</span><b id="usdForce" class="neutral">Calcul…</b></div>
+        <div class="metric"><span>Force EUR</span><b id="eurForce" class="neutral">Calcul…</b></div>
+        <div class="metric"><span>Confiance</span><b id="confidence">—</b></div>
+      </div>
+      <div class="signalbox"><h3>Conditions d'entrée</h3>
+        <div class="metric"><span>Données marché</span><b id="marketCheck" class="todo">⏳</b></div>
+        <div class="metric"><span>Macro FRED</span><b id="fredCheck" class="todo">⏳</b></div>
+        <div class="metric"><span>News forte</span><b class="todo">⚠ V1 à connecter</b></div>
+        <div class="metric"><span>Décision</span><b id="decision" class="neutral">ATTENDRE</b></div>
+      </div>
     </div>
   </section>
 
   <section class="section">
-    <div class="section-head"><h2>📊 Force macro</h2><small>Score indicatif de 1 à 5</small></div>
+    <div class="section-head"><h2>📊 Macro USD — FRED</h2><small>Dernière observation disponible</small></div>
     <div class="panel">
-      <table><thead><tr><th>Facteur</th><th>USD</th><th>EUR</th><th>GBP</th><th>XAU</th><th>BTC</th></tr></thead>
+      <table><thead><tr><th>Facteur</th><th>Valeur</th><th>Date</th><th>Source</th></tr></thead>
       <tbody>
-        <tr><td>Politique monétaire</td><td class="score">3.5</td><td class="score">3.0</td><td class="score">3.2</td><td class="score">4.0</td><td class="score">3.4</td></tr>
-        <tr><td>Inflation</td><td class="score">3.1</td><td class="score">3.0</td><td class="score">3.3</td><td class="score">3.8</td><td class="score">3.2</td></tr>
-        <tr><td>Emploi</td><td class="score">3.8</td><td class="score">2.9</td><td class="score">3.0</td><td class="score">3.5</td><td class="score">3.1</td></tr>
-        <tr><td>Risque / sentiment</td><td class="score">3.0</td><td class="score">3.2</td><td class="score">3.1</td><td class="score">4.1</td><td class="score">3.9</td></tr>
+        <tr><td>Taux Fed effectif</td><td class="score" id="fedfunds">—</td><td id="fedfundsDate">—</td><td>FRED</td></tr>
+        <tr><td>Inflation CPI</td><td class="score" id="cpi">—</td><td id="cpiDate">—</td><td>FRED</td></tr>
+        <tr><td>Chômage</td><td class="score" id="unrate">—</td><td id="unrateDate">—</td><td>FRED</td></tr>
       </tbody></table>
     </div>
   </section>
 
   <section class="section">
-    <div class="section-head"><h2>📰 Calendrier à fort impact</h2><small>À connecter aux données live</small></div>
-    <div class="panel news">
-      <div class="newsrow"><span>USD</span><strong>Décision de taux / FOMC</strong><span class="impact high">ÉLEVÉ</span><span class="time">À surveiller</span></div>
-      <div class="newsrow"><span>EUR</span><strong>CPI / Inflation</strong><span class="impact high">ÉLEVÉ</span><span class="time">À surveiller</span></div>
-      <div class="newsrow"><span>GBP</span><strong>PMI Services</strong><span class="impact medium">MOYEN</span><span class="time">À surveiller</span></div>
+    <div class="section-head"><h2>📌 COT — positionnement</h2><small id="cotStatus">Chargement…</small></div>
+    <div class="panel">
+      <table><thead><tr><th>Marché</th><th>Date</th><th>Contrat</th><th>Positionnement</th></tr></thead>
+      <tbody id="cotBody"><tr><td colspan="4">Connexion CFTC…</td></tr></tbody></table>
     </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2>📰 Calendrier à fort impact</h2><small>V1 : module sécurisé en préparation</small></div>
+    <div class="panel news">
+      <div class="newsrow"><span>USD</span><strong>FOMC / CPI / NFP</strong><span class="impact high">ÉLEVÉ</span><span class="time">Source calendrier à connecter</span></div>
+      <div class="newsrow"><span>EUR</span><strong>ECB / CPI / PMI</strong><span class="impact high">ÉLEVÉ</span><span class="time">Source calendrier à connecter</span></div>
+      <div class="newsrow"><span>GBP</span><strong>BoE / CPI / PMI</strong><span class="impact medium">MOYEN</span><span class="time">Source calendrier à connecter</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="note"><b>V1 — Important :</b> les taux FX de Frankfurter sont des taux de référence quotidiens, pas des cotations tick-by-tick. BTC est récupéré en direct depuis Binance. XAU/USD et le calendrier économique ne sont volontairement pas inventés : ils restent marqués comme non connectés jusqu'à l'ajout d'une source adaptée.</div>
   </section>
 </section>
 
 <aside class="side">
   <div class="panel"><h3>🔎 Scanner</h3>
-    <div class="check"><span>EUR/USD</span><b class="ok">Biais +</b></div><div class="check"><span>GBP/USD</span><b class="todo">Biais −</b></div><div class="check"><span>USD/JPY</span><b class="ok">Biais +</b></div><div class="check"><span>XAU/USD</span><b class="ok">Biais +</b></div><div class="check"><span>BTC/USD</span><b class="ok">Biais +</b></div>
+    <div class="check"><span>EUR/USD</span><b id="scan-eur" class="todo">Calcul…</b></div>
+    <div class="check"><span>GBP/USD</span><b id="scan-gbp" class="todo">Calcul…</b></div>
+    <div class="check"><span>USD/JPY</span><b id="scan-jpy" class="todo">Calcul…</b></div>
+    <div class="check"><span>XAU/USD</span><b class="todo">Non connecté</b></div>
+    <div class="check"><span>BTC/USD</span><b class="ok">LIVE</b></div>
   </div>
   <div class="panel"><h3>🛡️ Contrôles risque</h3>
     <div class="check"><span>Risque / trade</span><b>1%</b></div><div class="check"><span>RR minimum</span><b>1:2</b></div><div class="check"><span>News majeure</span><b class="todo">Vérifier</b></div><div class="check"><span>Surtrading</span><b class="ok">Bloqué</b></div>
   </div>
-  <div class="panel"><h3>🧭 Prochaine évolution</h3>
-    <div class="check"><span>Données live</span><b class="todo">V2</b></div><div class="check"><span>Graphiques</span><b class="todo">V2</b></div><div class="check"><span>Backtest réel</span><b class="todo">V3</b></div><div class="check"><span>Journal</span><b class="todo">V3</b></div>
+  <div class="panel"><h3>🔌 Sources V1</h3>
+    <div class="sources"><span class="source">Frankfurter FX</span><span class="source">Binance BTC</span><span class="source">FRED Macro</span><span class="source">CFTC COT</span></div>
+    <div style="height:9px"></div>
+    <div class="check"><span>FX référence</span><b id="fxSource" class="todo">⏳</b></div>
+    <div class="check"><span>BTC live</span><b id="btcSource" class="todo">⏳</b></div>
+    <div class="check"><span>Macro</span><b id="macroSource" class="todo">⏳</b></div>
+    <div class="check"><span>COT</span><b id="cotSource" class="todo">⏳</b></div>
+  </div>
+  <div class="panel"><h3>🧭 Roadmap</h3>
+    <div class="check"><span>V1 données</span><b class="ok">ACTIF</b></div>
+    <div class="check"><span>Graphiques</span><b class="todo">V2</b></div>
+    <div class="check"><span>Backtest réel</span><b class="todo">V3</b></div>
+    <div class="check"><span>Journal</span><b class="todo">V3</b></div>
   </div>
 </aside>
 </main>
-<footer class="footer">MARKET SOURCE — outil d'analyse et d'aide à la décision. Les données affichées ici sont démonstratives tant qu'aucune source live n'est connectée.</footer>
+
+<footer class="footer">MARKET SOURCE V1 — outil d'analyse et d'aide à la décision. Vérifier les données et le contexte avant toute décision de trading.</footer>
 </div>
+
 <script>
-const clock=document.getElementById('clock');
-setInterval(()=>clock.textContent=new Date().toLocaleTimeString('fr-FR'),1000);
-document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');}));
+const $=id=>document.getElementById(id);
+const state={fx:{},btc:null,macro:{},lastFxDate:null};
+
+function setSource(id,ok){$(id).textContent=ok?'OK':'Erreur';$(id).className=ok?'ok':'todo';}
+function fmt(n,d=5){return Number(n).toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d});}
+function signClass(v){return v>0?'up':v<0?'down':'neutral';}
+
+async function getJson(url){
+  const r=await fetch(url,{cache:'no-store'});
+  if(!r.ok) throw new Error('HTTP '+r.status);
+  return r.json();
+}
+
+async function loadFX(){
+  try{
+    const [eur,gbp,jpy]=await Promise.all([
+      getJson('https://api.frankfurter.dev/v2/rate/EUR/USD'),
+      getJson('https://api.frankfurter.dev/v2/rate/GBP/USD'),
+      getJson('https://api.frankfurter.dev/v2/rate/USD/JPY')
+    ]);
+    state.fx={EURUSD:eur.rate,GBPUSD:gbp.rate,USDJPY:jpy.rate};
+    state.lastFxDate=eur.date;
+    $('eurusd').textContent=fmt(eur.rate,5);
+    $('gbpusd').textContent=fmt(gbp.rate,5);
+    $('usdjpy').textContent=fmt(jpy.rate,3);
+    $('eurusdChange').textContent='référence '+eur.date;
+    $('gbpusdChange').textContent='référence '+gbp.date;
+    $('usdjpyChange').textContent='référence '+jpy.date;
+    $('eurusdChange').className='change neutral';$('gbpusdChange').className='change neutral';$('usdjpyChange').className='change neutral';
+    setSource('fxSource',true); $('marketCheck').textContent='✓ Disponible';$('marketCheck').className='ok';
+    $('data-note').textContent='FX référence : '+eur.date+' · actualisation automatique';
+    return true;
+  }catch(e){
+    setSource('fxSource',false); $('marketCheck').textContent='⚠ Erreur';$('marketCheck').className='todo';
+    $('data-note').textContent='Source FX indisponible actuellement';
+    return false;
+  }
+}
+
+async function loadBTC(){
+  try{
+    const d=await getJson('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT');
+    state.btc=Number(d.price);
+    $('btcusd').textContent=Number(d.price).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+    $('btcChange').textContent='LIVE · Binance';
+    $('btcChange').className='change up'; setSource('btcSource',true);
+  }catch(e){setSource('btcSource',false);}
+}
+
+async function fredSeries(id,valueId,dateId,decimals=2){
+  try{
+    const r=await fetch('https://fred.stlouisfed.org/graph/fredgraph.csv?id='+encodeURIComponent(id),{cache:'no-store'});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const txt=await r.text();
+    const rows=txt.trim().split(/\r?\n/).slice(1).map(x=>x.split(',')).filter(x=>x.length>=2&&x[1]&&x[1]!=='.');
+    const last=rows[rows.length-1]; if(!last) throw new Error('no data');
+    $(valueId).textContent=Number(last[1]).toFixed(decimals);
+    $(dateId).textContent=last[0];
+    return Number(last[1]);
+  }catch(e){$(valueId).textContent='—';$(dateId).textContent='indisponible';return null;}
+}
+
+async function loadMacro(){
+  const vals=await Promise.all([
+    fredSeries('FEDFUNDS','fedfunds','fedfundsDate',2),
+    fredSeries('CPIAUCSL','cpi','cpiDate',2),
+    fredSeries('UNRATE','unrate','unrateDate',2)
+  ]);
+  const ok=vals.some(v=>v!==null);
+  setSource('macroSource',ok); $('fredCheck').textContent=ok?'✓ Disponible':'⚠ Indisponible';$('fredCheck').className=ok?'ok':'todo';
+  state.macro={fed:vals[0],cpi:vals[1],unrate:vals[2]};
+  return ok;
+}
+
+async function loadCOT(){
+  const body=$('cotBody');
+  try{
+    const url='https://publicreporting.cftc.gov/resource/yw9f-hn96.json?$limit=100&$order=report_date_as_yyyy_mm_dd%20DESC';
+    const rows=await getJson(url);
+    const wanted=['EURO FX - CHICAGO MERCANTILE EXCHANGE','BRITISH POUND STERLING - CHICAGO MERCANTILE EXCHANGE','JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE','GOLD - COMMODITY EXCHANGE INC.'];
+    const selected=wanted.map(w=>rows.find(r=>(r.contract_market_name||'').toUpperCase()===w)).filter(Boolean).slice(0,4);
+    if(!selected.length) throw new Error('no matching rows');
+    body.innerHTML=selected.map(r=>{
+      const lm=Number(r.lev_money_positions_long_all||0), sm=Number(r.lev_money_positions_short_all||0);
+      const net=lm-sm;
+      return '<tr><td>'+escapeHtml(shortName(r.contract_market_name||'—'))+'</td><td>'+String(r.report_date_as_yyyy_mm_dd||'—').slice(0,10)+'</td><td>Leveraged Money</td><td class="'+(net>=0?'up':'down')+'">'+(net>=0?'+':'')+net.toLocaleString('en-US')+'</td></tr>';
+    }).join('');
+    $('cotStatus').textContent='CFTC · dernière publication disponible';setSource('cotSource',true);
+    return true;
+  }catch(e){
+    body.innerHTML='<tr><td colspan="4" class="error">CFTC indisponible dans le navigateur — la V1 continue sans inventer de données.</td></tr>';
+    $('cotStatus').textContent='Indisponible';setSource('cotSource',false);return false;
+  }
+}
+function shortName(s){return s.replace(' - CHICAGO MERCANTILE EXCHANGE','').replace(' - COMMODITY EXCHANGE INC.','');}
+function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));}
+
+function setBias(id,text,cls){
+  const e=$(id);e.textContent=text;e.className='tag '+cls;
+}
+function updateSignal(){
+  if(!state.fx.EURUSD){return;}
+  // V1 does not invent price momentum: without an intraday feed, the FX bias remains neutral.
+  setBias('bias-eur','Référence','neutral');setBias('bias-gbp','Référence','neutral');setBias('bias-jpy','Référence','neutral');
+  $('scan-eur').textContent='Neutre';$('scan-eur').className='todo';
+  $('scan-gbp').textContent='Neutre';$('scan-gbp').className='todo';
+  $('scan-jpy').textContent='Neutre';$('scan-jpy').className='todo';
+  $('signalText').textContent='ATTENDRE';$('signalText').className='neutral';
+  $('decision').textContent='ATTENDRE';$('decision').className='neutral';
+  $('usdForce').textContent='Non déterminée';$('usdForce').className='neutral';
+  $('eurForce').textContent='Non déterminée';$('eurForce').className='neutral';
+  $('confidence').textContent='—';$('confidenceBar').style.width='20%';
+}
+
+async function refreshAll(){
+  $('statusText').textContent='Actualisation…';
+  const results=await Promise.allSettled([loadFX(),loadBTC(),loadMacro(),loadCOT()]);
+  updateSignal();
+  const ok=results.filter(r=>r.status==='fulfilled'&&r.value).length;
+  $('statusText').textContent=ok>=2?'Sources connectées':'Connexion partielle';
+  $('statusDot').style.background=ok>=2?'var(--good)':'var(--warn)';
+}
+$('refreshBtn').addEventListener('click',refreshAll);
+setInterval(()=>{$('clock').textContent=new Date().toLocaleTimeString('fr-FR')},1000);
+setInterval(loadBTC,15000);
+setInterval(loadFX,3600000);
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');
+}));
+refreshAll();
 </script>
 </body>
 </html>
