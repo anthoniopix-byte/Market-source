@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#071018">
-<title>Market Source — V1 Live</title>
+<title>Market Source — V1.1 Signal Engine</title>
 <style>
 :root{--bg:#071018;--panel:#0d1822;--panel2:#111f2b;--line:#203241;--text:#edf5f8;--muted:#8da2af;--good:#35d49a;--bad:#ff6478;--warn:#f2c45c;--blue:#59a9ff}
 *{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#071018,#09131c 55%,#071018);color:var(--text);font:14px Inter,system-ui,sans-serif}
@@ -24,6 +24,10 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;p
 .note{padding:10px;border-left:3px solid var(--blue);background:#0a151e;color:var(--muted);font-size:11px;line-height:1.5;border-radius:5px}.error{color:var(--bad)}.footer{color:var(--muted);font-size:10px;text-align:center;padding:22px 0 8px}
 @media(max-width:900px){.grid{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}.bias-list{grid-template-columns:repeat(2,1fr)}.side{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.app{padding:10px}.top{align-items:flex-start}.brand p{display:none}.cards{grid-template-columns:repeat(2,1fr)}.card:last-child{grid-column:span 2}.signal{grid-template-columns:1fr}.side{grid-template-columns:1fr}.newsrow{grid-template-columns:65px 1fr 65px}.newsrow .time{display:none}.price{font-size:18px}}
+
+.engine{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-top:10px}.enginebox{padding:10px;border:1px solid var(--line);border-radius:9px;background:#0a151e}.enginebox small{display:block;color:var(--muted);margin-bottom:5px}.scorebig{font:700 25px ui-monospace,monospace}.rule{font-size:11px;color:var(--muted);line-height:1.45;margin-top:10px}.decisionBadge{display:inline-block;padding:7px 10px;border-radius:999px;border:1px solid currentColor;font-weight:800;font-size:12px}.buy{color:var(--good)}.sell{color:var(--bad)}.wait{color:var(--warn)}
+@media(max-width:700px){.engine{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -56,20 +60,34 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;p
   </section>
 
   <section class="section">
-    <div class="section-head"><h2>🧠 Signal Market Source</h2><small>V1 = données disponibles + filtre de sécurité</small></div>
+    <div class="section-head"><h2>🧠 Signal Market Source V1.1</h2><small>Macro + données + filtre de sécurité</small></div>
     <div class="panel signal">
-      <div class="signalbox"><h3>EUR/USD — Biais V1</h3><strong id="signalText" class="neutral">ATTENDRE</strong><div class="meter"><i id="confidenceBar"></i></div>
-        <div class="metric"><span>Force USD</span><b id="usdForce" class="neutral">Calcul…</b></div>
-        <div class="metric"><span>Force EUR</span><b id="eurForce" class="neutral">Calcul…</b></div>
-        <div class="metric"><span>Confiance</span><b id="confidence">—</b></div>
+      <div class="signalbox">
+        <h3>EUR/USD — Décision actuelle</h3>
+        <span id="decisionBadge" class="decisionBadge wait">ATTENDRE</span>
+        <div class="meter"><i id="confidenceBar"></i></div>
+        <div class="metric"><span>Score</span><b id="engineScore">0 / 100</b></div>
+        <div class="metric"><span>Confiance</span><b id="confidence">0%</b></div>
+        <div class="metric"><span>Force USD</span><b id="usdForce" class="neutral">Non déterminée</b></div>
+        <div class="metric"><span>Force EUR</span><b id="eurForce" class="neutral">Non déterminée</b></div>
       </div>
-      <div class="signalbox"><h3>Conditions d'entrée</h3>
+      <div class="signalbox">
+        <h3>Conditions obligatoires</h3>
         <div class="metric"><span>Données marché</span><b id="marketCheck" class="todo">⏳</b></div>
-        <div class="metric"><span>Macro FRED</span><b id="fredCheck" class="todo">⏳</b></div>
-        <div class="metric"><span>News forte</span><b class="todo">⚠ V1 à connecter</b></div>
-        <div class="metric"><span>Décision</span><b id="decision" class="neutral">ATTENDRE</b></div>
+        <div class="metric"><span>Macro USD</span><b id="fredCheck" class="todo">⏳</b></div>
+        <div class="metric"><span>News forte</span><b id="newsCheck" class="todo">⚠ Non vérifiée</b></div>
+        <div class="metric"><span>Structure</span><b class="todo">⚠ V1.2</b></div>
+        <div class="metric"><span>Liquidité</span><b class="todo">⚠ V1.2</b></div>
       </div>
     </div>
+    <div class="engine">
+      <div class="enginebox"><small>Macro USD</small><div id="usdMacroScore" class="scorebig">—</div></div>
+      <div class="enginebox"><small>Macro EUR</small><div id="eurMacroScore" class="scorebig">—</div></div>
+      <div class="enginebox"><small>Confluence</small><div id="confluenceScore" class="scorebig">—</div></div>
+    </div>
+    <div class="rule"><b>Règle V1.1 :</b> le moteur ne déclenche pas ACHAT/VENTE si les informations critiques sont absentes. Il privilégie <b>ATTENDRE</b> plutôt que d'inventer un signal. Le score n'est pas une probabilité de gain.</div>
+  </section>
+
   </section>
 
   <section class="section">
@@ -127,6 +145,7 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;p
   </div>
   <div class="panel"><h3>🧭 Roadmap</h3>
     <div class="check"><span>V1 données</span><b class="ok">ACTIF</b></div>
+    <div class="check"><span>V1.1 moteur décision</span><b class="ok">ACTIF</b></div>
     <div class="check"><span>Graphiques</span><b class="todo">V2</b></div>
     <div class="check"><span>Backtest réel</span><b class="todo">V3</b></div>
     <div class="check"><span>Journal</span><b class="todo">V3</b></div>
@@ -134,7 +153,7 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;p
 </aside>
 </main>
 
-<footer class="footer">MARKET SOURCE V1 — outil d'analyse et d'aide à la décision. Vérifier les données et le contexte avant toute décision de trading.</footer>
+<footer class="footer">MARKET SOURCE V1.1 — outil d'analyse et d'aide à la décision. Vérifier les données et le contexte avant toute décision de trading.</footer>
 </div>
 
 <script>
@@ -252,10 +271,49 @@ function updateSignal(){
   $('confidence').textContent='—';$('confidenceBar').style.width='20%';
 }
 
+
+function updateDecisionEngine(){
+  // Conservative V1.1: no invented EUR macro feed and no unverified news feed.
+  // The engine only scores what is actually available.
+  const fed=state.macro?.fed;
+  const cpi=state.macro?.cpi;
+  const unrate=state.macro?.unrate;
+  const fxOk=!!state.fx?.EURUSD;
+  const macroOk=[fed,cpi,unrate].some(v=>v!==null && Number.isFinite(v));
+
+  // USD macro component: neutral baseline because one observation alone cannot establish direction.
+  // Displayed as "NEUTRE" rather than pretending to know a bullish/bearish USD regime.
+  $('usdMacroScore').textContent=macroOk?'NEUTRE':'—';
+  $('eurMacroScore').textContent='—';
+  $('confluenceScore').textContent=fxOk&&macroOk?'PARTIELLE':'—';
+  $('usdForce').textContent=macroOk?'Neutre':'Non déterminée';
+  $('usdForce').className='neutral';
+  $('eurForce').textContent='Non déterminée';
+  $('eurForce').className='neutral';
+
+  let score=0;
+  if(fxOk) score+=30;
+  if(macroOk) score+=20;
+  // News, EUR macro, structure and liquidity are not yet connected, so they cannot add points.
+  const criticalMissing=!fxOk || !macroOk || true;
+  const confidence=Math.min(score,50);
+
+  $('engineScore').textContent=score+' / 100';
+  $('confidence').textContent=confidence+'%';
+  $('confidenceBar').style.width=Math.max(8,confidence)+'%';
+
+  const badge=$('decisionBadge');
+  badge.textContent='ATTENDRE';
+  badge.className='decisionBadge wait';
+  $('newsCheck').textContent='⚠ Non vérifiée';
+  $('newsCheck').className='todo';
+}
+
 async function refreshAll(){
   $('statusText').textContent='Actualisation…';
   const results=await Promise.allSettled([loadFX(),loadBTC(),loadMacro(),loadCOT()]);
   updateSignal();
+  updateDecisionEngine();
   const ok=results.filter(r=>r.status==='fulfilled'&&r.value).length;
   $('statusText').textContent=ok>=2?'Sources connectées':'Connexion partielle';
   $('statusDot').style.background=ok>=2?'var(--good)':'var(--warn)';
