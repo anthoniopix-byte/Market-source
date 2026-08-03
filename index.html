@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#071018">
-<title>Market Source — V1.2 Structure & Liquidity</title>
+<title>Market Source — V1.3 Intraday Structure</title>
 <style>
 :root{--bg:#071018;--panel:#0d1822;--panel2:#111f2b;--line:#203241;--text:#edf5f8;--muted:#8da2af;--good:#35d49a;--bad:#ff6478;--warn:#f2c45c;--blue:#59a9ff}
 *{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#071018,#09131c 55%,#071018);color:var(--text);font:14px Inter,system-ui,sans-serif}
@@ -31,6 +31,10 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;p
 
 .structure-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:10px}.structurebox{padding:10px;border:1px solid var(--line);border-radius:9px;background:#0a151e}.structurebox small{display:block;color:var(--muted);margin-bottom:5px}.structure-value{font-weight:800;font-size:16px}.liquidity{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px}.liqbox{padding:10px;border:1px solid var(--line);border-radius:9px;background:#0a151e}.liqbox b{display:block;margin-top:5px}.tf-note{font-size:11px;color:var(--muted);line-height:1.45;margin-top:10px}
 @media(max-width:800px){.structure-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.liquidity{grid-template-columns:1fr}}
+
+
+.candle-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.tfbtn{padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:#0a151e;color:var(--text);font-weight:700}.tfbtn.active{border-color:var(--accent);color:var(--accent)}.candle-status{margin-top:9px;font-size:12px;color:var(--muted)}.candle-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:10px}.candlebox{padding:10px;border:1px solid var(--line);border-radius:9px;background:#0a151e}.candlebox small{display:block;color:var(--muted);margin-bottom:5px}.candlebox b{font-size:15px}.level{font-family:ui-monospace,monospace;font-size:14px}.oktxt{color:var(--good)}.warntxt{color:var(--warn)}.badtxt{color:var(--bad)}
+@media(max-width:700px){.candle-grid{grid-template-columns:1fr 1fr}}@media(max-width:480px){.candle-grid{grid-template-columns:1fr}}
 
 </style>
 </head>
@@ -92,6 +96,30 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;p
     <div class="rule"><b>Règle V1.1 :</b> le moteur ne déclenche pas ACHAT/VENTE si les informations critiques sont absentes. Il privilégie <b>ATTENDRE</b> plutôt que d'inventer un signal. Le score n'est pas une probabilité de gain.</div>
   </section>
 
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2>🕯️ Bougies intraday V1.3</h2><small>OHLC M5/M15 → structure ICT/SMC</small></div>
+    <div class="panel">
+      <div class="candle-toolbar">
+        <button class="tfbtn active" id="tfM5" onclick="setTF('5m')">M5</button>
+        <button class="tfbtn" id="tfM15" onclick="setTF('15m')">M15</button>
+        <button class="tfbtn" onclick="loadIntraday(true)">↻ Charger</button>
+      </div>
+      <div id="candleStatus" class="candle-status">Connexion aux bougies intraday…</div>
+      <div class="candle-grid">
+        <div class="candlebox"><small>Dernier prix</small><b id="candlePrice">—</b></div>
+        <div class="candlebox"><small>Bougies reçues</small><b id="candleCount">—</b></div>
+        <div class="candlebox"><small>Source</small><b id="candleSource">—</b></div>
+        <div class="candlebox"><small>Trend</small><b id="v13Trend">—</b></div>
+        <div class="candlebox"><small>BOS</small><b id="v13BOS">—</b></div>
+        <div class="candlebox"><small>CHOCH</small><b id="v13CHOCH">—</b></div>
+        <div class="candlebox"><small>Buy-side liquidity</small><b id="v13BSL" class="level">—</b></div>
+        <div class="candlebox"><small>Sell-side liquidity</small><b id="v13SSL" class="level">—</b></div>
+        <div class="candlebox"><small>Structure</small><b id="v13Structure">—</b></div>
+      </div>
+      <div class="tf-note"><b>V1.3 :</b> le moteur utilise des OHLC intraday pour repérer des swing highs/lows et des ruptures de structure. Ce n'est pas une garantie de signal ni une prédiction.</div>
+    </div>
   </section>
 
   <section class="section">
@@ -169,7 +197,8 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;p
   <div class="panel"><h3>🧭 Roadmap</h3>
     <div class="check"><span>V1 données</span><b class="ok">ACTIF</b></div>
     <div class="check"><span>V1.1 moteur décision</span><b class="ok">ACTIF</b></div>
-    <div class="check"><span>V1.2 structure/liquidité</span><b class="todo">À CONNECTER</b></div>
+    <div class="check"><span>V1.2 structure/liquidité</span><b class="ok">ACTIF</b></div>
+    <div class="check"><span>V1.3 bougies M5/M15</span><b class="ok">ACTIF</b></div>
     <div class="check"><span>Graphiques</span><b class="todo">V2</b></div>
     <div class="check"><span>Backtest réel</span><b class="todo">V3</b></div>
     <div class="check"><span>Journal</span><b class="todo">V3</b></div>
@@ -177,7 +206,7 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;p
 </aside>
 </main>
 
-<footer class="footer">MARKET SOURCE V1.2 — outil d'analyse et d'aide à la décision. Vérifier les données et le contexte avant toute décision de trading.</footer>
+<footer class="footer">MARKET SOURCE V1.3 — outil d'analyse et d'aide à la décision. Vérifier les données et le contexte avant toute décision de trading.</footer>
 </div>
 
 <script>
@@ -296,6 +325,124 @@ function updateSignal(){
 }
 
 
+
+let v13TF='5m';
+let v13Candles=[];
+
+function setTF(tf){
+  v13TF=tf;
+  $('tfM5').classList.toggle('active',tf==='5m');
+  $('tfM15').classList.toggle('active',tf==='15m');
+  loadIntraday(false);
+}
+
+function yahooSymbol(pair){
+  return ({'EURUSD':'EURUSD=X','GBPUSD':'GBPUSD=X','USDJPY':'JPY=X'})[pair] || 'EURUSD=X';
+}
+
+async function fetchYahooCandles(symbol, interval){
+  const url=`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=1d&interval=${interval}&includePrePost=false`;
+  const r=await fetch(url,{cache:'no-store'});
+  if(!r.ok) throw new Error('HTTP '+r.status);
+  const j=await r.json();
+  const q=j?.chart?.result?.[0];
+  if(!q?.timestamp?.length) throw new Error('Aucune bougie');
+  const o=q.indicators?.quote?.[0]||{};
+  const rows=[];
+  for(let i=0;i<q.timestamp.length;i++){
+    const vals=[o.open?.[i],o.high?.[i],o.low?.[i],o.close?.[i]];
+    if(vals.every(Number.isFinite)) rows.push({t:q.timestamp[i],o:vals[0],h:vals[1],l:vals[2],c:vals[3]});
+  }
+  return rows;
+}
+
+function fractalSwings(rows){
+  const highs=[], lows=[];
+  for(let i=2;i<rows.length-2;i++){
+    const r=rows[i];
+    if(r.h>rows[i-1].h && r.h>rows[i-2].h && r.h>rows[i+1].h && r.h>rows[i+2].h) highs.push({i,p:r.h,t:r.t});
+    if(r.l<rows[i-1].l && r.l<rows[i-2].l && r.l<rows[i+1].l && r.l<rows[i+2].l) lows.push({i,p:r.l,t:r.t});
+  }
+  return {highs,lows};
+}
+
+function analyzeStructure(rows){
+  const {highs,lows}=fractalSwings(rows);
+  const last=rows.at(-1);
+  const recentHigh=highs.at(-1), prevHigh=highs.at(-2);
+  const recentLow=lows.at(-1), prevLow=lows.at(-2);
+
+  let trend='NEUTRE';
+  if(recentHigh&&prevHigh&&recentLow&&prevLow){
+    if(recentHigh.p>prevHigh.p && recentLow.p>prevLow.p) trend='HAUSSIER';
+    else if(recentHigh.p<prevHigh.p && recentLow.p<prevLow.p) trend='BAISSIER';
+  }
+
+  let bos='AUCUN', bosDir='';
+  if(recentHigh && last.c>recentHigh.p){bos='BOS HAUSSIER';bosDir='bull';}
+  else if(recentLow && last.c<recentLow.p){bos='BOS BAISSIER';bosDir='bear';}
+
+  let choch='AUCUN';
+  if(trend==='HAUSSIER' && recentLow && last.c<recentLow.p) choch='CHOCH BAISSIER';
+  else if(trend==='BAISSIER' && recentHigh && last.c>recentHigh.p) choch='CHOCH HAUSSIER';
+
+  return {
+    trend,bos,choch,bosDir,
+    bsl:recentHigh?.p ?? null,
+    ssl:recentLow?.p ?? null,
+    structure:(bos!=='AUCUN'||choch!=='AUCUN')?'ACTIVE':'EN ATTENTE',
+    last:last.c,
+    count:rows.length
+  };
+}
+
+function paintV13(a,source){
+  $('candlePrice').textContent=a.last.toFixed(5);
+  $('candleCount').textContent=a.count;
+  $('candleSource').textContent=source;
+  $('v13Trend').textContent=a.trend;
+  $('v13BOS').textContent=a.bos;
+  $('v13CHOCH').textContent=a.choch;
+  $('v13BSL').textContent=a.bsl!==null?a.bsl.toFixed(5):'—';
+  $('v13SSL').textContent=a.ssl!==null?a.ssl.toFixed(5):'—';
+  $('v13Structure').textContent=a.structure;
+
+  $('trendState').textContent=a.trend;
+  $('trendState').className='structure-value '+(a.trend==='HAUSSIER'?'buy':a.trend==='BAISSIER'?'sell':'wait');
+  $('bosState').textContent=a.bos;
+  $('bosState').className='structure-value '+(a.bos.includes('HAUSSIER')?'buy':a.bos.includes('BAISSIER')?'sell':'wait');
+  $('chochState').textContent=a.choch;
+  $('chochState').className='structure-value '+(a.choch.includes('HAUSSIER')?'buy':a.choch.includes('BAISSIER')?'sell':'wait');
+  $('structureState').textContent=a.structure;
+  $('structureState').className='structure-value '+(a.structure==='ACTIVE'?'ok':'wait');
+  $('buySideLiquidity').textContent=a.bsl!==null?a.bsl.toFixed(5):'Non disponible';
+  $('sellSideLiquidity').textContent=a.ssl!==null?a.ssl.toFixed(5):'Non disponible';
+}
+
+async function loadIntraday(manual){
+  const status=$('candleStatus');
+  status.textContent=`Chargement ${v13TF.toUpperCase()} EUR/USD…`;
+  try{
+    const rows=await fetchYahooCandles(yahooSymbol('EURUSD'),v13TF);
+    v13Candles=rows;
+    const a=analyzeStructure(rows);
+    paintV13(a,'Yahoo Finance chart');
+    status.textContent=`🟢 ${v13TF.toUpperCase()} connecté · ${rows.length} bougies · dernière mise à jour ${new Date().toLocaleTimeString()}`;
+    status.className='candle-status oktxt';
+    updateDecisionEngine();
+  }catch(e){
+    $('candleSource').textContent='Erreur';
+    $('candleStatus').textContent='🟡 Bougies intraday indisponibles : '+e.message;
+    $('candleStatus').className='candle-status warntxt';
+    $('v13Trend').textContent='NON DISPONIBLE';
+    $('v13BOS').textContent='À CALCULER';
+    $('v13CHOCH').textContent='À CALCULER';
+    $('v13BSL').textContent='—'; $('v13SSL').textContent='—';
+    $('v13Structure').textContent='EN ATTENTE';
+    updateDecisionEngine();
+  }
+}
+
 function updateDecisionEngine(){
   const fed=state.macro?.fed;
   const cpi=state.macro?.cpi;
@@ -311,17 +458,14 @@ function updateDecisionEngine(){
   $('eurForce').textContent='Non déterminée';
   $('eurForce').className='neutral';
 
-  // V1.2 structure engine: deliberately locked until M5/M15 OHLC candles are available.
-  $('trendState').textContent='NON DISPONIBLE'; $('trendState').className='structure-value wait';
-  $('bosState').textContent='À CALCULER'; $('bosState').className='structure-value wait';
-  $('chochState').textContent='À CALCULER'; $('chochState').className='structure-value wait';
-  $('structureState').textContent='EN ATTENTE'; $('structureState').className='structure-value wait';
-  $('buySideLiquidity').textContent='Non disponible'; $('buySideLiquidity').className='wait';
-  $('sellSideLiquidity').textContent='Non disponible'; $('sellSideLiquidity').className='wait';
+  const structureAvailable=!!v13Candles.length;
+  let structureScore=0;
+  if(structureAvailable) structureScore=20;
 
   let score=0;
   if(fxOk) score+=25;
   if(macroOk) score+=15;
+  if(structureAvailable) score+=20;
   const confidence=score;
 
   $('engineScore').textContent=score+' / 100';
@@ -355,6 +499,7 @@ document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',(
   document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');
 }));
 refreshAll();
+loadIntraday(false);
 </script>
 </body>
 </html>
