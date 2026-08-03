@@ -4,502 +4,232 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#071018">
-<title>Market Source — V1.3 Intraday Structure</title>
+<title>Market Source — V2 Terminal</title>
 <style>
 :root{--bg:#071018;--panel:#0d1822;--panel2:#111f2b;--line:#203241;--text:#edf5f8;--muted:#8da2af;--good:#35d49a;--bad:#ff6478;--warn:#f2c45c;--blue:#59a9ff}
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#071018,#09131c 55%,#071018);color:var(--text);font:14px Inter,system-ui,sans-serif}
-button,input{font:inherit;color:inherit}.app{max-width:1450px;margin:auto;padding:16px}
-.top{display:flex;align-items:center;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:4px 0 15px;position:sticky;top:0;background:rgba(7,16,24,.94);backdrop-filter:blur(12px);z-index:5}
-.brand{display:flex;align-items:center;gap:10px}.logo{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:#13283a;border:1px solid #28506b;font-weight:800;color:#7fc4ff}.brand h1{font-size:18px;margin:0}.brand p{margin:3px 0 0;color:var(--muted);font-size:11px}
-.status{display:flex;gap:7px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.pill{border:1px solid var(--line);background:var(--panel);padding:7px 9px;border-radius:999px;color:var(--muted);font-size:11px}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--good);margin-right:5px}
-.nav{display:flex;gap:7px;overflow:auto;padding:13px 0}.nav button{border:1px solid transparent;background:transparent;padding:9px 12px;border-radius:8px;color:var(--muted);white-space:nowrap;cursor:pointer}.nav button.active,.nav button:hover{background:var(--panel2);border-color:var(--line);color:var(--text)}
-.grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:14px}.cards{display:grid;grid-template-columns:repeat(5,minmax(130px,1fr));gap:10px}.card,.panel{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:12px}.card{padding:13px}.symbol{color:var(--muted);font-size:12px}.price{font:600 21px ui-monospace,monospace;margin:9px 0 5px}.change{font-weight:700}.up{color:var(--good)}.down{color:var(--bad)}.neutral{color:var(--warn)}
-.section{margin-top:15px}.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:9px;gap:10px}.section h2{font-size:14px;margin:0}.section small{color:var(--muted)}
-.panel{padding:14px}.bias-list{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.bias{padding:11px;border:1px solid var(--line);border-radius:9px;background:#0a151e}.bias strong{display:block;margin-bottom:6px}.tag{font-size:10px;padding:4px 7px;border-radius:999px;border:1px solid currentColor}
-.signal{display:grid;grid-template-columns:1fr 1fr;gap:10px}.signalbox{padding:12px;border:1px solid var(--line);border-radius:10px}.signalbox h3{margin:0 0 7px;font-size:12px}.meter{height:8px;background:#172733;border-radius:99px;overflow:hidden;margin:10px 0}.meter i{display:block;height:100%;width:50%;background:var(--good);transition:.3s}.metric{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid #172733}.metric:last-child{border:0}
-table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;padding:10px 7px;border-bottom:1px solid #1a2b38}th{color:var(--muted);font-weight:500}.score{font-family:ui-monospace,monospace;font-weight:700}
-.news{display:grid;gap:7px}.newsrow{display:grid;grid-template-columns:90px 1fr 90px 115px;gap:8px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:9px;background:#0a151e}.impact{font-size:10px;font-weight:700}.high{color:var(--bad)}.medium{color:var(--warn)}
-.side{display:grid;gap:14px;align-content:start}.side h3{margin:0 0 11px;font-size:13px}.check{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid #1a2b38;color:var(--muted)}.check:last-child{border:0}.ok{color:var(--good)}.todo{color:var(--warn)}
-.btn{border:1px solid var(--line);background:var(--panel2);padding:8px 10px;border-radius:8px;cursor:pointer}.btn:hover{border-color:#3a5970}.sources{display:flex;gap:7px;flex-wrap:wrap}.source{font-size:10px;padding:5px 7px;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
-.note{padding:10px;border-left:3px solid var(--blue);background:#0a151e;color:var(--muted);font-size:11px;line-height:1.5;border-radius:5px}.error{color:var(--bad)}.footer{color:var(--muted);font-size:10px;text-align:center;padding:22px 0 8px}
-@media(max-width:900px){.grid{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}.bias-list{grid-template-columns:repeat(2,1fr)}.side{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.app{padding:10px}.top{align-items:flex-start}.brand p{display:none}.cards{grid-template-columns:repeat(2,1fr)}.card:last-child{grid-column:span 2}.signal{grid-template-columns:1fr}.side{grid-template-columns:1fr}.newsrow{grid-template-columns:65px 1fr 65px}.newsrow .time{display:none}.price{font-size:18px}}
-
-.engine{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-top:10px}.enginebox{padding:10px;border:1px solid var(--line);border-radius:9px;background:#0a151e}.enginebox small{display:block;color:var(--muted);margin-bottom:5px}.scorebig{font:700 25px ui-monospace,monospace}.rule{font-size:11px;color:var(--muted);line-height:1.45;margin-top:10px}.decisionBadge{display:inline-block;padding:7px 10px;border-radius:999px;border:1px solid currentColor;font-weight:800;font-size:12px}.buy{color:var(--good)}.sell{color:var(--bad)}.wait{color:var(--warn)}
-@media(max-width:700px){.engine{grid-template-columns:1fr}}
-
-
-.structure-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:10px}.structurebox{padding:10px;border:1px solid var(--line);border-radius:9px;background:#0a151e}.structurebox small{display:block;color:var(--muted);margin-bottom:5px}.structure-value{font-weight:800;font-size:16px}.liquidity{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px}.liqbox{padding:10px;border:1px solid var(--line);border-radius:9px;background:#0a151e}.liqbox b{display:block;margin-top:5px}.tf-note{font-size:11px;color:var(--muted);line-height:1.45;margin-top:10px}
-@media(max-width:800px){.structure-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.liquidity{grid-template-columns:1fr}}
-
-
-.candle-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.tfbtn{padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:#0a151e;color:var(--text);font-weight:700}.tfbtn.active{border-color:var(--accent);color:var(--accent)}.candle-status{margin-top:9px;font-size:12px;color:var(--muted)}.candle-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:10px}.candlebox{padding:10px;border:1px solid var(--line);border-radius:9px;background:#0a151e}.candlebox small{display:block;color:var(--muted);margin-bottom:5px}.candlebox b{font-size:15px}.level{font-family:ui-monospace,monospace;font-size:14px}.oktxt{color:var(--good)}.warntxt{color:var(--warn)}.badtxt{color:var(--bad)}
-@media(max-width:700px){.candle-grid{grid-template-columns:1fr 1fr}}@media(max-width:480px){.candle-grid{grid-template-columns:1fr}}
-
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#071018,#09131c 55%,#071018);color:var(--text);font:14px Inter,system-ui,sans-serif}button,input,select{font:inherit;color:inherit}.app{max-width:1450px;margin:auto;padding:16px}.top{display:flex;align-items:center;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:4px 0 15px;position:sticky;top:0;background:rgba(7,16,24,.95);backdrop-filter:blur(12px);z-index:5}.brand{display:flex;align-items:center;gap:10px}.logo{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;background:#102536;border:1px solid #27506b;color:var(--blue);font-weight:900;font-size:18px}.brand h1{margin:0;font-size:21px;letter-spacing:.5px}.status{display:flex;align-items:center;gap:8px;color:var(--muted)}.dot{width:9px;height:9px;border-radius:50%;background:var(--warn)}.dot.ok{background:var(--good)}.clock{font:13px ui-monospace,monospace;color:var(--muted)}.toolbar{display:flex;justify-content:flex-end;gap:8px;margin:12px 0}.btn{border:1px solid var(--line);background:var(--panel2);padding:10px 13px;border-radius:9px;cursor:pointer}.btn:hover,.btn.active{border-color:var(--blue)}.nav{display:flex;gap:6px;overflow:auto;border-bottom:1px solid var(--line);padding:6px 0;margin-bottom:16px}.nav button{white-space:nowrap;border:1px solid transparent;background:transparent;padding:11px 16px;border-radius:9px;color:var(--muted);cursor:pointer}.nav button.active{background:#122330;border-color:var(--line);color:var(--text)}.view{display:none}.view.active{display:block}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.card,.panel{background:linear-gradient(180deg,#0d1a25,#0b1620);border:1px solid var(--line);border-radius:12px;padding:14px}.card h3,.panel h3{margin:0 0 9px;font-size:14px;color:var(--muted);font-weight:600}.price{font:700 24px ui-monospace,monospace}.sub{font-size:12px;color:var(--muted);margin-top:6px}.good{color:var(--good)}.bad{color:var(--bad)}.warn{color:var(--warn)}.muted{color:var(--muted)}.section{margin-top:14px}.section-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:9px}.section-head h2{font-size:16px;margin:0}.section-head small{color:var(--muted)}.two{display:grid;grid-template-columns:1.35fr .65fr;gap:10px}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.metric{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(32,50,65,.65)}.metric:last-child{border-bottom:0}.badge{display:inline-block;border:1px solid currentColor;border-radius:999px;padding:5px 9px;font-weight:700;font-size:12px}.wait{color:var(--warn)}.buy{color:var(--good)}.sell{color:var(--bad)}.tablewrap{overflow:auto}.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:10px;border-bottom:1px solid var(--line);white-space:nowrap}.table th{color:var(--muted);font-size:12px}.marketrow{cursor:pointer}.marketrow:hover{background:#101e29}.chartbox{height:330px;border:1px solid var(--line);border-radius:10px;background:#08131c;overflow:hidden}.chartbox svg{width:100%;height:100%;display:block}.controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.controls select,.controls input{background:#0a151e;border:1px solid var(--line);border-radius:8px;padding:9px}.stat{padding:12px;border:1px solid var(--line);border-radius:9px;background:#0a151e}.stat b{display:block;font-size:20px;margin-top:4px}.empty{padding:22px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:10px}.formgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.formgrid input,.formgrid select{width:100%;background:#0a151e;border:1px solid var(--line);border-radius:8px;padding:9px}.note{font-size:11px;line-height:1.5;color:var(--muted);margin-top:10px}.toast{position:fixed;right:16px;bottom:16px;background:#122330;border:1px solid var(--line);padding:11px 13px;border-radius:9px;display:none;z-index:20}.progress{height:7px;background:#071018;border-radius:99px;overflow:hidden;border:1px solid var(--line)}.progress i{display:block;height:100%;width:0;background:var(--blue)}@media(max-width:900px){.grid{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr 1fr}}@media(max-width:560px){.app{padding:10px}.grid,.three,.formgrid{grid-template-columns:1fr}.brand h1{font-size:18px}.top{align-items:flex-start}.chartbox{height:250px}}
 </style>
 </head>
 <body>
 <div class="app">
 <header class="top">
-  <div class="brand"><div class="logo">MS</div><div><h1>MARKET SOURCE</h1><p>Terminal d'analyse des marchés — V1</p></div></div>
-  <div class="status"><span class="pill"><span class="dot" id="statusDot"></span><span id="statusText">Connexion live…</span></span><span class="pill" id="clock">--:--:--</span><button class="btn" id="refreshBtn">↻ Actualiser</button></div>
+  <div class="brand"><div class="logo">MS</div><h1>MARKET SOURCE</h1></div>
+  <div class="status"><span id="statusDot" class="dot"></span><span id="statusText">Connexion…</span><span class="clock" id="clock">--:--:--</span></div>
 </header>
+<div class="toolbar"><button class="btn" onclick="refreshAll()">↻ Actualiser</button></div>
 
-<nav class="nav"><button class="active" data-tab="dashboard">Dashboard</button><button data-tab="markets">Marchés</button><button data-tab="scanner">Scanner</button><button data-tab="backtest">Backtest</button><button data-tab="journal">Journal</button></nav>
+<nav class="nav">
+  <button class="active" data-view="dashboard" onclick="showView('dashboard')">Dashboard</button>
+  <button data-view="markets" onclick="showView('markets')">Marchés</button>
+  <button data-view="scanner" onclick="showView('scanner')">Scanner</button>
+  <button data-view="backtest" onclick="showView('backtest')">Backtest</button>
+  <button data-view="journal" onclick="showView('journal')">Journal</button>
+</nav>
 
-<main class="grid">
-<section>
-  <div class="cards">
-    <article class="card"><span class="symbol">EUR/USD</span><div class="price" id="eurusd">—</div><div class="change neutral" id="eurusdChange">référence</div></article>
-    <article class="card"><span class="symbol">GBP/USD</span><div class="price" id="gbpusd">—</div><div class="change neutral" id="gbpusdChange">référence</div></article>
-    <article class="card"><span class="symbol">USD/JPY</span><div class="price" id="usdjpy">—</div><div class="change neutral" id="usdjpyChange">référence</div></article>
-    <article class="card"><span class="symbol">XAU/USD</span><div class="price" id="xauusd">—</div><div class="change neutral">source à connecter</div></article>
-    <article class="card"><span class="symbol">BTC/USD</span><div class="price" id="btcusd">—</div><div class="change neutral" id="btcChange">live</div></article>
+<main>
+<section id="dashboard" class="view active">
+  <div class="grid" id="quoteCards"></div>
+  <div class="section two">
+    <div class="panel">
+      <div class="section-head"><h2>🧠 Signal Market Source</h2><span id="decision" class="badge wait">ATTENDRE</span></div>
+      <div class="metric"><span>Marché</span><b>EUR/USD</b></div>
+      <div class="metric"><span>Structure</span><b id="dashStructure">En attente</b></div>
+      <div class="metric"><span>BOS</span><b id="dashBos">—</b></div>
+      <div class="metric"><span>CHOCH</span><b id="dashChoch">—</b></div>
+      <div class="metric"><span>Liquidité</span><b id="dashLiquidity">—</b></div>
+      <div class="metric"><span>News</span><b class="warn">⚠ À vérifier</b></div>
+      <div class="metric"><span>Score</span><b id="dashScore">0 / 100</b></div>
+      <div class="progress"><i id="scoreBar"></i></div>
+      <div class="note">Le moteur reste conservateur : absence de donnée critique = ATTENDRE. Le score n'est pas une probabilité de gain.</div>
+    </div>
+    <div class="panel"><h3>🔌 État des sources</h3>
+      <div class="metric"><span>FX référence</span><b id="srcFx">—</b></div>
+      <div class="metric"><span>BTC</span><b id="srcBtc">—</b></div>
+      <div class="metric"><span>M5/M15</span><b id="srcCandle">—</b></div>
+      <div class="metric"><span>Macro</span><b id="srcMacro">—</b></div>
+      <div class="metric"><span>News</span><b class="warn">À connecter</b></div>
+      <div class="metric"><span>Or XAU</span><b class="warn">À connecter</b></div>
+    </div>
   </div>
-
-  <section class="section">
-    <div class="section-head"><h2>🌍 Marchés surveillés</h2><small id="data-note">Initialisation des sources…</small></div>
-    <div class="bias-list">
-      <div class="bias"><strong>EUR/USD</strong><span class="tag neutral" id="bias-eur">Calcul…</span></div>
-      <div class="bias"><strong>GBP/USD</strong><span class="tag neutral" id="bias-gbp">Calcul…</span></div>
-      <div class="bias"><strong>USD/JPY</strong><span class="tag neutral" id="bias-jpy">Calcul…</span></div>
-      <div class="bias"><strong>BTC/USD</strong><span class="tag neutral" id="bias-btc">Live</span></div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-head"><h2>🧠 Signal Market Source V1.1</h2><small>Macro + données + filtre de sécurité</small></div>
-    <div class="panel signal">
-      <div class="signalbox">
-        <h3>EUR/USD — Décision actuelle</h3>
-        <span id="decisionBadge" class="decisionBadge wait">ATTENDRE</span>
-        <div class="meter"><i id="confidenceBar"></i></div>
-        <div class="metric"><span>Score</span><b id="engineScore">0 / 100</b></div>
-        <div class="metric"><span>Confiance</span><b id="confidence">0%</b></div>
-        <div class="metric"><span>Force USD</span><b id="usdForce" class="neutral">Non déterminée</b></div>
-        <div class="metric"><span>Force EUR</span><b id="eurForce" class="neutral">Non déterminée</b></div>
-      </div>
-      <div class="signalbox">
-        <h3>Conditions obligatoires</h3>
-        <div class="metric"><span>Données marché</span><b id="marketCheck" class="todo">⏳</b></div>
-        <div class="metric"><span>Macro USD</span><b id="fredCheck" class="todo">⏳</b></div>
-        <div class="metric"><span>News forte</span><b id="newsCheck" class="todo">⚠ Non vérifiée</b></div>
-        <div class="metric"><span>Structure</span><b class="todo">⚠ V1.2</b></div>
-        <div class="metric"><span>Liquidité</span><b class="todo">⚠ V1.2</b></div>
-      </div>
-    </div>
-    <div class="engine">
-      <div class="enginebox"><small>Macro USD</small><div id="usdMacroScore" class="scorebig">—</div></div>
-      <div class="enginebox"><small>Macro EUR</small><div id="eurMacroScore" class="scorebig">—</div></div>
-      <div class="enginebox"><small>Confluence</small><div id="confluenceScore" class="scorebig">—</div></div>
-    </div>
-    <div class="rule"><b>Règle V1.1 :</b> le moteur ne déclenche pas ACHAT/VENTE si les informations critiques sont absentes. Il privilégie <b>ATTENDRE</b> plutôt que d'inventer un signal. Le score n'est pas une probabilité de gain.</div>
-  </section>
-
-  </section>
-
-  <section class="section">
-    <div class="section-head"><h2>🕯️ Bougies intraday V1.3</h2><small>OHLC M5/M15 → structure ICT/SMC</small></div>
-    <div class="panel">
-      <div class="candle-toolbar">
-        <button class="tfbtn active" id="tfM5" onclick="setTF('5m')">M5</button>
-        <button class="tfbtn" id="tfM15" onclick="setTF('15m')">M15</button>
-        <button class="tfbtn" onclick="loadIntraday(true)">↻ Charger</button>
-      </div>
-      <div id="candleStatus" class="candle-status">Connexion aux bougies intraday…</div>
-      <div class="candle-grid">
-        <div class="candlebox"><small>Dernier prix</small><b id="candlePrice">—</b></div>
-        <div class="candlebox"><small>Bougies reçues</small><b id="candleCount">—</b></div>
-        <div class="candlebox"><small>Source</small><b id="candleSource">—</b></div>
-        <div class="candlebox"><small>Trend</small><b id="v13Trend">—</b></div>
-        <div class="candlebox"><small>BOS</small><b id="v13BOS">—</b></div>
-        <div class="candlebox"><small>CHOCH</small><b id="v13CHOCH">—</b></div>
-        <div class="candlebox"><small>Buy-side liquidity</small><b id="v13BSL" class="level">—</b></div>
-        <div class="candlebox"><small>Sell-side liquidity</small><b id="v13SSL" class="level">—</b></div>
-        <div class="candlebox"><small>Structure</small><b id="v13Structure">—</b></div>
-      </div>
-      <div class="tf-note"><b>V1.3 :</b> le moteur utilise des OHLC intraday pour repérer des swing highs/lows et des ruptures de structure. Ce n'est pas une garantie de signal ni une prédiction.</div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-head"><h2>📐 Structure + Liquidité V1.2</h2><small>M5/M15 — en attente d'une série de bougies intraday</small></div>
-    <div class="panel">
-      <div class="structure-grid">
-        <div class="structurebox"><small>Tendance</small><div id="trendState" class="structure-value wait">NON DISPONIBLE</div></div>
-        <div class="structurebox"><small>BOS</small><div id="bosState" class="structure-value wait">À CALCULER</div></div>
-        <div class="structurebox"><small>CHOCH</small><div id="chochState" class="structure-value wait">À CALCULER</div></div>
-        <div class="structurebox"><small>Structure</small><div id="structureState" class="structure-value wait">EN ATTENTE</div></div>
-      </div>
-      <div class="liquidity">
-        <div class="liqbox"><small>Liquidité au-dessus</small><b id="buySideLiquidity" class="wait">Non disponible</b></div>
-        <div class="liqbox"><small>Liquidité au-dessous</small><b id="sellSideLiquidity" class="wait">Non disponible</b></div>
-      </div>
-      <div class="tf-note">
-        <b>Pourquoi « en attente » ?</b> Le flux FX actuel de V1.1 fournit des taux de référence, pas les bougies M5/M15 nécessaires pour calculer honnêtement BOS, CHOCH, swing highs/lows et pools de liquidité. V1.2 ne fabrique donc aucun niveau.
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-head"><h2>📊 Macro USD — FRED</h2><small>Dernière observation disponible</small></div>
-    <div class="panel">
-      <table><thead><tr><th>Facteur</th><th>Valeur</th><th>Date</th><th>Source</th></tr></thead>
-      <tbody>
-        <tr><td>Taux Fed effectif</td><td class="score" id="fedfunds">—</td><td id="fedfundsDate">—</td><td>FRED</td></tr>
-        <tr><td>Inflation CPI</td><td class="score" id="cpi">—</td><td id="cpiDate">—</td><td>FRED</td></tr>
-        <tr><td>Chômage</td><td class="score" id="unrate">—</td><td id="unrateDate">—</td><td>FRED</td></tr>
-      </tbody></table>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-head"><h2>📌 COT — positionnement</h2><small id="cotStatus">Chargement…</small></div>
-    <div class="panel">
-      <table><thead><tr><th>Marché</th><th>Date</th><th>Contrat</th><th>Positionnement</th></tr></thead>
-      <tbody id="cotBody"><tr><td colspan="4">Connexion CFTC…</td></tr></tbody></table>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-head"><h2>📰 Calendrier à fort impact</h2><small>V1 : module sécurisé en préparation</small></div>
-    <div class="panel news">
-      <div class="newsrow"><span>USD</span><strong>FOMC / CPI / NFP</strong><span class="impact high">ÉLEVÉ</span><span class="time">Source calendrier à connecter</span></div>
-      <div class="newsrow"><span>EUR</span><strong>ECB / CPI / PMI</strong><span class="impact high">ÉLEVÉ</span><span class="time">Source calendrier à connecter</span></div>
-      <div class="newsrow"><span>GBP</span><strong>BoE / CPI / PMI</strong><span class="impact medium">MOYEN</span><span class="time">Source calendrier à connecter</span></div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="note"><b>V1 — Important :</b> les taux FX de Frankfurter sont des taux de référence quotidiens, pas des cotations tick-by-tick. BTC est récupéré en direct depuis Binance. XAU/USD et le calendrier économique ne sont volontairement pas inventés : ils restent marqués comme non connectés jusqu'à l'ajout d'une source adaptée.</div>
-  </section>
 </section>
 
-<aside class="side">
-  <div class="panel"><h3>🔎 Scanner</h3>
-    <div class="check"><span>EUR/USD</span><b id="scan-eur" class="todo">Calcul…</b></div>
-    <div class="check"><span>GBP/USD</span><b id="scan-gbp" class="todo">Calcul…</b></div>
-    <div class="check"><span>USD/JPY</span><b id="scan-jpy" class="todo">Calcul…</b></div>
-    <div class="check"><span>XAU/USD</span><b class="todo">Non connecté</b></div>
-    <div class="check"><span>BTC/USD</span><b class="ok">LIVE</b></div>
+<section id="markets" class="view">
+  <div class="section-head"><h2>📈 Marchés</h2><small>Vue instrument + bougies EUR/USD</small></div>
+  <div class="panel">
+    <div class="controls">
+      <select id="instrument" onchange="selectInstrument()"><option>EUR/USD</option><option>GBP/USD</option><option>USD/JPY</option><option>BTC/USD</option></select>
+      <button class="btn active" id="m5btn" onclick="setTF('5m')">M5</button>
+      <button class="btn" id="m15btn" onclick="setTF('15m')">M15</button>
+      <button class="btn" onclick="loadCandles()">↻ Bougies</button>
+    </div>
+    <div id="marketInfo" class="sub">Sélectionne un instrument.</div>
+    <div class="chartbox" id="chartbox"><div class="empty">Chargement du graphique…</div></div>
   </div>
-  <div class="panel"><h3>🛡️ Contrôles risque</h3>
-    <div class="check"><span>Risque / trade</span><b>1%</b></div><div class="check"><span>RR minimum</span><b>1:2</b></div><div class="check"><span>News majeure</span><b class="todo">Vérifier</b></div><div class="check"><span>Surtrading</span><b class="ok">Bloqué</b></div>
-  </div>
-  <div class="panel"><h3>🔌 Sources V1</h3>
-    <div class="sources"><span class="source">Frankfurter FX</span><span class="source">Binance BTC</span><span class="source">FRED Macro</span><span class="source">CFTC COT</span></div>
-    <div style="height:9px"></div>
-    <div class="check"><span>FX référence</span><b id="fxSource" class="todo">⏳</b></div>
-    <div class="check"><span>BTC live</span><b id="btcSource" class="todo">⏳</b></div>
-    <div class="check"><span>Macro</span><b id="macroSource" class="todo">⏳</b></div>
-    <div class="check"><span>COT</span><b id="cotSource" class="todo">⏳</b></div>
-  </div>
-  <div class="panel"><h3>🧭 Roadmap</h3>
-    <div class="check"><span>V1 données</span><b class="ok">ACTIF</b></div>
-    <div class="check"><span>V1.1 moteur décision</span><b class="ok">ACTIF</b></div>
-    <div class="check"><span>V1.2 structure/liquidité</span><b class="ok">ACTIF</b></div>
-    <div class="check"><span>V1.3 bougies M5/M15</span><b class="ok">ACTIF</b></div>
-    <div class="check"><span>Graphiques</span><b class="todo">V2</b></div>
-    <div class="check"><span>Backtest réel</span><b class="todo">V3</b></div>
-    <div class="check"><span>Journal</span><b class="todo">V3</b></div>
-  </div>
-</aside>
-</main>
+  <div class="section panel"><div class="section-head"><h2>Marchés surveillés</h2><small>Appuie sur une ligne pour l'ouvrir</small></div><div class="tablewrap"><table class="table"><thead><tr><th>Instrument</th><th>Prix</th><th>Source</th><th>État</th></tr></thead><tbody id="marketsTable"></tbody></table></div></div>
+</section>
 
-<footer class="footer">MARKET SOURCE V1.3 — outil d'analyse et d'aide à la décision. Vérifier les données et le contexte avant toute décision de trading.</footer>
+<section id="scanner" class="view">
+  <div class="section-head"><h2>🔎 Scanner</h2><small>Filtre conservateur</small></div>
+  <div class="panel"><div class="controls"><button class="btn active" onclick="runScanner()">⚡ Scanner maintenant</button><select id="scanTf"><option value="5m">M5</option><option value="15m">M15</option></select></div><div class="tablewrap"><table class="table"><thead><tr><th>Marché</th><th>Biais</th><th>BOS</th><th>CHOCH</th><th>Liquidité</th><th>Décision</th></tr></thead><tbody id="scannerTable"></tbody></table></div><div class="note">Le scanner ne transforme pas une absence de données en signal. Les marchés sans bougies disponibles restent en attente.</div></div>
+</section>
+
+<section id="backtest" class="view">
+  <div class="section-head"><h2>🧪 Backtest</h2><small>V2 — moteur simple de démonstration, pas encore stratégie ICT complète</small></div>
+  <div class="panel">
+    <div class="controls"><select id="btSymbol"><option value="EURUSD=X">EUR/USD</option><option value="GBPUSD=X">GBP/USD</option></select><select id="btInterval"><option value="1h">1H</option><option value="1d">1D</option></select><button class="btn" onclick="runBacktest()">▶ Lancer</button></div>
+    <div class="three" id="btStats"><div class="stat"><span class="muted">Trades</span><b>—</b></div><div class="stat"><span class="muted">Win rate</span><b>—</b></div><div class="stat"><span class="muted">Drawdown</span><b>—</b></div></div>
+    <div id="btResult" class="section empty">Aucun backtest lancé.</div>
+    <div class="note">V2 ne prétend pas reproduire ton modèle ICT/SMC complet. Le backtest servira de socle technique avant l'implémentation des règles exactes.</div>
+  </div>
+</section>
+
+<section id="journal" class="view">
+  <div class="section-head"><h2>📓 Journal</h2><small>Stockage local sur cet appareil</small></div>
+  <div class="panel">
+    <div class="formgrid">
+      <input id="jSymbol" placeholder="EUR/USD">
+      <select id="jSide"><option>ACHAT</option><option>VENTE</option></select>
+      <input id="jEntry" type="number" step="any" placeholder="Entrée">
+      <input id="jExit" type="number" step="any" placeholder="Sortie">
+      <input id="jRisk" type="number" step="any" placeholder="Risque %">
+      <input id="jReason" placeholder="Raison / setup">
+      <button class="btn" onclick="addJournal()">＋ Ajouter</button>
+      <button class="btn" onclick="clearJournal()">Effacer journal</button>
+    </div>
+    <div class="section tablewrap"><table class="table"><thead><tr><th>Date</th><th>Marché</th><th>Direction</th><th>Entrée</th><th>Sortie</th><th>Risque</th><th>Setup</th></tr></thead><tbody id="journalTable"></tbody></table></div>
+  </div>
+</section>
+</main>
 </div>
+<div id="toast" class="toast"></div>
 
 <script>
 const $=id=>document.getElementById(id);
-const state={fx:{},btc:null,macro:{},lastFxDate:null};
+const state={quotes:{},candles:[],tf:'5m',macro:false};
+const pairs={EURUSD:'EURUSD=X',GBPUSD:'GBPUSD=X',USDJPY:'JPY=X'};
+const labels={EURUSD:'EUR/USD',GBPUSD:'GBP/USD',USDJPY:'USD/JPY',BTCUSD:'BTC/USD'};
 
-function setSource(id,ok){$(id).textContent=ok?'OK':'Erreur';$(id).className=ok?'ok':'todo';}
-function fmt(n,d=5){return Number(n).toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d});}
-function signClass(v){return v>0?'up':v<0?'down':'neutral';}
-
-async function getJson(url){
-  const r=await fetch(url,{cache:'no-store'});
-  if(!r.ok) throw new Error('HTTP '+r.status);
-  return r.json();
+function toast(msg){const t=$('toast');t.textContent=msg;t.style.display='block';clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.style.display='none',2200)}
+function showView(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  $(id).classList.add('active');
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===id));
+  if(id==='markets'&&!state.candles.length)loadCandles();
+  if(id==='scanner')runScanner();
+  if(id==='journal')renderJournal();
 }
+function clock(){ $('clock').textContent=new Date().toLocaleTimeString('fr-FR'); }
+setInterval(clock,1000);clock();
 
-async function loadFX(){
+async function fetchJson(url){
+  const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);return r.json();
+}
+async function fetchFX(){
+  const url='https://api.frankfurter.app/latest?from=USD&to=EUR,GBP,JPY';
+  const j=await fetchJson(url);
+  const d=j.rates;
+  state.quotes.EURUSD=1/d.EUR;state.quotes.GBPUSD=1/d.GBP;state.quotes.USDJPY=d.JPY;
+  state.fxDate=j.date;
+}
+async function fetchBTC(){
+  const j=await fetchJson('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT');
+  state.quotes.BTCUSD=Number(j.price);state.btcLive=true;
+}
+function renderQuotes(){
+  const defs=[['EURUSD','EUR/USD',5],['GBPUSD','GBP/USD',5],['USDJPY','USD/JPY',3],['BTCUSD','BTC/USD',2]];
+  $('quoteCards').innerHTML=defs.map(([k,l,d])=>`<div class="card"><h3>${l}</h3><div class="price">${Number.isFinite(state.quotes[k])?state.quotes[k].toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d}):'—'}</div><div class="sub">${k==='BTCUSD'&&state.btcLive?'🟢 LIVE · Binance':'🟡 référence · '+(state.fxDate||'—')}</div></div>`).join('');
+  $('srcFx').textContent=state.fxDate?'OK · '+state.fxDate:'Erreur';
+  $('srcBtc').textContent=state.btcLive?'LIVE':'Erreur';
+  const rows=defs.map(([k,l,d])=>`<tr class="marketrow" onclick="openInstrument('${k}')"><td><b>${l}</b></td><td>${Number.isFinite(state.quotes[k])?state.quotes[k].toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d}):'—'}</td><td>${k==='BTCUSD'?'Binance':'Frankfurter'}</td><td>${Number.isFinite(state.quotes[k])?'Disponible':'Indisponible'}</td></tr>`).join('');
+  $('marketsTable').innerHTML=rows;
+}
+function yahooSymbolFromKey(k){return pairs[k]||'EURUSD=X'}
+function normalize(rows){
+  const out=[];for(let i=0;i<rows.length;i++){const v=[rows[i].o,rows[i].h,rows[i].l,rows[i].c];if(v.every(Number.isFinite))out.push(rows[i])}return out;
+}
+async function fetchCandles(symbol,tf,range='1d'){
+  const url=`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=${range}&interval=${tf}&includePrePost=false`;
+  const j=await fetchJson(url),q=j?.chart?.result?.[0];if(!q?.timestamp?.length)throw new Error('Aucune bougie');
+  const o=q.indicators?.quote?.[0]||{},rows=[];
+  q.timestamp.forEach((t,i)=>rows.push({t,o:o.open?.[i],h:o.high?.[i],l:o.low?.[i],c:o.close?.[i]}));
+  return normalize(rows);
+}
+function swings(rows){
+  const hi=[],lo=[];for(let i=2;i<rows.length-2;i++){
+    if(rows[i].h>rows[i-1].h&&rows[i].h>rows[i-2].h&&rows[i].h>rows[i+1].h&&rows[i].h>rows[i+2].h)hi.push({i,p:rows[i].h});
+    if(rows[i].l<rows[i-1].l&&rows[i].l<rows[i-2].l&&rows[i].l<rows[i+1].l&&rows[i].l<rows[i+2].l)lo.push({i,p:rows[i].l});
+  }return{hi,lo};
+}
+function analyze(rows){
+  if(rows.length<8)return{trend:'N/D',bos:'N/D',choch:'N/D',bsl:null,ssl:null,score:0};
+  const s=swings(rows),h=s.hi,l=s.lo,last=rows.at(-1).c,rh=h.at(-1),ph=h.at(-2),rl=l.at(-1),pl=l.at(-2);
+  let trend='NEUTRE';if(rh&&ph&&rl&&pl){if(rh.p>ph.p&&rl.p>pl.p)trend='HAUSSIER';else if(rh.p<ph.p&&rl.p<pl.p)trend='BAISSIER'}
+  let bos='AUCUN';if(rh&&last>rh.p)bos='BOS HAUSSIER';else if(rl&&last<rl.p)bos='BOS BAISSIER';
+  let choch='AUCUN';if(trend==='HAUSSIER'&&rl&&last<rl.p)choch='CHOCH BAISSIER';else if(trend==='BAISSIER'&&rh&&last>rh.p)choch='CHOCH HAUSSIER';
+  return{trend,bos,choch,bsl:rh?.p??null,ssl:rl?.p??null,score:30};
+}
+function drawChart(rows,a){
+  const box=$('chartbox');if(!rows.length){box.innerHTML='<div class="empty">Aucune bougie</div>';return}
+  const W=900,H=330,p=25,hi=Math.max(...rows.map(x=>x.h)),lo=Math.min(...rows.map(x=>x.l)),span=hi-lo||1;
+  const pts=rows.map((r,i)=>`${p+i*(W-2*p)/(rows.length-1)},${H-p-(r.c-lo)/span*(H-2*p)}`).join(' ');
+  const bsl=a.bsl?`<line x1="${p}" x2="${W-p}" y1="${H-p-(a.bsl-lo)/span*(H-2*p)}" y2="${H-p-(a.bsl-lo)/span*(H-2*p)} stroke="currentColor" stroke-dasharray="6 5" opacity=".55"/>`:'';
+  const ssl=a.ssl?`<line x1="${p}" x2="${W-p}" y1="${H-p-(a.ssl-lo)/span*(H-2*p)}" y2="${H-p-(a.ssl-lo)/span*(H-2*p)} stroke="currentColor" stroke-dasharray="6 5" opacity=".55"/>`:'';
+  box.innerHTML=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><polyline points="${pts}" fill="none" stroke="currentColor" stroke-width="2"/>${bsl}${ssl}</svg>`;
+}
+async function loadCandles(){
+  const key=$('instrument').value.replace('/','');const symbol=key==='BTCUSD'?'BTC-USD=X':yahooSymbolFromKey(key);
+  $('marketInfo').textContent='Chargement des bougies '+state.tf.toUpperCase()+'…';
   try{
-    const [eur,gbp,jpy]=await Promise.all([
-      getJson('https://api.frankfurter.dev/v2/rate/EUR/USD'),
-      getJson('https://api.frankfurter.dev/v2/rate/GBP/USD'),
-      getJson('https://api.frankfurter.dev/v2/rate/USD/JPY')
-    ]);
-    state.fx={EURUSD:eur.rate,GBPUSD:gbp.rate,USDJPY:jpy.rate};
-    state.lastFxDate=eur.date;
-    $('eurusd').textContent=fmt(eur.rate,5);
-    $('gbpusd').textContent=fmt(gbp.rate,5);
-    $('usdjpy').textContent=fmt(jpy.rate,3);
-    $('eurusdChange').textContent='référence '+eur.date;
-    $('gbpusdChange').textContent='référence '+gbp.date;
-    $('usdjpyChange').textContent='référence '+jpy.date;
-    $('eurusdChange').className='change neutral';$('gbpusdChange').className='change neutral';$('usdjpyChange').className='change neutral';
-    setSource('fxSource',true); $('marketCheck').textContent='✓ Disponible';$('marketCheck').className='ok';
-    $('data-note').textContent='FX référence : '+eur.date+' · actualisation automatique';
-    return true;
-  }catch(e){
-    setSource('fxSource',false); $('marketCheck').textContent='⚠ Erreur';$('marketCheck').className='todo';
-    $('data-note').textContent='Source FX indisponible actuellement';
-    return false;
-  }
+    state.candles=await fetchCandles(symbol,state.tf,'1d');const a=analyze(state.candles);
+    $('marketInfo').textContent=`${$('instrument').value} · ${state.tf.toUpperCase()} · ${state.candles.length} bougies · dernière ${new Date(state.candles.at(-1).t*1000).toLocaleTimeString('fr-FR')}`;
+    drawChart(state.candles,a);updateDecision(a);$('srcCandle').textContent='OK · '+state.tf.toUpperCase();
+  }catch(e){$('marketInfo').textContent='🟡 Bougies indisponibles : '+e.message;$('srcCandle').textContent='Erreur';state.candles=[]}
 }
-
-async function loadBTC(){
+function setTF(tf){state.tf=tf;$('m5btn').classList.toggle('active',tf==='5m');$('m15btn').classList.toggle('active',tf==='15m');loadCandles()}
+function selectInstrument(){loadCandles()}
+function openInstrument(k){showView('markets');$('instrument').value=labels[k]||'EUR/USD';loadCandles()}
+function updateDecision(a){
+  const complete=a&&a.bos!=='N/D';
+  let score=0;if(state.quotes.EURUSD)score+=25;if(state.macro)score+=15;if(complete)score+=30;
+  $('dashScore').textContent=score+' / 100';$('scoreBar').style.width=score+'%';
+  $('dashStructure').textContent=complete?a.trend:'En attente';
+  $('dashBos').textContent=complete?a.bos:'—';$('dashChoch').textContent=complete?a.choch:'—';
+  $('dashLiquidity').textContent=complete?'H: '+(a.bsl?.toFixed(5)||'—')+' · B: '+(a.ssl?.toFixed(5)||'—'):'—';
+  const d=$('decision');d.textContent='ATTENDRE';d.className='badge wait';
+}
+async function runScanner(){
+  const tf=$('scanTf').value;const list=[['EUR/USD','EURUSD=X'],['GBP/USD','GBPUSD=X'],['USD/JPY','JPY=X']];
+  $('scannerTable').innerHTML=list.map(x=>`<tr><td>${x[0]}</td><td colspan="5" class="muted">Chargement…</td></tr>`).join('');
+  const results=[];for(const [name,sym] of list){try{const rows=await fetchCandles(sym,tf,'1d');const a=analyze(rows);results.push([name,a])}catch(e){results.push([name,null])}}
+  $('scannerTable').innerHTML=results.map(([name,a])=>a?`<tr><td><b>${name}</b></td><td>${a.trend}</td><td>${a.bos}</td><td>${a.choch}</td><td>${a.bsl?.toFixed(5)||'—'} / ${a.ssl?.toFixed(5)||'—'}</td><td><span class="badge wait">ATTENDRE</span></td></tr>`:`<tr><td>${name}</td><td colspan="5" class="muted">Données indisponibles</td></tr>`).join('');
+}
+async function runBacktest(){
+  const sym=$('btSymbol').value,tf=$('btInterval').value; $('btResult').textContent='Téléchargement historique…';
   try{
-    const d=await getJson('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT');
-    state.btc=Number(d.price);
-    $('btcusd').textContent=Number(d.price).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-    $('btcChange').textContent='LIVE · Binance';
-    $('btcChange').className='change up'; setSource('btcSource',true);
-  }catch(e){setSource('btcSource',false);}
+    const rows=await fetchCandles(sym,tf,tf==='1h'?'60d':'5y');let cash=0,trades=0,wins=0,peak=0,dd=0;
+    const fast=20,slow=50;
+    const sma=(i,n)=>{let s=0;for(let j=i-n+1;j<=i;j++)s+=rows[j].c;return s/n};
+    for(let i=slow;i<rows.length-1;i++){const f0=sma(i-1,fast),s0=sma(i-1,slow),f1=sma(i,fast),s1=sma(i,slow);if(f0<=s0&&f1>s1){const ret=(rows[i+1].c-rows[i].c)/rows[i].c;cash+=ret;trades++;if(ret>0)wins++;peak=Math.max(peak,cash);dd=Math.max(dd,peak-cash)}else if(f0>=s0&&f1<s1){const ret=(rows[i].c-rows[i+1].c)/rows[i].c;cash+=ret;trades++;if(ret>0)wins++;peak=Math.max(peak,cash);dd=Math.max(dd,peak-cash)}}
+    $('btStats').innerHTML=`<div class="stat"><span class="muted">Trades</span><b>${trades}</b></div><div class="stat"><span class="muted">Win rate</span><b>${trades?(wins/trades*100).toFixed(1):'0'}%</b></div><div class="stat"><span class="muted">Drawdown modèle</span><b>${(dd*100).toFixed(2)}%</b></div>`;
+    $('btResult').textContent=`Résultat brut de la stratégie SMA ${fast}/${slow} : ${(cash*100).toFixed(2)}% sur ${rows.length} bougies. Ce résultat n'est pas encore le backtest ICT/SMC de Market Source.`;
+  }catch(e){$('btResult').textContent='Backtest indisponible : '+e.message}
 }
-
-async function fredSeries(id,valueId,dateId,decimals=2){
-  try{
-    const r=await fetch('https://fred.stlouisfed.org/graph/fredgraph.csv?id='+encodeURIComponent(id),{cache:'no-store'});
-    if(!r.ok) throw new Error('HTTP '+r.status);
-    const txt=await r.text();
-    const rows=txt.trim().split(/\r?\n/).slice(1).map(x=>x.split(',')).filter(x=>x.length>=2&&x[1]&&x[1]!=='.');
-    const last=rows[rows.length-1]; if(!last) throw new Error('no data');
-    $(valueId).textContent=Number(last[1]).toFixed(decimals);
-    $(dateId).textContent=last[0];
-    return Number(last[1]);
-  }catch(e){$(valueId).textContent='—';$(dateId).textContent='indisponible';return null;}
+function getJournal(){try{return JSON.parse(localStorage.getItem('marketSourceJournal')||'[]')}catch{return[]}}
+function renderJournal(){
+  const rows=getJournal();$('journalTable').innerHTML=rows.length?rows.map(x=>`<tr><td>${x.date}</td><td>${x.symbol}</td><td>${x.side}</td><td>${x.entry||'—'}</td><td>${x.exit||'—'}</td><td>${x.risk||'—'}%</td><td>${x.reason||'—'}</td></tr>`).join(''):'<tr><td colspan="7" class="muted">Aucune opération enregistrée.</td></tr>';
 }
-
-async function loadMacro(){
-  const vals=await Promise.all([
-    fredSeries('FEDFUNDS','fedfunds','fedfundsDate',2),
-    fredSeries('CPIAUCSL','cpi','cpiDate',2),
-    fredSeries('UNRATE','unrate','unrateDate',2)
-  ]);
-  const ok=vals.some(v=>v!==null);
-  setSource('macroSource',ok); $('fredCheck').textContent=ok?'✓ Disponible':'⚠ Indisponible';$('fredCheck').className=ok?'ok':'todo';
-  state.macro={fed:vals[0],cpi:vals[1],unrate:vals[2]};
-  return ok;
+function addJournal(){
+  const row={date:new Date().toLocaleString('fr-FR'),symbol:$('jSymbol').value||'EUR/USD',side:$('jSide').value,entry:$('jEntry').value,exit:$('jExit').value,risk:$('jRisk').value,reason:$('jReason').value};
+  const rows=getJournal();rows.unshift(row);localStorage.setItem('marketSourceJournal',JSON.stringify(rows));renderJournal();toast('Trade ajouté au journal');
 }
-
-async function loadCOT(){
-  const body=$('cotBody');
-  try{
-    const url='https://publicreporting.cftc.gov/resource/yw9f-hn96.json?$limit=100&$order=report_date_as_yyyy_mm_dd%20DESC';
-    const rows=await getJson(url);
-    const wanted=['EURO FX - CHICAGO MERCANTILE EXCHANGE','BRITISH POUND STERLING - CHICAGO MERCANTILE EXCHANGE','JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE','GOLD - COMMODITY EXCHANGE INC.'];
-    const selected=wanted.map(w=>rows.find(r=>(r.contract_market_name||'').toUpperCase()===w)).filter(Boolean).slice(0,4);
-    if(!selected.length) throw new Error('no matching rows');
-    body.innerHTML=selected.map(r=>{
-      const lm=Number(r.lev_money_positions_long_all||0), sm=Number(r.lev_money_positions_short_all||0);
-      const net=lm-sm;
-      return '<tr><td>'+escapeHtml(shortName(r.contract_market_name||'—'))+'</td><td>'+String(r.report_date_as_yyyy_mm_dd||'—').slice(0,10)+'</td><td>Leveraged Money</td><td class="'+(net>=0?'up':'down')+'">'+(net>=0?'+':'')+net.toLocaleString('en-US')+'</td></tr>';
-    }).join('');
-    $('cotStatus').textContent='CFTC · dernière publication disponible';setSource('cotSource',true);
-    return true;
-  }catch(e){
-    body.innerHTML='<tr><td colspan="4" class="error">CFTC indisponible dans le navigateur — la V1 continue sans inventer de données.</td></tr>';
-    $('cotStatus').textContent='Indisponible';setSource('cotSource',false);return false;
-  }
-}
-function shortName(s){return s.replace(' - CHICAGO MERCANTILE EXCHANGE','').replace(' - COMMODITY EXCHANGE INC.','');}
-function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));}
-
-function setBias(id,text,cls){
-  const e=$(id);e.textContent=text;e.className='tag '+cls;
-}
-function updateSignal(){
-  if(!state.fx.EURUSD){return;}
-  // V1 does not invent price momentum: without an intraday feed, the FX bias remains neutral.
-  setBias('bias-eur','Référence','neutral');setBias('bias-gbp','Référence','neutral');setBias('bias-jpy','Référence','neutral');
-  $('scan-eur').textContent='Neutre';$('scan-eur').className='todo';
-  $('scan-gbp').textContent='Neutre';$('scan-gbp').className='todo';
-  $('scan-jpy').textContent='Neutre';$('scan-jpy').className='todo';
-  $('signalText').textContent='ATTENDRE';$('signalText').className='neutral';
-  $('decision').textContent='ATTENDRE';$('decision').className='neutral';
-  $('usdForce').textContent='Non déterminée';$('usdForce').className='neutral';
-  $('eurForce').textContent='Non déterminée';$('eurForce').className='neutral';
-  $('confidence').textContent='—';$('confidenceBar').style.width='20%';
-}
-
-
-
-let v13TF='5m';
-let v13Candles=[];
-
-function setTF(tf){
-  v13TF=tf;
-  $('tfM5').classList.toggle('active',tf==='5m');
-  $('tfM15').classList.toggle('active',tf==='15m');
-  loadIntraday(false);
-}
-
-function yahooSymbol(pair){
-  return ({'EURUSD':'EURUSD=X','GBPUSD':'GBPUSD=X','USDJPY':'JPY=X'})[pair] || 'EURUSD=X';
-}
-
-async function fetchYahooCandles(symbol, interval){
-  const url=`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=1d&interval=${interval}&includePrePost=false`;
-  const r=await fetch(url,{cache:'no-store'});
-  if(!r.ok) throw new Error('HTTP '+r.status);
-  const j=await r.json();
-  const q=j?.chart?.result?.[0];
-  if(!q?.timestamp?.length) throw new Error('Aucune bougie');
-  const o=q.indicators?.quote?.[0]||{};
-  const rows=[];
-  for(let i=0;i<q.timestamp.length;i++){
-    const vals=[o.open?.[i],o.high?.[i],o.low?.[i],o.close?.[i]];
-    if(vals.every(Number.isFinite)) rows.push({t:q.timestamp[i],o:vals[0],h:vals[1],l:vals[2],c:vals[3]});
-  }
-  return rows;
-}
-
-function fractalSwings(rows){
-  const highs=[], lows=[];
-  for(let i=2;i<rows.length-2;i++){
-    const r=rows[i];
-    if(r.h>rows[i-1].h && r.h>rows[i-2].h && r.h>rows[i+1].h && r.h>rows[i+2].h) highs.push({i,p:r.h,t:r.t});
-    if(r.l<rows[i-1].l && r.l<rows[i-2].l && r.l<rows[i+1].l && r.l<rows[i+2].l) lows.push({i,p:r.l,t:r.t});
-  }
-  return {highs,lows};
-}
-
-function analyzeStructure(rows){
-  const {highs,lows}=fractalSwings(rows);
-  const last=rows.at(-1);
-  const recentHigh=highs.at(-1), prevHigh=highs.at(-2);
-  const recentLow=lows.at(-1), prevLow=lows.at(-2);
-
-  let trend='NEUTRE';
-  if(recentHigh&&prevHigh&&recentLow&&prevLow){
-    if(recentHigh.p>prevHigh.p && recentLow.p>prevLow.p) trend='HAUSSIER';
-    else if(recentHigh.p<prevHigh.p && recentLow.p<prevLow.p) trend='BAISSIER';
-  }
-
-  let bos='AUCUN', bosDir='';
-  if(recentHigh && last.c>recentHigh.p){bos='BOS HAUSSIER';bosDir='bull';}
-  else if(recentLow && last.c<recentLow.p){bos='BOS BAISSIER';bosDir='bear';}
-
-  let choch='AUCUN';
-  if(trend==='HAUSSIER' && recentLow && last.c<recentLow.p) choch='CHOCH BAISSIER';
-  else if(trend==='BAISSIER' && recentHigh && last.c>recentHigh.p) choch='CHOCH HAUSSIER';
-
-  return {
-    trend,bos,choch,bosDir,
-    bsl:recentHigh?.p ?? null,
-    ssl:recentLow?.p ?? null,
-    structure:(bos!=='AUCUN'||choch!=='AUCUN')?'ACTIVE':'EN ATTENTE',
-    last:last.c,
-    count:rows.length
-  };
-}
-
-function paintV13(a,source){
-  $('candlePrice').textContent=a.last.toFixed(5);
-  $('candleCount').textContent=a.count;
-  $('candleSource').textContent=source;
-  $('v13Trend').textContent=a.trend;
-  $('v13BOS').textContent=a.bos;
-  $('v13CHOCH').textContent=a.choch;
-  $('v13BSL').textContent=a.bsl!==null?a.bsl.toFixed(5):'—';
-  $('v13SSL').textContent=a.ssl!==null?a.ssl.toFixed(5):'—';
-  $('v13Structure').textContent=a.structure;
-
-  $('trendState').textContent=a.trend;
-  $('trendState').className='structure-value '+(a.trend==='HAUSSIER'?'buy':a.trend==='BAISSIER'?'sell':'wait');
-  $('bosState').textContent=a.bos;
-  $('bosState').className='structure-value '+(a.bos.includes('HAUSSIER')?'buy':a.bos.includes('BAISSIER')?'sell':'wait');
-  $('chochState').textContent=a.choch;
-  $('chochState').className='structure-value '+(a.choch.includes('HAUSSIER')?'buy':a.choch.includes('BAISSIER')?'sell':'wait');
-  $('structureState').textContent=a.structure;
-  $('structureState').className='structure-value '+(a.structure==='ACTIVE'?'ok':'wait');
-  $('buySideLiquidity').textContent=a.bsl!==null?a.bsl.toFixed(5):'Non disponible';
-  $('sellSideLiquidity').textContent=a.ssl!==null?a.ssl.toFixed(5):'Non disponible';
-}
-
-async function loadIntraday(manual){
-  const status=$('candleStatus');
-  status.textContent=`Chargement ${v13TF.toUpperCase()} EUR/USD…`;
-  try{
-    const rows=await fetchYahooCandles(yahooSymbol('EURUSD'),v13TF);
-    v13Candles=rows;
-    const a=analyzeStructure(rows);
-    paintV13(a,'Yahoo Finance chart');
-    status.textContent=`🟢 ${v13TF.toUpperCase()} connecté · ${rows.length} bougies · dernière mise à jour ${new Date().toLocaleTimeString()}`;
-    status.className='candle-status oktxt';
-    updateDecisionEngine();
-  }catch(e){
-    $('candleSource').textContent='Erreur';
-    $('candleStatus').textContent='🟡 Bougies intraday indisponibles : '+e.message;
-    $('candleStatus').className='candle-status warntxt';
-    $('v13Trend').textContent='NON DISPONIBLE';
-    $('v13BOS').textContent='À CALCULER';
-    $('v13CHOCH').textContent='À CALCULER';
-    $('v13BSL').textContent='—'; $('v13SSL').textContent='—';
-    $('v13Structure').textContent='EN ATTENTE';
-    updateDecisionEngine();
-  }
-}
-
-function updateDecisionEngine(){
-  const fed=state.macro?.fed;
-  const cpi=state.macro?.cpi;
-  const unrate=state.macro?.unrate;
-  const fxOk=!!state.fx?.EURUSD;
-  const macroOk=[fed,cpi,unrate].some(v=>v!==null && Number.isFinite(v));
-
-  $('usdMacroScore').textContent=macroOk?'NEUTRE':'—';
-  $('eurMacroScore').textContent='—';
-  $('confluenceScore').textContent=fxOk&&macroOk?'PARTIELLE':'—';
-  $('usdForce').textContent=macroOk?'Neutre':'Non déterminée';
-  $('usdForce').className='neutral';
-  $('eurForce').textContent='Non déterminée';
-  $('eurForce').className='neutral';
-
-  const structureAvailable=!!v13Candles.length;
-  let structureScore=0;
-  if(structureAvailable) structureScore=20;
-
-  let score=0;
-  if(fxOk) score+=25;
-  if(macroOk) score+=15;
-  if(structureAvailable) score+=20;
-  const confidence=score;
-
-  $('engineScore').textContent=score+' / 100';
-  $('confidence').textContent=confidence+'%';
-  $('confidenceBar').style.width=Math.max(8,confidence)+'%';
-
-  const badge=$('decisionBadge');
-  badge.textContent='ATTENDRE';
-  badge.className='decisionBadge wait';
-  $('newsCheck').textContent='⚠ Non vérifiée';
-  $('newsCheck').className='todo';
-  $('decision').textContent='ATTENDRE';
-  $('decision').className='neutral';
-}
-
-
+function clearJournal(){if(confirm('Effacer tout le journal local ?')){localStorage.removeItem('marketSourceJournal');renderJournal();}}
 async function refreshAll(){
-  $('statusText').textContent='Actualisation…';
-  const results=await Promise.allSettled([loadFX(),loadBTC(),loadMacro(),loadCOT()]);
-  updateSignal();
-  updateDecisionEngine();
-  const ok=results.filter(r=>r.status==='fulfilled'&&r.value).length;
-  $('statusText').textContent=ok>=2?'Sources connectées':'Connexion partielle';
-  $('statusDot').style.background=ok>=2?'var(--good)':'var(--warn)';
+  $('statusText').textContent='Actualisation…';$('statusDot').classList.remove('ok');
+  try{await Promise.all([fetchFX(),fetchBTC()]);renderQuotes();$('statusText').textContent='Connexion partielle';$('statusDot').classList.add('ok');if(state.candles.length)loadCandles();toast('Données actualisées')}catch(e){$('statusText').textContent='Connexion partielle';renderQuotes();toast('Une source n’a pas répondu')}
 }
-$('refreshBtn').addEventListener('click',refreshAll);
-setInterval(()=>{$('clock').textContent=new Date().toLocaleTimeString('fr-FR')},1000);
-setInterval(loadBTC,15000);
-setInterval(loadFX,3600000);
-document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>{
-  document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');
-}));
+$('instrument').value='EUR/USD';
 refreshAll();
-loadIntraday(false);
+renderJournal();
 </script>
 </body>
 </html>
