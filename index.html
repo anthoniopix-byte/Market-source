@@ -7,7 +7,7 @@
 <title>Market Source — V1.2</title>
 <style>
 :root{--bg:#071018;--panel:#0d1822;--panel2:#111f2b;--line:#203241;--text:#edf5f8;--muted:#8da2af;--good:#35d49a;--bad:#ff6478;--warn:#f2c45c;--blue:#59a9ff}
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#071018,#09131c 55%,#071018);color:var(--text);font:14px Inter,system-ui,sans-serif}button,input,select{font:inherit;color:inherit}.app{max-width:1450px;margin:auto;padding:16px}.top{display:flex;align-items:center;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:4px 0 15px;position:sticky;top:0;background:rgba(7,16,24,.95);backdrop-filter:blur(12px);z-index:5}.brand{display:flex;align-items:center;gap:10px}.logo{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;background:#102536;border:1px solid #27506b;color:var(--blue);font-weight:900;font-size:18px}.brand h1{margin:0;font-size:21px;letter-spacing:.5px}.status{display:flex;align-items:center;gap:8px;color:var(--muted)}.dot{width:9px;height:9px;border-radius:50%;background:var(--warn)}.dot.ok{background:var(--good)}.dot.bad{background:var(--bad)}.clock{font:13px ui-monospace,monospace;color:var(--muted)}.toolbar{display:flex;justify-content:flex-end;gap:8px;margin:12px 0}.btn{border:1px solid var(--line);background:var(--panel2);padding:10px 13px;border-radius:9px;cursor:pointer}.btn:hover,.btn.active{border-color:var(--blue)}.nav{display:flex;gap:6px;overflow:auto;border-bottom:1px solid var(--line);padding:6px 0;margin-bottom:16px}.nav button{white-space:nowrap;border:1px solid transparent;background:transparent;padding:11px 16px;border-radius:9px;color:var(--muted);cursor:pointer}.nav button.active{background:#122330;border-color:var(--line);color:var(--text)}.view{display:none}.view.active{display:block}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.card,.panel{background:linear-gradient(180deg,#0d1a25,#0b1620);border:1px solid var(--line);border-radius:12px;padding:14px}.card h3,.panel h3{margin:0 0 9px;font-size:14px;color:var(--muted);font-weight:600}.price{font:700 24px ui-monospace,monospace}.sub{font-size:12px;color:var(--muted);margin-top:6px}.good{color:var(--good)}.bad{color:var(--bad)}.warn{color:var(--warn)}.muted{color:var(--muted)}.section{margin-top:14px}.section-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:9px}.section-head h2{font-size:16px;margin:0}.section-head small{color:var(--muted)}.two{display:grid;grid-template-columns:1.35fr .65fr;gap:10px}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.metric{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid rgba(32,50,65,.65)}.metric:last-child{border-bottom:0}.badge{display:inline-block;border:1px solid currentColor;border-radius:999px;padding:5px 9px;font-weight:700;font-size:12px}.wait{color:var(--warn)}.buy{color:var(--good)}.sell{color:var(--bad)}.tablewrap{overflow:auto}.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:10px;border-bottom:1px solid var(--line);white-space:nowrap}.table th{color:var(--muted);font-size:12px}.marketrow{cursor:pointer}.marketrow:hover{background:#101e29}.chartbox{height:330px;border:1px solid var(--line);border-radius:10px;background:#08131c;overflow:hidden}.chartbox svg{width:100%;height:100%;display:block}.controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.controls select,.controls input{background:#0a151e;border:1px solid var(--line);border-radius:8px;padding:9px}.stat{padding:12px;border:1px solid var(--line);border-radius:9px;background:#0a151e}.stat b{display:block;font-size:20px;margin-top:4px}.empty{padding:22px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:10px}.formgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.formgrid input,.formgrid select{width:100%;background:#0a151e;border:1px solid var(--line);border-radius:8px;padding:9px}.note{font-size:11px;line-height:1.5;color:var(--muted);margin-top:10px}.toast{position:fixed;right:16px;bottom:16px;background:#122330;border:1px solid var(--line);padding:11px 13px;border-radius:9px;display:none;z-index:20}.progress{height:7px;background:#071018;border-radius:99px;overflow:hidden;border:1px solid var(--line)}.progress i{display:block;height:100%;width:0;background:var(--blue)}.source-card{background:#0a151e;border:1px solid var(--line);border-radius:10px;padding:12px}.source-title{display:flex;justify-content:space-between;gap:10px;align-items:center}.source-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}.source-meta div{padding:8px;border:1px solid rgba(32,50,65,.7);border-radius:8px}.source-meta small{display:block;color:var(--muted);font-size:10px}.source-meta b{display:block;margin-top:3px;font-size:12px}.status-connected{color:var(--good)}.status-error{color:var(--bad)}.status-delayed{color:var(--warn)}.status-neutral{color:var(--muted)}.log{font:12px ui-monospace,monospace;line-height:1.6;max-height:250px;overflow:auto;background:#071018;border:1px solid var(--line);padding:10px;border-radius:8px}.log-info{color:var(--text)}.log-warning{color:var(--warn)}.log-error{color:var(--bad)}@media(max-width:900px){.grid{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr 1fr}.source-meta{grid-template-columns:1fr 1fr}}@media(max-width:560px){.app{padding:10px}.grid,.three,.formgrid,.source-meta{grid-template-columns:1fr}.brand h1{font-size:18px}.top{align-items:flex-start}.chartbox{height:250px}}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#071018,#09131c 55%,#071018);color:var(--text);font:14px Inter,system-ui,sans-serif}button,input,select{font:inherit;color:inherit}.app{max-width:1450px;margin:auto;padding:16px}.top{display:flex;align-items:center;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:4px 0 15px;position:sticky;top:0;background:rgba(7,16,24,.95);backdrop-filter:blur(12px);z-index:5}.brand{display:flex;align-items:center;gap:10px}.logo{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;background:#102536;border:1px solid #27506b;color:var(--blue);font-weight:900;font-size:18px}.brand h1{margin:0;font-size:21px;letter-spacing:.5px}.status{display:flex;align-items:center;gap:8px;color:var(--muted)}.dot{width:9px;height:9px;border-radius:50%;background:var(--warn)}.dot.ok{background:var(--good)}.dot.bad{background:var(--bad)}.clock{font:13px ui-monospace,monospace;color:var(--muted)}.toolbar{display:flex;justify-content:flex-end;gap:8px;margin:12px 0}.btn{border:1px solid var(--line);background:var(--panel2);padding:10px 13px;border-radius:9px;cursor:pointer}.btn:hover,.btn.active{border-color:var(--blue)}.nav{display:flex;gap:6px;overflow:auto;border-bottom:1px solid var(--line);padding:6px 0;margin-bottom:16px}.nav button{white-space:nowrap;border:1px solid transparent;background:transparent;padding:11px 16px;border-radius:9px;color:var(--muted);cursor:pointer}.nav button.active{background:#122330;border-color:var(--line);color:var(--text)}.view{display:none}.view.active{display:block}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.card,.panel{background:linear-gradient(180deg,#0d1a25,#0b1620);border:1px solid var(--line);border-radius:12px;padding:14px}.card h3,.panel h3{margin:0 0 9px;font-size:14px;color:var(--muted);font-weight:600}.price{font:700 24px ui-monospace,monospace}.sub{font-size:12px;color:var(--muted);margin-top:6px}.good{color:var(--good)}.bad{color:var(--bad)}.warn{color:var(--warn)}.muted{color:var(--muted)}.section{margin-top:14px}.section-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:9px}.section-head h2{font-size:16px;margin:0}.section-head small{color:var(--muted)}.two{display:grid;grid-template-columns:1.35fr .65fr;gap:10px}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.metric{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid rgba(32,50,65,.65)}.metric:last-child{border-bottom:0}.badge{display:inline-block;border:1px solid currentColor;border-radius:999px;padding:5px 9px;font-weight:700;font-size:12px}.wait{color:var(--warn)}.buy{color:var(--good)}.sell{color:var(--bad)}.tablewrap{overflow:auto}.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:10px;border-bottom:1px solid var(--line);white-space:nowrap}.table th{color:var(--muted);font-size:12px}.marketrow{cursor:pointer}.marketrow:hover{background:#101e29}.chartbox{height:330px;border:1px solid var(--line);border-radius:10px;background:#08131c;overflow:hidden}.chartbox svg{width:100%;height:100%;display:block}.controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.controls select,.controls input{background:#0a151e;border:1px solid var(--line);border-radius:8px;padding:9px}.stat{padding:12px;border:1px solid var(--line);border-radius:9px;background:#0a151e}.stat b{display:block;font-size:20px;margin-top:4px}.empty{padding:22px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:10px}.formgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.formgrid input,.formgrid select{width:100%;background:#0a151e;border:1px solid var(--line);border-radius:8px;padding:9px}.note{font-size:11px;line-height:1.5;color:var(--muted);margin-top:10px}.toast{position:fixed;right:16px;bottom:16px;background:#122330;border:1px solid var(--line);padding:11px 13px;border-radius:9px;display:none;z-index:20}.progress{height:7px;background:#071018;border-radius:99px;overflow:hidden;border:1px solid var(--line)}.progress i{display:block;height:100%;width:0;background:var(--blue)}.source-card{background:#0a151e;border:1px solid var(--line);border-radius:10px;padding:12px}.source-title{display:flex;justify-content:space-between;gap:10px;align-items:center}.source-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}.source-meta div{padding:8px;border:1px solid rgba(32,50,65,.7);border-radius:8px}.source-meta small{display:block;color:var(--muted);font-size:10px}.source-meta b{display:block;margin-top:3px;font-size:12px}.status-connected{color:var(--good)}.status-error{color:var(--bad)}.status-delayed{color:var(--warn)}.status-neutral{color:var(--muted)}.status-curated{color:var(--blue)}.strength-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}.strength-row .lbl{width:34px;font-weight:700}.strength-row .bar{flex:1;height:8px;border-radius:99px;background:#071018;border:1px solid var(--line);overflow:hidden}.strength-row .bar i{display:block;height:100%;background:var(--blue)}.strength-row .val{width:44px;text-align:right;color:var(--muted);font:12px ui-monospace,monospace}.log{font:12px ui-monospace,monospace;line-height:1.6;max-height:250px;overflow:auto;background:#071018;border:1px solid var(--line);padding:10px;border-radius:8px}.log-info{color:var(--text)}.log-warning{color:var(--warn)}.log-error{color:var(--bad)}@media(max-width:900px){.grid{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr 1fr}.source-meta{grid-template-columns:1fr 1fr}}@media(max-width:560px){.app{padding:10px}.grid,.three,.formgrid,.source-meta{grid-template-columns:1fr}.brand h1{font-size:18px}.top{align-items:flex-start}.chartbox{height:250px}}
 </style>
 </head>
 <body>
@@ -23,6 +23,7 @@
   <button data-view="scanner" onclick="showView('scanner')">Scanner</button>
   <button data-view="backtest" onclick="showView('backtest')">Backtest</button>
   <button data-view="journal" onclick="showView('journal')">Journal</button>
+  <button data-view="fondamental" onclick="showView('fondamental')">Fondamental</button>
   <button data-view="sources" onclick="showView('sources')">Source Manager</button>
 </nav>
 <main>
@@ -95,6 +96,45 @@
   </div>
 </section>
 
+<section id="fondamental" class="view">
+  <div class="section-head"><h2>📊 Fondamental</h2><small>Analyse macro curée manuellement — 28 paires, 8 banques centrales</small></div>
+  <div class="panel">
+    <div class="note">🟦 CURATED — données saisies manuellement à partir d'une analyse personnelle, actualisées au 01/07/2026. Ce n'est pas un flux live : aucune API économique n'est connectée. Document de travail — ne constitue pas un conseil en investissement.</div>
+  </div>
+
+  <div class="section panel">
+    <div class="section-head"><h2>Contexte géopolitique</h2><small>Synthèse personnelle — note BlackRock Investment Institute, 27 mai 2026</small></div>
+    <div class="metric"><span>Guerre régionale Moyen-Orient</span><b class="bad">Risque élevé</b></div>
+    <div class="metric"><span>Crise de sécurité énergétique</span><b class="bad">Risque élevé</b></div>
+    <div class="metric"><span>Cyberattaques / terrorisme majeur</span><b class="bad">Risque élevé</b></div>
+    <div class="note">Un cessez-le-feu fragile tient entre les États-Unis et l'Iran, mais le trafic dans le détroit d'Ormuz reste fortement perturbé et le risque de ré-escalade est jugé élevé. Ce régime de marché favorise les flux de valeur refuge (franc suisse, or) et alimente la thèse hawkish sur le dollar via les tensions énergétiques. Ces éléments qualitatifs viennent en appui du tableau de bord des banques centrales ci-dessous, sans en faire une prévision.</div>
+  </div>
+
+  <div class="section panel">
+    <div class="section-head"><h2>Tableau de bord — 8 banques centrales</h2><small>Classées par score fondamental décroissant</small></div>
+    <div class="tablewrap"><table class="table"><thead><tr><th>Rang</th><th>Devise</th><th>Banque centrale</th><th>Taux</th><th>Biais</th><th>Score</th></tr></thead><tbody id="cbTable"></tbody></table></div>
+  </div>
+
+  <div class="section panel">
+    <div class="section-head"><h2>Force relative des devises</h2><small>Dérivée du score fondamental composite</small></div>
+    <div id="strengthBars"></div>
+  </div>
+
+  <div class="section panel">
+    <div class="section-head"><h2>Matrice 28 paires</h2><small>Biais directionnel &amp; probabilité indicative</small></div>
+    <div class="controls">
+      <select id="convictionFilter" onchange="renderMatrix()">
+        <option value="ALL">Toutes convictions</option>
+        <option value="Élevée">Élevée</option>
+        <option value="Modérée">Modérée</option>
+        <option value="Faible">Faible</option>
+      </select>
+    </div>
+    <div class="tablewrap"><table class="table"><thead><tr><th>Paire</th><th>Spot</th><th>Biais</th><th>Probabilité</th><th>Conviction</th></tr></thead><tbody id="matrixTable"></tbody></table></div>
+    <div class="note">Lecture : le biais suit le différentiel de score fondamental entre les deux devises. La probabilité indicative (51–75%) reflète une conviction qualitative — ce n'est pas une probabilité statistique. À combiner avec une confirmation technique (structure, positionnement COT) avant toute décision de trading.</div>
+  </div>
+</section>
+
 <section id="sources" class="view">
   <div class="section-head"><h2>🔌 Source Manager</h2><small>V1.2 — fondation technique des sources</small></div>
   <div class="panel">
@@ -105,8 +145,8 @@
     <div class="panel"><div class="section-head"><h2>Architecture</h2><small>Provider → Normalizer → Application</small></div>
       <div class="metric"><span>MARKET_DATA</span><b>Quotes / OHLC / historiques</b></div>
       <div class="metric"><span>NEWS_DATA</span><b class="status-neutral">NOT CONFIGURED</b></div>
-      <div class="metric"><span>ECONOMIC_DATA</span><b class="status-neutral">NOT CONFIGURED</b></div>
-      <div class="metric"><span>CENTRAL_BANK_DATA</span><b class="status-neutral">NOT CONFIGURED</b></div>
+      <div class="metric"><span>ECONOMIC_DATA</span><b class="status-curated">CURATED (voir onglet Fondamental)</b></div>
+      <div class="metric"><span>CENTRAL_BANK_DATA</span><b class="status-curated">CURATED (voir onglet Fondamental)</b></div>
       <div class="metric"><span>MARKET_EXPECTATIONS</span><b class="status-neutral">NOT CONFIGURED</b></div>
     </div>
     <div class="panel"><div class="section-head"><h2>Logs</h2><small>Secrets exclus</small></div><div id="sourceLogs" class="log"></div></div>
@@ -120,7 +160,7 @@
 'use strict';
 const $=id=>document.getElementById(id);
 const CATEGORY={MARKET_DATA:'MARKET_DATA',NEWS_DATA:'NEWS_DATA',ECONOMIC_DATA:'ECONOMIC_DATA',CENTRAL_BANK_DATA:'CENTRAL_BANK_DATA',MARKET_EXPECTATIONS:'MARKET_EXPECTATIONS'};
-const STATUS={CONNECTED:'CONNECTED',DISCONNECTED:'DISCONNECTED',ERROR:'ERROR',DELAYED:'DELAYED',NOT_CONFIGURED:'NOT_CONFIGURED'};
+const STATUS={CONNECTED:'CONNECTED',DISCONNECTED:'DISCONNECTED',ERROR:'ERROR',DELAYED:'DELAYED',NOT_CONFIGURED:'NOT_CONFIGURED',CURATED:'CURATED'};
 const DATA_STATUS={LIVE:'LIVE',RECENT:'RECENT',DELAYED:'DELAYED',STALE:'STALE',UNAVAILABLE:'UNAVAILABLE'};
 const state={quotes:{},candles:[],tf:'5m',macro:false,sourceEvents:[],lastAnalysis:null};
 
@@ -143,6 +183,7 @@ function showView(id){
   if(id==='markets'&&!state.candles.length)loadCandles();
   if(id==='scanner')runScanner();
   if(id==='journal')renderJournal();
+  if(id==='fondamental'){renderCentralBanks();renderMatrix();}
   if(id==='sources')renderSourceManager();
 }
 function clock(){$('clock').textContent=new Date().toLocaleTimeString('fr-FR');}
@@ -158,7 +199,7 @@ function freshness(updatedAt,mode='standard'){
   return DATA_STATUS.STALE;
 }
 function statusClass(status){
-  return status===STATUS.CONNECTED?'status-connected':status===STATUS.ERROR?'status-error':status===STATUS.DELAYED?'status-delayed':'status-neutral';
+  return status===STATUS.CONNECTED?'status-connected':status===STATUS.ERROR?'status-error':status===STATUS.DELAYED?'status-delayed':status===STATUS.CURATED?'status-curated':'status-neutral';
 }
 
 class BaseProvider{
@@ -250,14 +291,54 @@ class YahooChartProvider extends MarketDataProvider{
 class NotConfiguredProvider extends BaseProvider{
   constructor(meta){super({...meta,status:STATUS.NOT_CONFIGURED,enabled:false,isPrimary:false,isFallback:false,dataQuality:'UNKNOWN',latency:'UNKNOWN'});}
 }
+class CuratedManualProvider extends BaseProvider{
+  constructor(meta){super({...meta,status:STATUS.CURATED,isPrimary:true,isFallback:false,dataQuality:'CURATED_MANUAL',latency:'STATIC_SNAPSHOT',enabled:true});this.lastUpdate='2026-07-01T00:00:00Z';}
+  async getInterestRate(){return CENTRAL_BANKS;}
+  async getEconomicIndicator(){return FOREX_MATRIX;}
+}
+
+// Données curées manuellement (voir note dans la vue Fondamental) — actualisées au 01/07/2026.
+// Ce ne sont PAS des données live : aucune API économique/banques centrales n'est connectée.
+const CENTRAL_BANKS=[
+  {rank:1,ccy:'USD',bank:'Réserve fédérale (Fed)',rate:'3,50%–3,75%',bias:'Hawkish — bascule notable',score:78},
+  {rank:2,ccy:'CHF',bank:'Banque nationale suisse (BNS)',rate:'0,00%',bias:'Dovish taux, posture FX défensive',score:68},
+  {rank:3,ccy:'EUR',bank:'Banque centrale européenne (BCE)',rate:'2,25%/2,40%/2,65%',bias:'Hawkish — début de resserrement',score:62},
+  {rank:4,ccy:'GBP',bank:"Banque d'Angleterre (BoE)",rate:'3,75%',bias:'Hawkish hold — faucons en hausse',score:58},
+  {rank:5,ccy:'JPY',bank:'Banque du Japon (BoJ)',rate:'1,00%',bias:'Hawkish — normalisation en cours',score:52},
+  {rank:6,ccy:'NZD',bank:'Reserve Bank of New Zealand (RBNZ)',rate:'2,25%',bias:'Dovish-to-hawkish',score:40},
+  {rank:7,ccy:'AUD',bank:'Reserve Bank of Australia (RBA)',rate:'4,35%',bias:'Hawkish hold — cycle achevé',score:38},
+  {rank:8,ccy:'CAD',bank:'Banque du Canada (BoC)',rate:'2,25%',bias:'Neutre — double risque',score:25}
+];
+const FOREX_MATRIX=[
+  ['USD/CAD',1.4200,'HAUSSIER',71,'Élevée'],['CAD/CHF',0.5697,'BAISSIER',67,'Élevée'],['AUD/USD',0.6897,'BAISSIER',66,'Élevée'],
+  ['NZD/USD',0.5665,'BAISSIER',65,'Élevée'],['EUR/CAD',1.6202,'HAUSSIER',65,'Élevée'],['GBP/CAD',1.8787,'HAUSSIER',63,'Élevée'],
+  ['AUD/CHF',0.5580,'BAISSIER',62,'Élevée'],['NZD/CHF',0.4583,'BAISSIER',61,'Élevée'],['CAD/JPY',114.51,'BAISSIER',61,'Élevée'],
+  ['USD/JPY',162.60,'HAUSSIER',60,'Élevée'],['EUR/AUD',1.6543,'HAUSSIER',60,'Élevée'],['EUR/NZD',2.0141,'HAUSSIER',59,'Élevée'],
+  ['GBP/USD',1.3230,'BAISSIER',58,'Modérée'],['GBP/AUD',1.9182,'HAUSSIER',58,'Modérée'],['GBP/NZD',2.3354,'HAUSSIER',57,'Modérée'],
+  ['EUR/USD',1.1410,'BAISSIER',56,'Modérée'],['AUD/JPY',112.15,'BAISSIER',56,'Modérée'],['NZD/CAD',0.8044,'HAUSSIER',56,'Modérée'],
+  ['CHF/JPY',200.99,'HAUSSIER',56,'Modérée'],['AUD/CAD',0.9794,'HAUSSIER',55,'Modérée'],['NZD/JPY',92.11,'BAISSIER',55,'Modérée'],
+  ['USD/CHF',0.8090,'HAUSSIER',54,'Modérée'],['EUR/JPY',185.53,'HAUSSIER',54,'Modérée'],['GBP/CHF',1.0703,'BAISSIER',54,'Modérée'],
+  ['EUR/GBP',0.8624,'HAUSSIER',52,'Faible'],['EUR/CHF',0.9231,'BAISSIER',52,'Modérée'],['GBP/JPY',215.12,'HAUSSIER',52,'Modérée'],
+  ['AUD/NZD',1.2175,'BAISSIER',51,'Faible']
+];
+function renderCentralBanks(){
+  $('cbTable').innerHTML=CENTRAL_BANKS.map(c=>`<tr><td>${c.rank}</td><td><b>${c.ccy}</b></td><td>${escapeHtml(c.bank)}</td><td>${escapeHtml(c.rate)}</td><td>${escapeHtml(c.bias)}</td><td>${c.score}/100</td></tr>`).join('');
+  const max=Math.max(...CENTRAL_BANKS.map(c=>c.score));
+  $('strengthBars').innerHTML=CENTRAL_BANKS.map(c=>`<div class="strength-row"><span class="lbl">${c.ccy}</span><div class="bar"><i style="width:${c.score/max*100}%"></i></div><span class="val">${c.score}/100</span></div>`).join('');
+}
+function renderMatrix(){
+  const f=$('convictionFilter').value;
+  const rows=FOREX_MATRIX.filter(r=>f==='ALL'||r[4]===f);
+  $('matrixTable').innerHTML=rows.map(([pair,spot,bias,proba,conv])=>`<tr><td><b>${pair}</b></td><td>${spot}</td><td class="${bias==='HAUSSIER'?'good':'bad'}">${bias}</td><td>${proba}%</td><td>${conv}</td></tr>`).join('');
+}
 
 const providers=[
   new FrankfurterProvider(),
   new BinanceProvider(),
   new YahooChartProvider(),
   new NotConfiguredProvider({id:'news-provider-slot',name:'News Provider Slot',category:CATEGORY.NEWS_DATA}),
-  new NotConfiguredProvider({id:'economic-provider-slot',name:'Economic Provider Slot',category:CATEGORY.ECONOMIC_DATA}),
-  new NotConfiguredProvider({id:'central-bank-provider-slot',name:'Central Bank Provider Slot',category:CATEGORY.CENTRAL_BANK_DATA}),
+  new CuratedManualProvider({id:'fx-fundamental-matrix-curated',name:'Matrice fondamentale FX (curée, 01/07/2026)',category:CATEGORY.ECONOMIC_DATA}),
+  new CuratedManualProvider({id:'central-banks-curated',name:'Tableau de bord banques centrales (curé, 01/07/2026)',category:CATEGORY.CENTRAL_BANK_DATA}),
   new NotConfiguredProvider({id:'market-expectations-slot',name:'Market Expectations Slot',category:CATEGORY.MARKET_EXPECTATIONS})
 ];
 
@@ -335,7 +416,7 @@ function renderQuotes(){
   const fx=state.quotes.EURUSD;
   $('srcFx').textContent=fx?`${fx.dataStatus} · ${fx.source}`:'UNAVAILABLE';
   $('srcBtc').textContent=state.quotes.BTCUSD?`${state.quotes.BTCUSD.dataStatus} · ${state.quotes.BTCUSD.source}`:'UNAVAILABLE';
-  $('srcMacro').textContent='NOT CONFIGURED';
+  $('srcMacro').textContent='CURATED · 01/07/2026 (onglet Fondamental)';
   const rows=defs.map(([k,l,d])=>{const q=state.quotes[k];return `<tr class="marketrow" onclick="openInstrument('${k}')"><td><b>${l}</b></td><td>${q?Number(q.price).toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d}):'—'}</td><td>${q?escapeHtml(q.source):'—'}</td><td class="${q?statusClass(q.dataStatus===DATA_STATUS.DELAYED?STATUS.DELAYED:STATUS.CONNECTED):'status-error'}">${q?q.dataStatus:'UNAVAILABLE'}</td></tr>`}).join('');
   $('marketsTable').innerHTML=rows;
 }
@@ -422,7 +503,7 @@ async function refreshAll(){
 }
 
 $('instrument').value='EUR/USD';
-renderJournal();renderSourceManager();log('INFO','Source Manager initialized');
+renderJournal();renderSourceManager();log('INFO','Source Manager initialized');log('INFO','Curated fundamental dataset loaded (28-pair matrix + 8 central banks, snapshot 2026-07-01)');
 refreshAll();
 </script>
 </body>
