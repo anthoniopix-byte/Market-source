@@ -4,11 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#071018">
-<title>Market Source — V1.2</title>
+<title>Market Source — V1.5.1</title>
 <style>
 :root{--bg:#071018;--panel:#0d1822;--panel2:#111f2b;--line:#203241;--text:#edf5f8;--muted:#8da2af;--good:#35d49a;--bad:#ff6478;--warn:#f2c45c;--blue:#59a9ff}
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#071018,#09131c 55%,#071018);color:var(--text);font:14px Inter,system-ui,sans-serif}button,input,select{font:inherit;color:inherit}.app{max-width:1450px;margin:auto;padding:16px}.top{display:flex;align-items:center;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:4px 0 15px;position:sticky;top:0;background:rgba(7,16,24,.95);backdrop-filter:blur(12px);z-index:5}.brand{display:flex;align-items:center;gap:10px}.logo{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;background:#102536;border:1px solid #27506b;color:var(--blue);font-weight:900;font-size:18px}.brand h1{margin:0;font-size:21px;letter-spacing:.5px}.status{display:flex;align-items:center;gap:8px;color:var(--muted)}.dot{width:9px;height:9px;border-radius:50%;background:var(--warn)}.dot.ok{background:var(--good)}.dot.bad{background:var(--bad)}.clock{font:13px ui-monospace,monospace;color:var(--muted)}.toolbar{display:flex;justify-content:flex-end;gap:8px;margin:12px 0}.btn{border:1px solid var(--line);background:var(--panel2);padding:10px 13px;border-radius:9px;cursor:pointer}.btn:hover,.btn.active{border-color:var(--blue)}.nav{display:flex;gap:6px;overflow:auto;border-bottom:1px solid var(--line);padding:6px 0;margin-bottom:16px}.nav button{white-space:nowrap;border:1px solid transparent;background:transparent;padding:11px 16px;border-radius:9px;color:var(--muted);cursor:pointer}.nav button.active{background:#122330;border-color:var(--line);color:var(--text)}.view{display:none}.view.active{display:block}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.card,.panel{background:linear-gradient(180deg,#0d1a25,#0b1620);border:1px solid var(--line);border-radius:12px;padding:14px}.card h3,.panel h3{margin:0 0 9px;font-size:14px;color:var(--muted);font-weight:600}.price{font:700 24px ui-monospace,monospace}.sub{font-size:12px;color:var(--muted);margin-top:6px}.good{color:var(--good)}.bad{color:var(--bad)}.warn{color:var(--warn)}.muted{color:var(--muted)}.section{margin-top:14px}.section-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:9px}.section-head h2{font-size:16px;margin:0}.section-head small{color:var(--muted)}.two{display:grid;grid-template-columns:1.35fr .65fr;gap:10px}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.metric{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid rgba(32,50,65,.65)}.metric:last-child{border-bottom:0}.badge{display:inline-block;border:1px solid currentColor;border-radius:999px;padding:5px 9px;font-weight:700;font-size:12px}.wait{color:var(--warn)}.buy{color:var(--good)}.sell{color:var(--bad)}.tablewrap{overflow:auto}.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:10px;border-bottom:1px solid var(--line);white-space:nowrap}.table th{color:var(--muted);font-size:12px}.marketrow{cursor:pointer}.marketrow:hover{background:#101e29}.chartbox{height:330px;border:1px solid var(--line);border-radius:10px;background:#08131c;overflow:hidden}.chartbox svg{width:100%;height:100%;display:block}.controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.controls select,.controls input{background:#0a151e;border:1px solid var(--line);border-radius:8px;padding:9px}.stat{padding:12px;border:1px solid var(--line);border-radius:9px;background:#0a151e}.stat b{display:block;font-size:20px;margin-top:4px}.empty{padding:22px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:10px}.formgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.formgrid input,.formgrid select{width:100%;background:#0a151e;border:1px solid var(--line);border-radius:8px;padding:9px}.note{font-size:11px;line-height:1.5;color:var(--muted);margin-top:10px}.toast{position:fixed;right:16px;bottom:16px;background:#122330;border:1px solid var(--line);padding:11px 13px;border-radius:9px;display:none;z-index:20}.progress{height:7px;background:#071018;border-radius:99px;overflow:hidden;border:1px solid var(--line)}.progress i{display:block;height:100%;width:0;background:var(--blue)}.source-card{background:#0a151e;border:1px solid var(--line);border-radius:10px;padding:12px}.source-title{display:flex;justify-content:space-between;gap:10px;align-items:center}.source-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}.source-meta div{padding:8px;border:1px solid rgba(32,50,65,.7);border-radius:8px}.source-meta small{display:block;color:var(--muted);font-size:10px}.source-meta b{display:block;margin-top:3px;font-size:12px}.status-connected{color:var(--good)}.status-error{color:var(--bad)}.status-delayed{color:var(--warn)}.status-neutral{color:var(--muted)}.status-curated{color:var(--blue)}.strength-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}.strength-row .lbl{width:34px;font-weight:700}.strength-row .bar{flex:1;height:8px;border-radius:99px;background:#071018;border:1px solid var(--line);overflow:hidden}.strength-row .bar i{display:block;height:100%;background:var(--blue)}.strength-row .val{width:44px;text-align:right;color:var(--muted);font:12px ui-monospace,monospace}.log{font:12px ui-monospace,monospace;line-height:1.6;max-height:250px;overflow:auto;background:#071018;border:1px solid var(--line);padding:10px;border-radius:8px}.log-info{color:var(--text)}.log-warning{color:var(--warn)}.log-error{color:var(--bad)}@media(max-width:900px){.grid{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr 1fr}.source-meta{grid-template-columns:1fr 1fr}}@media(max-width:560px){.app{padding:10px}.grid,.three,.formgrid,.source-meta{grid-template-columns:1fr}.brand h1{font-size:18px}.top{align-items:flex-start}.chartbox{height:250px}}
-</style>
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#071018,#09131c 55%,#071018);color:var(--text);font:14px Inter,system-ui,sans-serif}button,input,select{font:inherit;color:inherit}.app{max-width:1450px;margin:auto;padding:16px}.top{display:flex;align-items:center;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding:4px 0 15px;position:sticky;top:0;background:rgba(7,16,24,.95);backdrop-filter:blur(12px);z-index:5}.brand{display:flex;align-items:center;gap:10px}.logo{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;background:#102536;border:1px solid #27506b;color:var(--blue);font-weight:900;font-size:18px}.brand h1{margin:0;font-size:21px;letter-spacing:.5px}.status{display:flex;align-items:center;gap:8px;color:var(--muted)}.dot{width:9px;height:9px;border-radius:50%;background:var(--warn)}.dot.ok{background:var(--good)}.dot.bad{background:var(--bad)}.clock{font:13px ui-monospace,monospace;color:var(--muted)}.toolbar{display:flex;justify-content:flex-end;gap:8px;margin:12px 0}.btn{border:1px solid var(--line);background:var(--panel2);padding:10px 13px;border-radius:9px;cursor:pointer}.btn:hover,.btn.active{border-color:var(--blue)}.nav{display:flex;gap:6px;overflow:auto;border-bottom:1px solid var(--line);padding:6px 0;margin-bottom:16px}.nav button{white-space:nowrap;border:1px solid transparent;background:transparent;padding:11px 16px;border-radius:9px;color:var(--muted);cursor:pointer}.nav button.active{background:#122330;border-color:var(--line);color:var(--text)}.view{display:none}.view.active{display:block}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.card,.panel{background:linear-gradient(180deg,#0d1a25,#0b1620);border:1px solid var(--line);border-radius:12px;padding:14px}.card h3,.panel h3{margin:0 0 9px;font-size:14px;color:var(--muted);font-weight:600}.price{font:700 24px ui-monospace,monospace}.sub{font-size:12px;color:var(--muted);margin-top:6px}.good{color:var(--good)}.bad{color:var(--bad)}.warn{color:var(--warn)}.muted{color:var(--muted)}.section{margin-top:14px}.section-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:9px}.section-head h2{font-size:16px;margin:0}.section-head small{color:var(--muted)}.two{display:grid;grid-template-columns:1.35fr .65fr;gap:10px}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.metric{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid rgba(32,50,65,.65)}.metric:last-child{border-bottom:0}.badge{display:inline-block;border:1px solid currentColor;border-radius:999px;padding:5px 9px;font-weight:700;font-size:12px}.wait{color:var(--warn)}.buy{color:var(--good)}.sell{color:var(--bad)}.tablewrap{overflow:auto}.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:10px;border-bottom:1px solid var(--line);white-space:nowrap}.table th{color:var(--muted);font-size:12px}.marketrow{cursor:pointer}.marketrow:hover{background:#101e29}.chartbox{height:330px;border:1px solid var(--line);border-radius:10px;background:#08131c;overflow:hidden}.chartbox svg{width:100%;height:100%;display:block}.controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.controls select,.controls input{background:#0a151e;border:1px solid var(--line);border-radius:8px;padding:9px}.stat{padding:12px;border:1px solid var(--line);border-radius:9px;background:#0a151e}.stat b{display:block;font-size:20px;margin-top:4px}.empty{padding:22px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:10px}.formgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.formgrid input,.formgrid select{width:100%;background:#0a151e;border:1px solid var(--line);border-radius:8px;padding:9px}.note{font-size:11px;line-height:1.5;color:var(--muted);margin-top:10px}.toast{position:fixed;right:16px;bottom:16px;background:#122330;border:1px solid var(--line);padding:11px 13px;border-radius:9px;display:none;z-index:20}.progress{height:7px;background:#071018;border-radius:99px;overflow:hidden;border:1px solid var(--line)}.progress i{display:block;height:100%;width:0;background:var(--blue)}.source-card{background:#0a151e;border:1px solid var(--line);border-radius:10px;padding:12px}.source-title{display:flex;justify-content:space-between;gap:10px;align-items:center}.source-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}.source-meta div{padding:8px;border:1px solid rgba(32,50,65,.7);border-radius:8px}.source-meta small{display:block;color:var(--muted);font-size:10px}.source-meta b{display:block;margin-top:3px;font-size:12px}.status-connected{color:var(--good)}.status-error{color:var(--bad)}.status-delayed{color:var(--warn)}.status-neutral{color:var(--muted)}.status-curated{color:var(--blue)}.strength-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}.strength-row .lbl{width:34px;font-weight:700}.strength-row .bar{flex:1;height:8px;border-radius:99px;background:#071018;border:1px solid var(--line);overflow:hidden}.strength-row .bar i{display:block;height:100%;background:var(--blue)}.strength-row .val{width:44px;text-align:right;color:var(--muted);font:12px ui-monospace,monospace}.routine-group{margin-bottom:16px}.routine-group h4{margin:0 0 8px;font-size:13px;color:var(--blue)}.routine-item{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid rgba(32,50,65,.5)}.routine-item:last-child{border-bottom:0}.routine-item input{margin-top:3px}.routine-item.done .rlabel{opacity:.45;text-decoration:line-through}.routine-item .rtime{color:var(--muted);font-size:11px;width:96px;flex:none}.log{font:12px ui-monospace,monospace;line-height:1.6;max-height:250px;overflow:auto;background:#071018;border:1px solid var(--line);padding:10px;border-radius:8px}.log-info{color:var(--text)}.log-warning{color:var(--warn)}.log-error{color:var(--bad)}
+.linkbtn{color:var(--blue);text-decoration:none;font-weight:700}.linkbtn:hover{text-decoration:underline}.news-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.news-item{padding:12px;border:1px solid var(--line);border-radius:10px;background:#0a151e}.news-item h4{margin:0 0 7px;font-size:14px}.news-meta{font-size:11px;color:var(--muted);margin-bottom:7px}.rate-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.rate-card{background:#0a151e;border:1px solid var(--line);border-radius:10px;padding:13px}.rate-head{display:flex;justify-content:space-between;align-items:center;gap:8px}.rate-ccy{font-size:18px;font-weight:800}.probbar{height:8px;background:#071018;border:1px solid var(--line);border-radius:99px;overflow:hidden;margin:5px 0 10px}.probbar i{display:block;height:100%;background:var(--blue)}.prob-row{display:grid;grid-template-columns:74px 1fr 48px;gap:8px;align-items:center;margin:7px 0;font-size:12px}.source-link{display:inline-flex;align-items:center;gap:5px;margin-top:8px}.news-filters{display:flex;gap:8px;flex-wrap:wrap}.news-filters select,.news-filters input{background:#0a151e;border:1px solid var(--line);border-radius:8px;padding:9px}.warningbox{border:1px solid rgba(242,196,92,.4);background:rgba(242,196,92,.06);padding:10px;border-radius:9px;color:var(--warn)}.position-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.divergence{border-left:4px solid var(--warn);padding:10px;background:#0a151e;border-radius:8px}.divergence.bull{border-color:var(--good)}.divergence.bear{border-color:var(--bad)}.divergence.neutral{border-color:var(--line)}.mini{font-size:11px;color:var(--muted)}@media(max-width:700px){.position-grid{grid-template-columns:1fr}}
+@media(max-width:900px){.rate-grid{grid-template-columns:1fr 1fr}.news-grid{grid-template-columns:1fr}}@media(max-width:560px){.rate-grid{grid-template-columns:1fr}}@media(max-width:900px){.grid{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr 1fr}.source-meta{grid-template-columns:1fr 1fr}}@media(max-width:560px){.app{padding:10px}.grid,.three,.formgrid,.source-meta{grid-template-columns:1fr}.brand h1{font-size:18px}.top{align-items:flex-start}.chartbox{height:250px}}
+.position-hero{display:grid;grid-template-columns:1.2fr .8fr;gap:10px;margin-top:12px}.position-score{display:flex;align-items:center;gap:14px}.score-ring{width:88px;height:88px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--blue) var(--score,50%),#071018 0);position:relative}.score-ring:after{content:"";position:absolute;inset:8px;background:#0b1620;border-radius:50%}.score-ring b{position:relative;z-index:1;font-size:18px}.position-bars{display:grid;gap:9px}.posbar{display:grid;grid-template-columns:125px 1fr 78px;align-items:center;gap:8px;font-size:12px}.posbar .track{height:12px;border-radius:99px;background:#071018;border:1px solid var(--line);overflow:hidden}.posbar i{display:block;height:100%;background:var(--blue)}.posbar i.neg{background:var(--bad)}.cot-table td,.cot-table th{text-align:right}.cot-table td:first-child,.cot-table th:first-child{text-align:left}.cot-chart{height:220px;border:1px solid var(--line);border-radius:10px;background:#08131c;padding:8px}.cot-chart svg{width:100%;height:100%}.signal-card{padding:12px;border:1px solid var(--line);border-radius:10px;background:#0a151e}.signal-card h3{margin:0 0 5px}.source-pill{display:inline-block;font-size:10px;border:1px solid var(--line);padding:3px 7px;border-radius:999px;color:var(--muted)}@media(max-width:800px){.position-hero{grid-template-columns:1fr}}</style>
 </head>
 <body>
 <div class="app">
@@ -24,7 +26,12 @@
   <button data-view="backtest" onclick="showView('backtest')">Backtest</button>
   <button data-view="journal" onclick="showView('journal')">Journal</button>
   <button data-view="fondamental" onclick="showView('fondamental')">Fondamental</button>
+  <button data-view="ressources" onclick="showView('ressources')">Ressources</button>
+  <button data-view="news" onclick="showView('news')">📰 News</button>
+  <button data-view="rateprob" onclick="showView('rateprob')">📈 Probabilités de taux</button>
+  <button data-view="positioning" onclick="showView('positioning');refreshPositioning()">🧭 COT & Sentiment</button>
   <button data-view="sources" onclick="showView('sources')">Source Manager</button>
+  <button data-view="engine151" onclick="showView('engine151');runV151()">🧠 V1.5.1 Engine</button>
 </nav>
 <main>
 <section id="dashboard" class="view active">
@@ -58,8 +65,16 @@
   <div class="panel">
     <div class="controls">
       <select id="instrument" onchange="selectInstrument()"><option>EUR/USD</option><option>GBP/USD</option><option>USD/JPY</option><option>BTC/USD</option></select>
-      <button class="btn active" id="m5btn" onclick="setTF('5m')">M5</button>
-      <button class="btn" id="m15btn" onclick="setTF('15m')">M15</button>
+      <button class="btn" data-tf="1m" onclick="setTF('1m')">M1</button>
+      <button class="btn active" data-tf="5m" onclick="setTF('5m')">M5</button>
+      <button class="btn" data-tf="15m" onclick="setTF('15m')">M15</button>
+      <button class="btn" data-tf="30m" onclick="setTF('30m')">M30</button>
+      <button class="btn" data-tf="1h" onclick="setTF('1h')">H1</button>
+      <button class="btn" data-tf="2h" onclick="setTF('2h')">H2</button>
+      <button class="btn" data-tf="4h" onclick="setTF('4h')">H4</button>
+      <button class="btn" data-tf="8h" onclick="setTF('8h')">H8</button>
+      <button class="btn" data-tf="1d" onclick="setTF('1d')">D1</button>
+      <button class="btn" data-tf="1w" onclick="setTF('1w')">W1</button>
       <button class="btn" onclick="loadCandles()">↻ Bougies</button>
     </div>
     <div id="marketInfo" class="sub">Sélectionne un instrument.</div>
@@ -70,13 +85,13 @@
 
 <section id="scanner" class="view">
   <div class="section-head"><h2>🔎 Scanner</h2><small>Filtre conservateur</small></div>
-  <div class="panel"><div class="controls"><button class="btn active" onclick="runScanner()">⚡ Scanner maintenant</button><select id="scanTf"><option value="5m">M5</option><option value="15m">M15</option></select></div><div class="tablewrap"><table class="table"><thead><tr><th>Marché</th><th>Biais</th><th>BOS</th><th>CHOCH</th><th>Liquidité</th><th>Décision</th></tr></thead><tbody id="scannerTable"></tbody></table></div><div class="note">Le scanner ne transforme pas une absence de données en signal. Les marchés sans bougies disponibles restent en attente.</div></div>
+  <div class="panel"><div class="controls"><button class="btn active" onclick="runScanner()">⚡ Scanner maintenant</button><select id="scanTf"><option value="5m">M5</option><option value="15m">M15</option><option value="30m">M30</option><option value="1h">H1</option><option value="2h">H2</option><option value="4h">H4</option></select></div><div class="tablewrap"><table class="table"><thead><tr><th>Marché</th><th>Biais</th><th>BOS</th><th>CHOCH</th><th>Liquidité</th><th>Décision</th></tr></thead><tbody id="scannerTable"></tbody></table></div><div class="note">Le scanner ne transforme pas une absence de données en signal. Les marchés sans bougies disponibles restent en attente.</div></div>
 </section>
 
 <section id="backtest" class="view">
   <div class="section-head"><h2>🧪 Backtest</h2><small>V2 — moteur simple de démonstration, pas encore stratégie ICT complète</small></div>
   <div class="panel">
-    <div class="controls"><select id="btSymbol"><option value="EURUSD=X">EUR/USD</option><option value="GBPUSD=X">GBP/USD</option></select><select id="btInterval"><option value="1h">1H</option><option value="1d">1D</option></select><button class="btn" onclick="runBacktest()">▶ Lancer</button></div>
+    <div class="controls"><select id="btSymbol"><option value="EURUSD=X">EUR/USD</option><option value="GBPUSD=X">GBP/USD</option></select><select id="btInterval"><option value="5m">M5</option><option value="15m">M15</option><option value="30m">M30</option><option value="1h">H1</option><option value="2h">H2</option><option value="4h">H4</option><option value="1d">D1</option><option value="1w">W1</option></select><button class="btn" onclick="runBacktest()">▶ Lancer</button></div>
     <div class="three" id="btStats"><div class="stat"><span class="muted">Trades</span><b>—</b></div><div class="stat"><span class="muted">Win rate</span><b>—</b></div><div class="stat"><span class="muted">Drawdown</span><b>—</b></div></div>
     <div id="btResult" class="section empty">Aucun backtest lancé.</div>
     <div class="note">V2 ne prétend pas reproduire ton modèle ICT/SMC complet. Le backtest servira de socle technique avant l'implémentation des règles exactes.</div>
@@ -135,8 +150,157 @@
   </div>
 </section>
 
+<section id="ressources" class="view">
+  <div class="section-head"><h2>🧭 Ressources</h2><small>Répertoire personnel de 60 sites — routine de préparation au trading</small></div>
+  <div class="panel"><div class="note">Répertoire de référence, saisi manuellement — pas une donnée live. Ce sont des liens vers des sites tiers gratuits ; Market Source ne récupère rien automatiquement depuis eux à ce stade.</div></div>
+
+  <div class="section panel">
+    <div class="section-head"><h2>⭐ Top 15 essentiels</h2><small>Le strict minimum pour analyser sérieusement</small></div>
+    <div class="tablewrap"><table class="table"><thead><tr><th>#</th><th>Site</th><th>Pourquoi</th><th>Fréquence</th><th>Catégorie</th></tr></thead><tbody id="top15Table"></tbody></table></div>
+  </div>
+
+  <div class="section panel">
+    <div class="section-head"><h2>🧭 Guide — je veux analyser quoi ?</h2><small>Question → où aller en premier / confirmer / approfondir</small></div>
+    <div class="tablewrap"><table class="table"><thead><tr><th>Question</th><th>1. Aller</th><th>2. Confirmer</th><th>3. Approfondir</th><th>Donnée clé</th><th>⚠️ Piège</th></tr></thead><tbody id="guideTable"></tbody></table></div>
+  </div>
+
+  <div class="section panel">
+    <div class="section-head"><h2>📚 Répertoire complet</h2><small id="sitesCount"></small></div>
+    <div class="controls">
+      <input id="sitesSearch" placeholder="Rechercher un site…" oninput="renderSites()">
+      <select id="sitesCat" onchange="renderSites()"><option value="ALL">Toutes catégories</option></select>
+      <select id="sitesPrio" onchange="renderSites()"><option value="ALL">Toute priorité</option><option value="🔴 ESSENTIEL">🔴 Essentiel</option><option value="🟠 IMPORTANT">🟠 Important</option><option value="🟡 UTILE">🟡 Utile</option></select>
+    </div>
+    <div class="tablewrap"><table class="table"><thead><tr><th>Site</th><th>URL</th><th>Catégorie</th><th>Quand l'utiliser</th><th>Accès</th><th>Priorité</th></tr></thead><tbody id="sitesTable"></tbody></table></div>
+  </div>
+
+  <div class="section panel">
+    <div class="section-head"><h2>⏱ Routine de préparation</h2><small>Coche au fur et à mesure — sauvegardé sur cet appareil</small></div>
+    <div id="routineBox"></div>
+    <button class="btn" onclick="resetRoutine()">↻ Réinitialiser la routine</button>
+  </div>
+
+  <div class="section panel">
+    <div class="section-head"><h2>🏆 Règles d'or</h2></div>
+    <div class="note" id="goldenRules"></div>
+  </div>
+</section>
+
+<section id="news" class="view">
+  <div class="section-head"><h2>📰 News & Calendrier</h2><small>Hub de sources externes — liens directs</small></div>
+  <div class="panel">
+    <div class="warningbox">Flux automatique GDELT + liens directs vers les sources officielles. GDELT est un agrégateur d'actualités : vérifie toujours l'information importante auprès de la source originale.</div>
+     <div class="toolbar"><button class="btn" onclick="refreshNewsFeed()">↻ Actualiser les news</button></div>
+     <div id="liveNews" class="news-grid"></div>
+    <div class="section news-filters">
+      <input id="newsSearch" placeholder="Rechercher une source…" oninput="renderNews()">
+      <select id="newsCat" onchange="renderNews()"><option value="ALL">Toutes catégories</option><option value="CALENDAR">Calendrier</option><option value="CENTRAL_BANK">Banques centrales</option><option value="NEWS">News macro</option><option value="OFFICIAL">Sources officielles</option></select>
+    </div>
+    <div id="newsGrid" class="news-grid"></div>
+  </div>
+</section>
+
+<section id="rateprob" class="view">
+  <div class="section-head"><h2>📈 Probabilités de taux d'intérêt</h2><small>Devises majeures — attentes du marché</small></div>
+  <div class="panel">
+    <div class="warningbox">⚠️ Les probabilités de marché sont récupérées depuis CME FedWatch lorsque l'API CME est configurée. Sans accès CME, Market Source affiche le lien officiel et ne fabrique aucun pourcentage.</div>
+     <div class="toolbar"><button class="btn" onclick="refreshRateProbabilities()">↻ Actualiser les probabilités</button></div>
+  </div>
+  <div class="section rate-grid" id="rateProbGrid"></div>
+  <div class="section panel">
+    <div class="section-head"><h2>Comment lire ces probabilités ?</h2><small>Décision de la banque centrale</small></div>
+    <div class="metric"><span>Probabilité de baisse</span><b>Attente de détente monétaire</b></div>
+    <div class="metric"><span>Probabilité de maintien</span><b>Attente de statu quo</b></div>
+    <div class="metric"><span>Probabilité de hausse</span><b>Attente de resserrement</b></div>
+    <div class="note">Une probabilité de marché n'est pas une décision officielle et ne constitue pas une probabilité de gain sur le Forex. Elle doit être comparée au taux actuel, aux données macro, au discours de la banque centrale et au prix déjà intégré dans le marché.</div>
+  </div>
+</section>
+
+
+<section id="positioning" class="view">
+  <div class="section-head"><h2>🧭 Positionnement & Divergences</h2><small>COT institutionnel + retail + prix</small></div>
+  <div class="panel">
+    <div class="controls">
+      <select id="positionPair" onchange="refreshPositioning()">
+        <option value="EURUSD">EUR/USD</option><option value="GBPUSD">GBP/USD</option><option value="USDJPY">USD/JPY</option>
+        <option value="USDCHF">USD/CHF</option><option value="USDCAD">USD/CAD</option><option value="AUDUSD">AUD/USD</option><option value="NZDUSD">NZD/USD</option>
+      </select>
+      <button class="btn" onclick="refreshPositioning()">↻ Actualiser les positions</button>
+      <a class="btn linkbtn" href="https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm" target="_blank" rel="noopener noreferrer">↗ CFTC officiel</a>
+    </div>
+    <div class="note">Le COT est hebdomadaire et reflète les positions du mardi. Il ne s'agit pas d'un flux temps réel. Les données retail restent un indicateur de sentiment, pas une preuve directionnelle.</div>
+  </div>
+  <div class="position-hero">
+    <div class="panel">
+      <div class="section-head"><h2 id="positionTitle">EUR/USD</h2><span id="positionDataDate" class="source-pill">—</span></div>
+      <div id="positionSummary" class="position-score"><div class="score-ring" style="--score:50%"><b>—</b></div><div><b>Confluence</b><div class="mini" id="positionSummaryText">Chargement des positions…</div></div></div>
+      <div class="section position-bars" id="positionBars"></div>
+    </div>
+    <div class="panel">
+      <div class="section-head"><h2>📈 Net positionnement</h2><small>8 derniers rapports</small></div>
+      <div id="cotChart" class="cot-chart"><div class="empty">Chargement…</div></div>
+    </div>
+  </div>
+  <div class="section position-grid">
+    <div class="panel">
+      <div class="section-head"><h2>📊 COT — positions réelles</h2><small id="cotStatus">—</small></div>
+      <div id="cotBox" class="empty">Chargement…</div>
+    </div>
+    <div class="panel">
+      <div class="section-head"><h2>👥 Sentiment retail</h2><small id="retailStatus">—</small></div>
+      <div id="retailBox" class="empty">Non configuré</div>
+    </div>
+  </div>
+  <div class="section panel">
+    <div class="section-head"><h2>⚠️ Divergences détectées</h2><small>Prix ↔ COT ↔ retail</small></div>
+    <div id="divergenceBox" class="empty">Analyse en attente…</div>
+  </div>
+  <div class="section panel">
+    <div class="section-head"><h2>🧠 Lecture Market Source</h2><small>Confluence, pas signal automatique</small></div>
+    <div id="positionInterpretation" class="note">Aucune interprétation.</div>
+  </div>
+</section>
+
+<section id="engine151" class="view">
+  <div class="section-head"><h2>🧠 Market Source V1.5.1</h2><small>Data & Signal Engine — qualité des sources + confluence conservatrice</small></div>
+  <div class="warningbox"><b>Règle V1.5.1 :</b> aucune donnée critique inventée. Source indisponible, ancienne ou non configurée = pénalité ou <b>ATTENDRE</b>. Le score est un score de confluence, pas une probabilité de gain.</div>
+  <div class="section three">
+    <div class="panel"><div class="section-head"><h3>Market Data</h3><span id="v151MarketStatus" class="badge wait">—</span></div>
+      <div class="metric"><span>FX référence</span><b id="v151Fx">—</b></div><div class="metric"><span>M5/M15</span><b id="v151Candles">—</b></div><div class="metric"><span>BTC</span><b id="v151Btc">—</b></div><div class="metric"><span>Fraîcheur</span><b id="v151Freshness">—</b></div>
+    </div>
+    <div class="panel"><div class="section-head"><h3>Macro / News</h3><span id="v151MacroStatus" class="badge wait">—</span></div>
+      <div class="metric"><span>Macro</span><b id="v151Macro">—</b></div><div class="metric"><span>News</span><b id="v151News">—</b></div><div class="metric"><span>COT</span><b id="v151Cot">—</b></div><div class="metric"><span>Taux</span><b id="v151Rates">—</b></div>
+    </div>
+    <div class="panel"><div class="section-head"><h3>Décision</h3><span id="v151Decision" class="badge wait">ATTENDRE</span></div>
+      <div class="position-score"><div id="v151Ring" class="score-ring" style="--score:0%"><b id="v151Score">0</b></div><div><b id="v151Bias">NEUTRE</b><div class="mini" id="v151Reason">Calcul en attente…</div></div></div>
+    </div>
+  </div>
+  <div class="section two">
+    <div class="panel"><div class="section-head"><h3>Confluence V1.5.1</h3><small>Analyse active</small></div>
+      <div class="controls"><select id="v151Pair" onchange="runV151()"><option value="EURUSD">EUR/USD</option><option value="GBPUSD">GBP/USD</option><option value="USDJPY">USD/JPY</option></select>
+      <select id="v151Tf" onchange="runV151()"><option value="5m">M5</option><option value="15m">M15</option></select><button class="btn" onclick="runV151()">⚡ Actualiser</button></div>
+      <div id="v151Factors"></div>
+    </div>
+    <div class="panel"><div class="section-head"><h3>Garde-fous</h3><small>Blocages avant décision</small></div><div id="v151Guards"><div class="divergence neutral">En attente…</div></div></div>
+  </div>
+  <div class="section panel"><div class="section-head"><h3>📌 État V1.5.1</h3><small id="v151Updated">—</small></div>
+    <div class="mini">Les sources non configurées restent explicitement indisponibles. V1.5.1 ne fabrique aucune donnée pour obtenir un signal.</div>
+  </div>
+</section>
+
 <section id="sources" class="view">
-  <div class="section-head"><h2>🔌 Source Manager</h2><small>V1.2 — fondation technique des sources</small></div>
+  <div class="section-head"><h2>🔌 Source Manager</h2><small>V1.5.1 — Data & Signal Engine</small></div>
+  <div class="panel">
+    <div class="section-head"><h2>🔐 API Gateway sécurisée</h2><small>GitHub Pages public → Cloudflare Worker → APIs privées</small></div>
+    <div class="warningbox">Ne mets <b>jamais</b> une clé Twelve Data ou FRED dans GitHub. Le frontend appelle ton Worker, et les clés restent dans les <b>Secrets Cloudflare</b>.</div>
+    <div class="controls">
+      <input id="apiProxyUrl" placeholder="https://market-source-api.ton-compte.workers.dev" style="min-width:320px;flex:1">
+      <button class="btn" onclick="saveApiConfig()">💾 Enregistrer</button>
+      <button class="btn" onclick="testApiGateway()">🧪 Tester API</button>
+    </div>
+    <div class="metric"><span>Gateway</span><b id="apiGatewayStatus">NON CONFIGURÉ</b></div>
+    <div class="metric"><span>Fonction</span><b>OHLC multi-timeframe + FRED via proxy</b></div>
+  </div>
   <div class="panel">
     <div class="note">Aucune clé API n'est stockée dans le frontend. Les endpoints publics existants sont utilisés uniquement lorsqu'ils sont réellement disponibles. Une source non configurée reste NOT CONFIGURED.</div>
     <div id="sourceRegistryUi" class="section"></div>
@@ -159,10 +323,46 @@
 <script>
 'use strict';
 const $=id=>document.getElementById(id);
-const CATEGORY={MARKET_DATA:'MARKET_DATA',NEWS_DATA:'NEWS_DATA',ECONOMIC_DATA:'ECONOMIC_DATA',CENTRAL_BANK_DATA:'CENTRAL_BANK_DATA',MARKET_EXPECTATIONS:'MARKET_EXPECTATIONS'};
+const CATEGORY={MARKET_DATA:'MARKET_DATA',NEWS_DATA:'NEWS_DATA',ECONOMIC_DATA:'ECONOMIC_DATA',CENTRAL_BANK_DATA:'CENTRAL_BANK_DATA',MARKET_EXPECTATIONS:'MARKET_EXPECTATIONS',POSITIONING_DATA:'POSITIONING_DATA'};
 const STATUS={CONNECTED:'CONNECTED',DISCONNECTED:'DISCONNECTED',ERROR:'ERROR',DELAYED:'DELAYED',NOT_CONFIGURED:'NOT_CONFIGURED',CURATED:'CURATED'};
 const DATA_STATUS={LIVE:'LIVE',RECENT:'RECENT',DELAYED:'DELAYED',STALE:'STALE',UNAVAILABLE:'UNAVAILABLE'};
-const state={quotes:{},candles:[],tf:'5m',macro:false,sourceEvents:[],lastAnalysis:null};
+const state={quotes:{},candles:[],tf:'5m',macro:false,sourceEvents:[],lastAnalysis:null,liveNews:[],rateProbabilities:null};
+
+function getApiConfig(){
+  try{return JSON.parse(localStorage.getItem('marketSourceApiConfig')||'{}')}catch{return{}}
+}
+function saveApiConfig(){
+  const cfg=getApiConfig();
+  const proxy=$('apiProxyUrl')?.value.trim();
+  if(proxy)cfg.apiProxyUrl=proxy.replace(/\/$/,'');
+  const fred=$('fredApiKey')?.value.trim(), cme=$('cmeApiKey')?.value.trim(), td=$('twelveDataApiKey')?.value.trim(), mf=$('myfxbookSession')?.value.trim();
+  if(fred)cfg.fredApiKey=fred;
+  if(cme)cfg.cmeApiKey=cme;
+  if(td)cfg.twelveDataApiKey=td;
+  if(mf)cfg.myfxbookSession=mf;
+  localStorage.setItem('marketSourceApiConfig',JSON.stringify(cfg));
+  updateApiStatus(); toast('Configuration API enregistrée');
+}
+function clearApiConfig(){
+  localStorage.removeItem('marketSourceApiConfig');
+  if($('fredApiKey'))$('fredApiKey').value='';
+  if($('cmeApiKey'))$('cmeApiKey').value='';
+  if($('twelveDataApiKey'))$('twelveDataApiKey').value='';
+  if($('myfxbookSession'))$('myfxbookSession').value='';
+  updateApiStatus(); toast('Clés API effacées');
+}
+function updateApiStatus(){
+  const c=getApiConfig(), el=$('apiStatus'); if($('apiProxyUrl'))$('apiProxyUrl').value=c.apiProxyUrl||''; if($('apiGatewayStatus'))$('apiGatewayStatus').textContent=c.apiProxyUrl?'CONFIGURÉ':'NON CONFIGURÉ'; if(!el)return;
+  el.innerHTML=`Frankfurter v2: <b class="good">PUBLIC</b> · Binance: <b class="good">PUBLIC</b> · CFTC COT: <b class="good">PUBLIC</b> · GDELT: <b class="good">PUBLIC</b> · Twelve Data: <b>${c.twelveDataApiKey?'CONFIGURÉ':'OPTIONNEL'}</b> · FRED: <b>${c.fredApiKey?'CONFIGURÉ':'OPTIONNEL'}</b> · CME FedWatch: <b>${c.cmeApiKey?'CONFIGURÉ':'OPTIONNEL'}</b> · Myfxbook: <b>${c.myfxbookSession?'CONFIGURÉ':'OPTIONNEL'}</b>`;
+}
+function loadApiConfigUi(){
+  const c=getApiConfig();
+  if($('fredApiKey'))$('fredApiKey').value=c.fredApiKey||'';
+  if($('cmeApiKey'))$('cmeApiKey').value=c.cmeApiKey||'';
+  if($('twelveDataApiKey'))$('twelveDataApiKey').value=c.twelveDataApiKey||'';
+  if($('myfxbookSession'))$('myfxbookSession').value=c.myfxbookSession||'';
+  updateApiStatus();
+}
 
 function log(level,message){
   const safe=String(message).replace(/(api[_-]?key|token|secret|authorization)\\s*[:=]\\s*[^\\s,;]+/ig,'$1=[REDACTED]');
@@ -184,7 +384,11 @@ function showView(id){
   if(id==='scanner')runScanner();
   if(id==='journal')renderJournal();
   if(id==='fondamental'){renderCentralBanks();renderMatrix();}
+  if(id==='ressources')renderResources();
+  if(id==='news')renderNews();
+  if(id==='rateprob')renderRateProbabilities();
   if(id==='sources')renderSourceManager();
+  if(id==='engine151')runV151();
 }
 function clock(){$('clock').textContent=new Date().toLocaleTimeString('fr-FR');}
 setInterval(clock,1000);clock();
@@ -215,8 +419,8 @@ class MarketDataProvider extends BaseProvider{
   async unsubscribeFromPrice(){return true;}
 }
 class NewsProvider extends BaseProvider{
-  async getNews(){throw new Error('News feed not implemented in V1.2 Step 1');}
-  async getBreakingNews(){throw new Error('Breaking news not implemented in V1.2 Step 1');}
+  async getNews(){throw new Error('getNews not implemented');}
+  async getBreakingNews(){return this.getNews();}
 }
 class EconomicDataProvider extends BaseProvider{
   async getCalendar(){throw new Error('Economic calendar not implemented in V1.2 Step 1');}
@@ -228,6 +432,21 @@ class CentralBankProvider extends BaseProvider{
 }
 class MarketExpectationProvider extends BaseProvider{
   async getRateProbabilities(){throw new Error('Market expectations not implemented in V1.2 Step 1');}
+}
+
+async function apiGateway(path, params={}){
+  const base=(getApiConfig().apiProxyUrl||'').replace(/\/$/,'');
+  if(!base) throw new Error('API Gateway non configurée');
+  const qs=new URLSearchParams(params);
+  const r=await fetch(base+path+'?'+qs.toString(),{cache:'no-store'});
+  if(!r.ok) throw new Error('Gateway HTTP '+r.status);
+  const j=await r.json();
+  if(j.error) throw new Error(j.error);
+  return j;
+}
+async function testApiGateway(){
+  try{const j=await apiGateway('/api/health'); if(j.ok){$('apiGatewayStatus').textContent='🟢 CONNECTÉ'; toast('API Gateway OK')} else throw new Error('Gateway invalide')}
+  catch(e){$('apiGatewayStatus').textContent='🔴 ERREUR'; toast('API Gateway: '+e.message); log('ERROR','API Gateway: '+e.message)}
 }
 
 function normalizeQuote({symbol,price,change=0,changePercent=0,timestamp,source,dataStatus,dataQuality,isDelayed=false}){
@@ -244,14 +463,42 @@ function normalizeCandleSeries({symbol,timeframe,bars,source,lastUpdated,dataSta
   return {symbol,timeframe,bars:bars.map(normalizeCandleBar),source,lastUpdated,dataStatus:dataStatus||DATA_STATUS.UNAVAILABLE,dataQuality:dataQuality||'UNKNOWN',isDelayed:Boolean(isDelayed)};
 }
 
+
+class GdeltNewsProvider extends NewsProvider{
+  constructor(){super({id:'gdelt-doc-public',name:'GDELT DOC 2.1',category:CATEGORY.NEWS_DATA,status:STATUS.DISCONNECTED,isPrimary:true,isFallback:false,dataQuality:'MEDIUM',latency:'LOW',enabled:true});}
+  async getNews(query='forex OR central bank OR inflation OR interest rates',timespan='24h'){
+    const url='https://api.gdeltproject.org/api/v2/doc/doc?query='+encodeURIComponent(query)+'&mode=artlist&format=json&maxrecords=20&sort=datedesc&timespan='+encodeURIComponent(timespan);
+    try{
+      const r=await fetch(url,{cache:'no-store'}); if(!r.ok)throw new Error('HTTP '+r.status);
+      const j=await r.json(); const arts=Array.isArray(j?.articles)?j.articles:[];
+      this.lastUpdate=new Date().toISOString(); this.meta.status=STATUS.CONNECTED;
+      return arts.map(a=>({title:a.title||'Sans titre',url:a.url||'#',domain:a.domain||'',seendate:a.seendate||'',sourcecountry:a.sourcecountry||''}));
+    }catch(e){this.meta.status=STATUS.ERROR;this.lastError=e.message;throw e;}
+  }
+}
+
+class FredProvider extends EconomicDataProvider{
+  constructor(){super({id:'fred-api',name:'FRED API',category:CATEGORY.ECONOMIC_DATA,status:STATUS.NOT_CONFIGURED,isPrimary:true,isFallback:false,dataQuality:'HIGH',latency:'VARIABLE',enabled:true});}
+  async getSeries(seriesId){
+    const key=getApiConfig().fredApiKey;
+    if(!key)throw new Error('Clé FRED absente');
+    const url='https://api.stlouisfed.org/fred/series/observations?series_id='+encodeURIComponent(seriesId)+'&api_key='+encodeURIComponent(key)+'&file_type=json&sort_order=desc&limit=20';
+    const r=await fetch(url,{cache:'no-store'}); if(!r.ok)throw new Error('HTTP '+r.status);
+    const j=await r.json(); this.lastUpdate=new Date().toISOString();this.meta.status=STATUS.CONNECTED;
+    return j.observations||[];
+  }
+}
+
 class FrankfurterProvider extends MarketDataProvider{
-  constructor(){super({id:'frankfurter-fx-reference',name:'Frankfurter',category:CATEGORY.MARKET_DATA,status:STATUS.DISCONNECTED,isPrimary:true,isFallback:false,dataQuality:'MEDIUM',latency:'DAILY_REFERENCE',enabled:true});}
+  constructor(){super({id:'frankfurter-fx-reference',name:'Frankfurter v2',category:CATEGORY.MARKET_DATA,status:STATUS.DISCONNECTED,isPrimary:true,isFallback:false,dataQuality:'MEDIUM',latency:'DAILY_REFERENCE',enabled:true});}
   async getQuote(){
     try{
-      const r=await fetch('https://api.frankfurter.app/latest?from=USD&to=EUR,GBP,JPY',{cache:'no-store'});
+      const r=await fetch('https://api.frankfurter.dev/v2/rates?base=USD&quotes=EUR,GBP,JPY',{cache:'no-store'});
       if(!r.ok)throw new Error('HTTP '+r.status);
-      const j=await r.json(); const d=j?.rates; if(!d?.EUR||!d?.GBP||!d?.JPY)throw new Error('Rates absents');
-      const updated=new Date((j.date||'')+'T23:59:59Z'); const ts=Math.floor(updated.getTime()/1000);
+      const j=await r.json(); const rows=Array.isArray(j)?j:[];
+      const d=Object.fromEntries(rows.map(x=>[x.quote,Number(x.rate)]));
+      if(!Number.isFinite(d.EUR)||!Number.isFinite(d.GBP)||!Number.isFinite(d.JPY))throw new Error('Rates v2 absents');
+      const date=rows[0]?.date||new Date().toISOString().slice(0,10),ts=Math.floor(new Date(date+'T23:59:59Z').getTime()/1000);
       this.lastUpdate=new Date().toISOString();this.meta.status=STATUS.DELAYED;
       return [
         normalizeQuote({symbol:'EUR/USD',price:1/d.EUR,timestamp:ts,source:this.meta.id,dataStatus:DATA_STATUS.DELAYED,dataQuality:'MEDIUM',isDelayed:true}),
@@ -272,24 +519,89 @@ class BinanceProvider extends MarketDataProvider{
     }catch(e){this.meta.status=STATUS.ERROR;this.lastError=e.message;throw e;}
   }
 }
+class TwelveDataProvider extends MarketDataProvider{
+  constructor(){super({id:'twelvedata-fx',name:'Twelve Data FX via Secure Gateway',category:CATEGORY.MARKET_DATA,status:STATUS.NOT_CONFIGURED,isPrimary:true,isFallback:false,dataQuality:'HIGH',latency:'LOW',enabled:true});}
+  async getHistoricalData(symbol,timeframe,range='1d'){
+    const pair=({'EURUSD=X':'EUR/USD','GBPUSD=X':'GBP/USD','JPY=X':'USD/JPY','BTC-USD=X':'BTC/USD'})[symbol]||symbol.replace('=X','').replace('-','/');
+    const interval=({'1m':'1min','5m':'5min','15m':'15min','30m':'30min','1h':'1h','2h':'2h','4h':'4h','8h':'8h','1d':'1day','1w':'1week'})[timeframe]||timeframe;
+    let j;
+    try{
+      j=await apiGateway('/api/market',{symbol:pair,interval,outputsize:'5000'});
+    }catch(gatewayError){
+      const key=getApiConfig().twelveDataApiKey;
+      if(!key)throw gatewayError;
+      // Local-development fallback only. Do not put this key in the public repository.
+      const url='https://api.twelvedata.com/time_series?symbol='+encodeURIComponent(pair)+'&interval='+encodeURIComponent(interval)+'&outputsize=5000&apikey='+encodeURIComponent(key);
+      const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);j=await r.json();
+    }
+    if(j.status==='error'||!Array.isArray(j.values))throw new Error(j.message||'Twelve Data: aucune bougie');
+    const bars=j.values.map(x=>({time:Math.floor(new Date(x.datetime).getTime()/1000),open:Number(x.open),high:Number(x.high),low:Number(x.low),close:Number(x.close),volume:x.volume==null?null:Number(x.volume)})).reverse();
+    if(!bars.length)throw new Error('Twelve Data: aucune bougie');
+    this.lastUpdate=new Date().toISOString();this.meta.status=STATUS.CONNECTED;
+    return normalizeCandleSeries({symbol,timeframe,bars,source:this.meta.id,lastUpdated:new Date(bars.at(-1).time*1000).toISOString(),dataStatus:freshness(new Date(bars.at(-1).time*1000).toISOString()),dataQuality:'HIGH',isDelayed:false});
+  }
+}
 class YahooChartProvider extends MarketDataProvider{
-  constructor(){super({id:'yahoo-chart-unofficial',name:'Yahoo Finance Chart endpoint',category:CATEGORY.MARKET_DATA,status:STATUS.DISCONNECTED,isPrimary:true,isFallback:false,dataQuality:'MEDIUM',latency:'VARIABLE',enabled:true});}
+  constructor(){super({id:'yahoo-chart-unofficial',name:'Yahoo Finance Chart (fallback)',category:CATEGORY.MARKET_DATA,status:STATUS.DISCONNECTED,isPrimary:false,isFallback:true,dataQuality:'MEDIUM',latency:'VARIABLE',enabled:true});}
   async getHistoricalData(symbol,timeframe,range='1d'){
     try{
-      const url=`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=${range}&interval=${timeframe}&includePrePost=false`;
-      const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);const j=await r.json(),q=j?.chart?.result?.[0];
+      const safeRange=(timeframe==='5m'||timeframe==='15m')?'5d':range;
+      const url=`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=${safeRange}&interval=${timeframe}&includePrePost=false&events=history`;
+      const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);
+      const j=await r.json(),q=j?.chart?.result?.[0],err=j?.chart?.error;
+      if(err)throw new Error(err.description||err.code||'Yahoo error');
       if(!q?.timestamp?.length)throw new Error('Aucune bougie');
       const o=q.indicators?.quote?.[0]||{},bars=[];
       q.timestamp.forEach((t,i)=>bars.push({time:t,open:o.open?.[i],high:o.high?.[i],low:o.low?.[i],close:o.close?.[i],volume:o.volume?.[i]}));
-      const valid=bars.filter(x=>[x.open,x.high,x.low,x.close].every(Number.isFinite));if(!valid.length)throw new Error('OHLC invalide');
+      const valid=bars.filter(x=>[x.open,x.high,x.low,x.close].every(Number.isFinite));
+      if(!valid.length)throw new Error('OHLC invalide');
       this.lastUpdate=new Date().toISOString();this.meta.status=STATUS.CONNECTED;
-      const lastTime=valid[valid.length-1].time*1000;const ds=freshness(new Date(lastTime).toISOString());
-      return normalizeCandleSeries({symbol,timeframe,bars:valid,source:this.meta.id,lastUpdated:new Date(lastTime).toISOString(),dataStatus:ds,dataQuality:'MEDIUM',isDelayed:ds!==DATA_STATUS.LIVE});
+      const lastTime=valid.at(-1).time*1000,ds=freshness(new Date(lastTime).toISOString());
+      return normalizeCandleSeries({symbol,timeframe,bars:valid,source:this.meta.id,lastUpdated:new Date(lastTime).toISOString(),dataStatus:ds,dataQuality:'MEDIUM',isDelayed:true});
     }catch(e){this.meta.status=STATUS.ERROR;this.lastError=e.message;throw e;}
   }
 }
 class NotConfiguredProvider extends BaseProvider{
   constructor(meta){super({...meta,status:STATUS.NOT_CONFIGURED,enabled:false,isPrimary:false,isFallback:false,dataQuality:'UNKNOWN',latency:'UNKNOWN'});}
+}
+const COT_CONTRACTS={
+  EURUSD:'EURO FX - CHICAGO MERCANTILE EXCHANGE',
+  GBPUSD:'BRITISH POUND - CHICAGO MERCANTILE EXCHANGE',
+  USDJPY:'JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE',
+  USDCHF:'SWISS FRANC - CHICAGO MERCANTILE EXCHANGE',
+  USDCAD:'CANADIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE',
+  AUDUSD:'AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE',
+  NZDUSD:'NEW ZEALAND DOLLAR - CHICAGO MERCANTILE EXCHANGE'
+};
+class CftcCotProvider extends BaseProvider{
+  constructor(){super({id:'cftc-cot-public',name:'CFTC COT Public API',category:'POSITIONING_DATA',status:STATUS.DISCONNECTED,isPrimary:true,isFallback:false,dataQuality:'HIGH',latency:'WEEKLY',enabled:true});}
+  async getPositions(pair){
+    const contract=COT_CONTRACTS[pair];if(!contract)throw new Error('Contrat COT non mappé');
+    const where=encodeURIComponent(`contract_market_name='${contract}'`);
+    const select=encodeURIComponent('report_date_as_yyyy_mm_dd,contract_market_name,open_interest_all,asset_mgr_positions_long,asset_mgr_positions_short,lev_money_positions_long,lev_money_positions_short,nonrept_positions_long_all,nonrept_positions_short_all');
+    const url=`https://publicreporting.cftc.gov/resource/gpe5-46if.json?$select=${select}&$where=${where}&$order=report_date_as_yyyy_mm_dd%20DESC&$limit=8`;
+    const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);
+    const rows=await r.json();if(!Array.isArray(rows)||!rows.length)throw new Error('Aucune donnée COT pour '+pair);
+    const norm=rows.map(x=>({
+      date:x.report_date_as_yyyy_mm_dd,
+      assetLong:Number(x.asset_mgr_positions_long||0),assetShort:Number(x.asset_mgr_positions_short||0),
+      levLong:Number(x.lev_money_positions_long||0),levShort:Number(x.lev_money_positions_short||0),
+      nonRepLong:Number(x.nonrept_positions_long_all||0),nonRepShort:Number(x.nonrept_positions_short_all||0),
+      openInterest:Number(x.open_interest_all||0)
+    }));
+    norm.forEach(x=>{x.assetNet=x.assetLong-x.assetShort;x.levNet=x.levLong-x.levShort;x.nonRepNet=x.nonRepLong-x.nonRepShort;x.specNet=x.levNet;});
+    this.lastUpdate=new Date().toISOString();this.meta.status=STATUS.CONNECTED;return norm;
+  }
+}
+class MyfxbookSentimentProvider extends BaseProvider{
+  constructor(){super({id:'myfxbook-community-outlook',name:'Myfxbook Community Outlook',category:'POSITIONING_DATA',status:STATUS.NOT_CONFIGURED,isPrimary:true,isFallback:false,dataQuality:'MEDIUM',latency:'LIVE-ish',enabled:true});}
+  async getSentiment(){
+    const session=getApiConfig().myfxbookSession;if(!session)throw new Error('Session Myfxbook absente');
+    const url='https://www.myfxbook.com/api/get-community-outlook.json?session='+encodeURIComponent(session);
+    const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);
+    const j=await r.json();if(j.error)throw new Error(j.message||'Myfxbook error');
+    this.lastUpdate=new Date().toISOString();this.meta.status=STATUS.CONNECTED;return j.symbols||[];
+  }
 }
 class CuratedManualProvider extends BaseProvider{
   constructor(meta){super({...meta,status:STATUS.CURATED,isPrimary:true,isFallback:false,dataQuality:'CURATED_MANUAL',latency:'STATIC_SNAPSHOT',enabled:true});this.lastUpdate='2026-07-01T00:00:00Z';}
@@ -332,14 +644,288 @@ function renderMatrix(){
   $('matrixTable').innerHTML=rows.map(([pair,spot,bias,proba,conv])=>`<tr><td><b>${pair}</b></td><td>${spot}</td><td class="${bias==='HAUSSIER'?'good':'bad'}">${bias}</td><td>${proba}%</td><td>${conv}</td></tr>`).join('');
 }
 
+
+// Répertoire de ressources — curé manuellement, pas une donnée live (voir onglet Ressources).
+const RES_SITES=[["TradingEconomics","tradingeconomics.com","Macro & Données Éco","Analyser les fondamentaux d'un pays (PIB, inflation, emploi, taux)","✅ Gratuit","🔴 ESSENTIEL"],["FRED (Federal Reserve)","fred.stlouisfed.org","Macro & Données Éco","Données historiques longues (taux, inflation, M2, yield curve, spreads crédit)","✅ Gratuit","🔴 ESSENTIEL"],["World Bank Data","data.worldbank.org","Macro & Données Éco","Comparer des indicateurs entre pays, analyse long terme sur marchés émergents","✅ Gratuit","🟠 IMPORTANT"],["IMF Data","imf.org/en/Data","Macro & Données Éco","Analyser la stabilité financière mondiale, dettes souveraines, BOP","✅ Gratuit","🟠 IMPORTANT"],["BIS Statistics","stats.bis.org","Macro & Données Éco","Flux bancaires internationaux, positions sur dérivés, activité Forex institutionnel","✅ Gratuit","🟡 UTILE"],["FED (Réserve Fédérale)","federalreserve.gov","Banques Centrales","Lire les minutes FOMC, communiqués, projections SEP (dot plot), discours Powell","✅ Gratuit","🔴 ESSENTIEL"],["BCE","ecb.europa.eu","Banques Centrales","Suivre la politique monétaire zone euro, CPI target, forward guidance BCE","✅ Gratuit","🔴 ESSENTIEL"],["Bank of England","bankofengland.co.uk","Banques Centrales","Analyser le GBP : MPC votes, rapports inflation, forward guidance Bailey","✅ Gratuit","🔴 ESSENTIEL"],["Bank of Japan","boj.or.jp/en","Banques Centrales","Suivre YCC, pivot hawkish BOJ, risque intervention yen, Tankan Survey","✅ Gratuit","🔴 ESSENTIEL"],["CME FedWatch Tool","cmegroup.com/markets/interest-rates/cme-fedwatch-tool","Banques Centrales","Voir ce que le marché price pour les prochaines décisions FED (en temps réel)","✅ Gratuit","🔴 ESSENTIEL"],["BNS (Suisse)","snb.ch","Banques Centrales","Suivre le CHF : politique cambiale, interventions BNS, taux négatifs","✅ Gratuit","🟡 UTILE"],["Bank of Canada","bankofcanada.ca","Banques Centrales","Suivre politique BOC, Monetary Policy Reports, forward guidance","✅ Gratuit","🟡 UTILE"],["Forex Factory","forexfactory.com","Calendrier & News","Préparer la semaine : identifier les news à fort impact sur les paires tradées","✅ Gratuit","🔴 ESSENTIEL"],["FXStreet Calendar","fxstreet.com/economic-calendar","Calendrier & News","Calendrier détaillé + analyses fondamentales + COT Report expliqué","✅ Gratuit","🔴 ESSENTIEL"],["Investing.com Calendar","investing.com/economic-calendar","Calendrier & News","Filtrer par devise/impact/pays pour préparer sessions de trading","✅ Gratuit","🟠 IMPORTANT"],["DailyFX","dailyfx.com","Calendrier & News","Lire les analyses fondamentales quotidiennes et hebdomadaires par devise","✅ Gratuit","🟠 IMPORTANT"],["Reuters Finance","reuters.com/business/finance","Calendrier & News","Actualités économiques en temps réel — sources primaires avant les analyses","✅ Gratuit","🟠 IMPORTANT"],["Bloomberg Markets","bloomberg.com/markets","Calendrier & News","News macro globale, données terminales partielles, analyses institutionnelles","Freemium","🟠 IMPORTANT"],["TradingView","tradingview.com","Analyse Technique","Analyser tout actif : actions, Forex, crypto, indices, matières premières","✅ Gratuit (version de base)","🔴 ESSENTIEL"],["ThinkorSwim (TD)","thinkorswim.com","Analyse Technique","Backtesting de stratégies, options chains avancées, scanning","✅ Gratuit","🟠 IMPORTANT"],["StockCharts","stockcharts.com","Analyse Technique","Analyse technique approfondie des actions US, breadth market, comparaisons","Freemium","🟡 UTILE"],["CFTC — COT Report","cftc.gov/dea/futures/deafut_comb","Forex & Positionnement","Voir le positionnement des institutionnels (large speculators) sur les devises","✅ Gratuit","🔴 ESSENTIEL"],["Barchart COT Charts","barchart.com/forex/commitments-of-traders","Forex & Positionnement","Visualiser le COT en graphique pour repérer les extremes de positionnement","✅ Gratuit","🔴 ESSENTIEL"],["BIS Triennial Survey","bis.org/statistics/rpfx22.htm","Forex & Positionnement","Comprendre les volumes réels par paire et par type d'acteur (triennal)","✅ Gratuit","🟡 UTILE"],["Oanda Sentiment","oanda.com/forex-trading/analysis/open-positions","Forex & Positionnement","Voir le positionnement net des traders retail OANDA sur les paires principales","✅ Gratuit","🟡 UTILE"],["US Treasury Yields","home.treasury.gov/resource-center/data-chart-center/interest-rates","Obligations & Taux","Suivre la yield curve US : 2Y, 10Y, 30Y — signal de récession (inversion)","✅ Gratuit","🔴 ESSENTIEL"],["Multpl — Shiller PE","multpl.com","Obligations & Taux","Évaluer si le marché actions est cher vs historique (CAPE Shiller, dividend yield SP500)","✅ Gratuit","🟠 IMPORTANT"],["FINRA Bond Center","finra.org/investors/learn-to-invest/types-investments/bonds","Obligations & Taux","Rechercher des obligations individuelles, voir les rendements par rating","✅ Gratuit","🟡 UTILE"],["Macrotrends","macrotrends.net","Fondamental Actions","Voir les données financières historiques d'une entreprise sur 20-30 ans","✅ Gratuit","🔴 ESSENTIEL"],["Simply Wall St","simplywall.st","Fondamental Actions","Obtenir rapidement un résumé fondamental visuel d'une action (snowflake diagram)","Freemium (limité gratuit)","🟠 IMPORTANT"],["Wisesheets / Finviz","finviz.com","Fondamental Actions","Screener d'actions multi-critères : trouver des opportunités value/growth","✅ Gratuit","🟠 IMPORTANT"],["SEC EDGAR","sec.gov/cgi-bin/browse-edgar","Fondamental Actions","Lire les 10-K, 10-Q, 8-K d'entreprises US — source primaire absolue","✅ Gratuit","🟠 IMPORTANT"],["Wisesheets Ratios","wisesheets.io","Fondamental Actions","Importer données fondamentales automatiquement dans Excel via formules","Freemium","🟡 UTILE"],["Stockanalysis.com","stockanalysis.com","Fondamental Actions","Consulter rapidement états financiers, ratios, transcripts d'earnings call","✅ Gratuit","🟠 IMPORTANT"],["CBOE VIX","cboe.com/tradable_products/vix","Risque & Sentiment","Mesurer la peur du marché : VIX élevé = risk-off, VIX bas = complaisance","✅ Gratuit","🔴 ESSENTIEL"],["CNN Fear & Greed","money.cnn.com/data/fear-and-greed","Risque & Sentiment","Évaluer le sentiment global en 7 indicateurs combinés (put/call, VIX, momentum...)","✅ Gratuit","🔴 ESSENTIEL"],["AAII Sentiment Survey","aaii.com/sentimentsurvey","Risque & Sentiment","Voir le positionnement des investisseurs particuliers US chaque semaine","✅ Gratuit","🟠 IMPORTANT"],["Crypto Fear & Greed","alternative.me/crypto/fear-and-greed-index","Risque & Sentiment","Mesurer le sentiment du marché crypto — utile comme proxy risk appetite global","✅ Gratuit","🟡 UTILE"],["Deutsche Bank Survey","dbresearch.com","Risque & Sentiment","Lire les perspectives macro institutionnelles de Deutsche Bank Research","✅ Gratuit (certains rapports)","🟡 UTILE"],["EIA (Energy Info Admin)","eia.gov","Matières Premières","Analyser l'offre/demande pétrole et gaz US — impact sur CAD, NOK, MXN","✅ Gratuit","🔴 ESSENTIEL"],["Kitco","kitco.com","Matières Premières","Suivre l'or, argent, platine en temps réel + analyses spécialisées","✅ Gratuit","🟠 IMPORTANT"],["Barchart Futures","barchart.com/futures","Matières Premières","Voir les prix et données de tous les contrats futures (pétrole, or, maïs, café...)","✅ Gratuit","🟠 IMPORTANT"],["Index Mundi","indexmundi.com","Matières Premières","Comparer l'évolution historique des matières premières par rapport aux devises","✅ Gratuit","🟡 UTILE"],["BLS (Bureau of Labor Stat.)","bls.gov","Données Officielles","Source primaire pour NFP, CPI, PCE, PPI, salaires US — aller ici avant tout site","✅ Gratuit","🔴 ESSENTIEL"],["BEA (Bureau of Economic An.)","bea.gov","Données Officielles","Source primaire GDP, PCE, revenus personnels US — toujours croiser avec BLS","✅ Gratuit","🔴 ESSENTIEL"],["Eurostat","ec.europa.eu/eurostat","Données Officielles","Données officielles zone euro : CPI, GDP, emploi, balance commerciale EU","✅ Gratuit","🔴 ESSENTIEL"],["Statistics Japan","stat.go.jp/english","Données Officielles","Données officielles japonaises : CPI, emploi, production industrielle","✅ Gratuit","🟠 IMPORTANT"],["Statistics Canada","statcan.gc.ca/en/start","Données Officielles","Emploi canadien, CPI, PIB — données pour trader CAD","✅ Gratuit","🟠 IMPORTANT"],["ONS (UK Statistics)","ons.gov.uk","Données Officielles","CPI UK, GDP, emploi, retail sales — données officielles pour trader GBP","✅ Gratuit","🟠 IMPORTANT"],["RBA Australia","rba.gov.au/statistics","Données Officielles","Données macro Australie pour trader AUD — corrélation Chine/or importante","✅ Gratuit","🟡 UTILE"],["Investopedia","investopedia.com","Formation & Éducation","Comprendre un concept financier inconnu — définitions, tutoriels, exemples","✅ Gratuit","🔴 ESSENTIEL"],["Khan Academy Finance","khanacademy.org/economics-finance-domain","Formation & Éducation","Apprendre les bases de la finance, macro, micro depuis zéro","✅ Gratuit","🟠 IMPORTANT"],["Corporate Finance Inst.","corporatefinanceinstitute.com","Formation & Éducation","Apprendre modélisation financière, DCF, LBO, comptabilité avancée","Freemium","🟡 UTILE"],["BabyPips","babypips.com","Formation & Éducation","Apprendre le trading Forex de zéro avec une pédagogie progressive","✅ Gratuit","🟠 IMPORTANT"],["Koyfin","koyfin.com","Outils Spéciaux","Analyser données macro + actions + ETF dans une interface Bloomberg-like gratuite","Freemium","🔴 ESSENTIEL"],["Quandl / NASDAQ Data","data.nasdaq.com","Outils Spéciaux","Accéder à des séries de données financières pour modèles quantitatifs","Freemium","🟡 UTILE"],["Equity Clock","equityclock.com","Outils Spéciaux","Identifier les patterns saisonniers sur actions, devises, matières premières","✅ Gratuit","🟠 IMPORTANT"],["MUFG Research","research.mufgamericas.com","Outils Spéciaux","Lire la vision macro globale d'une banque d'investissement majeure","✅ Gratuit","🟠 IMPORTANT"],["Dollar Trend Index","dollartrendindex.com","Outils Spéciaux","Voir la force/faiblesse du dollar vs les autres devises en un coup d'œil","✅ Gratuit","🟡 UTILE"],["MyFxBook","myfxbook.com","Outils Spéciaux","Analyser sentiments retail Forex, calendrier, calculateurs de trading","✅ Gratuit","🟡 UTILE"]]; // [name,url,cat,when,access,prio]
+const RES_GUIDE=[["🔴 DÉCISIONS BANQUE CENTRALE","Quelle est la prochaine décision FED ?","CME FedWatch (cmegroup.com)","FRED.stlouisfed.org","Bloomberg.com","Probabilité implicite % hausse/baisse","Ne pas confondre probabilité marché et décision réelle"],["🔴 DÉCISIONS BANQUE CENTRALE","La BCE va-t-elle couper les taux ?","ECB.europa.eu (conférence)","TradingEconomics.com","DailyFX.com","Déclarations Lagarde + projections inflation CPI EU","Attendre le communiqué officiel, pas les rumeurs médias"],["🔴 DÉCISIONS BANQUE CENTRALE","Le BOJ va-t-il intervenir sur le JPY ?","BOJ.or.jp/en","Reuters.com (breaking)","BIS.org","Déclarations MoF + niveaux historiques d'intervention","Le MoF (Ministère des Finances) décide, pas la BOJ"],["📊 ANALYSE FONDAMENTALE","Quelles sont les données macro USA cette semaine ?","Forex Factory (forexfactory.com)","BLS.gov","BEA.gov","NFP, CPI, PCE — impact sur USD","Regarder d'abord le CONSENSUS avant la sortie, pas après"],["📊 ANALYSE FONDAMENTALE","L'inflation est-elle en hausse ou baisse dans la zone euro ?","Eurostat (ec.europa.eu/eurostat)","ECB.europa.eu","TradingEconomics.com","CPI headline + Core CPI — vs target 2% BCE","Distinguer CPI flash (estimation) vs final (officiel)"],["📊 ANALYSE FONDAMENTALE","La croissance mondiale ralentit-elle ?","IMF.org/en/Data (WEO)","WorldBank.org/data","FRED.stlouisfed.org","PIB mondial, Leading Indicators OCDE, PMI composite global","Les révisions du FMI sont trimestrielles — vérifier la date"],["📊 ANALYSE FONDAMENTALE","Quelle est la force actuelle de l'USD ?","TradingView.com (DXY chart)","FRED.stlouisfed.org (DXY)","Investing.com","DXY niveau + momentum + RSI + corrélation avec taux 2Y US","DXY = 57.6% EUR — USD fort ≠ toutes les devises baissent pareil"],["💱 ANALYSE FOREX SPÉCIFIQUE","Les institutionnels sont-ils long ou short EUR ?","CFTC.gov (COT Report)","Barchart.com/forex/commitments","FXStreet.com","Net position large speculators — extrêmes = retournement potentiel","COT publié vendredi soir — données de mardi — 3 jours de retard"],["💱 ANALYSE FOREX SPÉCIFIQUE","Quel est le sentiment retail sur EUR/USD ?","Oanda.com/open-positions","MyFxBook.com/community/outlook","DailyFX.com","% long vs short retail — utiliser en contrarian quand extrême","Sentiment retail seul = signal faible, toujours croiser avec d'autres"],["💱 ANALYSE FOREX SPÉCIFIQUE","Y a-t-il des événements majeurs cette semaine ?","Forex Factory (rouge = majeur)","FXStreet.com/economic-calendar","Investing.com","Events 🔴 + consensus vs précédent + impact historique sur la paire","Vérifier l'heure exacte (GMT vs heure locale) pour ne pas rater la news"],["💱 ANALYSE FOREX SPÉCIFIQUE","Quelle est la corrélation pétrole-CAD aujourd'hui ?","EIA.gov (stocks hebdo pétrole)","Barchart.com/futures","TradingView.com","Stocks WTI + production US + corrélation hist. WTI/USD-CAD","La corrélation varie selon le régime macro — pas toujours stable"],["📉 ANALYSE DE RISQUE & SENTIMENT","Le marché est-il en mode risk-off ?","CBOE VIX (cboe.com)","CNN Fear & Greed (money.cnn.com)","TradingView.com (SPX)","VIX > 20 = prudence, > 30 = peur, > 40 = panique","VIX haut = opportunité, pas uniquement danger — contrariant"],["📉 ANALYSE DE RISQUE & SENTIMENT","Les investisseurs sont-ils trop optimistes ou pessimistes ?","AAII.com/sentimentsurvey","CNN Fear & Greed","Crypto Fear & Greed (si crypto)","Bull/Bear ratio AAII — extrêmes = signal contrarian fort","Sentiment seul n'est pas un timing outil — combiner avec technique"],["📉 ANALYSE DE RISQUE & SENTIMENT","La courbe des taux US est-elle inversée ?","US Treasury (home.treasury.gov)","FRED.stlouisfed.org (T10Y2Y)","Multpl.com","Spread 10Y-2Y : négatif = courbe inversée = signal récession 6-18 mois","Inversion ≠ récession immédiate — délai moyen 12-18 mois"],["🏢 ANALYSE FONDAMENTALE ACTIONS","Cette action est-elle sous/sur-évaluée ?","Macrotrends.net (P/E historique)","StockAnalysis.com","SimplyWallSt.com","CAPE Shiller vs historique + PER sectoriel + FCF yield","Valorisation seule ne suffit pas — une action peut rester 'chère' des années"],["🏢 ANALYSE FONDAMENTALE ACTIONS","Quels sont les résultats financiers de cette entreprise ?","SEC EDGAR (sec.gov)","StockAnalysis.com","Macrotrends.net","Revenue growth, marge nette, FCF, dette/EBITDA — 5 ans minimum","Toujours lire le 10-K original, pas seulement les résumés tiers"],["🏢 ANALYSE FONDAMENTALE ACTIONS","Quelles actions screener selon mes critères ?","Finviz.com (screener)","StockAnalysis.com/stocks/screener","SimplyWallSt.com","P/E < 15, croissance > 10%, dette faible, dividende > 2%","Screener = point de départ — analyser chaque résultat individuellement"],["🛢 MATIÈRES PREMIÈRES","Les stocks de pétrole ont-ils augmenté cette semaine ?","EIA.gov (petroleum supply weekly)","Barchart.com/futures","TradingView.com","Variation stocks + production US + imports — publié chaque mercredi","Stocks > attentes = bearish pétrole = bearish CAD"],["🛢 MATIÈRES PREMIÈRES","L'or est-il en tendance haussière ?","Kitco.com","TradingView.com (XAUUSD)","Barchart.com (COT or)","Prix spot + COT gold (COMEX) + corrélation taux réels US","Or corrélé négativement aux taux réels US — suivre TIP/TLT ratio"],["🎓 QUAND JE NE COMPRENDS PAS UN CONCEPT","Je ne comprends pas un terme financier","Investopedia.com","Corporate Finance Inst.","Khan Academy","Définition + exemple pratique + quiz de compréhension","Ne pas trader un instrument que l'on ne comprend pas à 100%"],["🎓 QUAND JE NE COMPRENDS PAS UN CONCEPT","Je veux apprendre le Forex depuis la base","BabyPips.com (School of Pipsology)","FXStreet.com/education","DailyFX.com/guides","Compléter le cours School of Pipsology avant de trader réel","Aller en compte démo 3-6 mois minimum avant compte réel"]]; // [section,question,site1,site2,site3,keyData,pitfall]
+const RES_TOP15=[["🥇","TradingView","tradingview.com","Graphiques de TOUT actif, multi-timeframe, 100+ indicateurs, screener, alertes","Quotidien","📊 Technique"],["🥈","Forex Factory","forexfactory.com","Calendrier économique couleur + impact, forum, préparer chaque semaine","Quotidien","📅 Calendrier"],["🥉","TradingEconomics","tradingeconomics.com","Données macro 200 pays, historique, comparaisons — base de données universelle","Hebdomadaire","🌐 Macro"],["#4","FRED (St. Louis Fed)","fred.stlouisfed.org","Base de données 800K séries économiques, yield curve, spreads — historique long","Hebdomadaire","🌐 Macro"],["#5","CME FedWatch","cmegroup.com/fedwatch","Seule source montrant CE QUE LE MARCHÉ PRICE pour la FED — indispensable","Avant chaque FOMC","🏦 BC"],["#6","CFTC — COT Report","cftc.gov/dea/futures/deafut_comb","Positionnement INSTITUTIONNEL sur les devises — le 'smart money' réel","Vendredi soir","💱 COT"],["#7","Barchart COT Charts","barchart.com/forex/commitments","COT VISUALISÉ en graphique — bien plus lisible que le rapport CFTC brut","Vendredi soir","💱 COT"],["#8","CBOE VIX","cboe.com/tradable_products/vix","Mesure la peur du marché — détermine Risk-ON vs Risk-OFF toute la session","Quotidien","😰 Risque"],["#9","CNN Fear & Greed","money.cnn.com/data/fear-and-greed","Score composé de 7 indicateurs — snapshot rapide sentiment global","Quotidien","😰 Risque"],["#10","US Treasury Yields","home.treasury.gov","Yield curve officielle US — signal récession + moteur USD/JPY + risk appetite","Quotidien","📈 Taux"],["#11","BLS.gov","bls.gov","SOURCE PRIMAIRE NFP/CPI/PPI US — toujours aller ici avant tout autre site","À chaque publication","🗃 Officiel"],["#12","Eurostat","ec.europa.eu/eurostat","SOURCE PRIMAIRE données EU — CPI/GDP/emploi zone euro officiels","À chaque publication","🗃 Officiel"],["#13","Koyfin","koyfin.com","Bloomberg gratuit : macro + actions + ETF dans une interface unifiée","Hebdomadaire","🔧 Outils"],["#14","Investopedia","investopedia.com","Encyclopédie financière #1 — ne jamais trader un concept non compris","À la demande","🎓 Éducation"],["#15","EIA.gov","eia.gov","Stocks pétroliers US hebdos — source officielle pour trader CAD/WTI corrélation","Mercredi (stocks)","🛢 Commodities"]]; // [rank,name,url,why,freq,cat]
+const GOLDEN_RULES=[
+ "RÈGLE 1 — Sources primaires d'abord : BLS.gov, BEA.gov, Eurostat.eu avant tout site d'analyse secondaire.",
+ "RÈGLE 2 — Croiser minimum 3 sources : 1 officielle + 1 calendrier + 1 analyse avant de fixer un biais.",
+ "RÈGLE 3 — Vérifier le consensus AVANT la publication : la réaction dépend de l'écart au consensus, pas du chiffre brut.",
+ "RÈGLE 4 — Le COT en dernier : il confirme ou invalide un biais déjà formé, il ne le construit pas (3 jours de retard).",
+ "RÈGLE 5 — Routine > impulsivité : routine fixe dimanche + chaque matin plutôt que 20 sites consultés en urgence.",
+ "RÈGLE 6 — VIX est la boussole : > 25 réduire la taille, > 30 position minimale, < 15 rester prudent malgré la complaisance apparente.",
+ "RÈGLE 7 — TradingView comme QG : alertes, watchlists par thème, screeners pour limiter le temps de recherche.",
+ "RÈGLE 8 — Ne jamais trader sans calendrier consulté le matin même, pas de position ouverte près d'un événement majeur sans stop strict."
+];
+const ROUTINE=[
+ {group:'🌍 Dimanche soir — macros globaux (30–45 min)',steps:[
+   {id:'r1',time:'20h · 10min',label:'Forex Factory → semaine à venir : lister les 3-5 events 🔴 majeurs par devise'},
+   {id:'r2',time:'20h · 5min',label:'CME FedWatch (si semaine FED) : probabilité marché, a-t-elle changé depuis la semaine dernière ?'},
+   {id:'r3',time:'20h · 10min',label:'TradingView → DXY + SPX + Gold + VIX : structure technique hebdo, Risk-ON ou Risk-OFF ?'},
+   {id:'r4',time:'20h · 15min',label:'CFTC → Barchart COT : positionnement institutionnel sur les 3-4 paires tradées, confirme/invalide le biais fondamental'}
+ ]},
+ {group:'📅 Chaque matin (20–30 min)',steps:[
+   {id:'r5',time:'6h30 · 5min',label:'Reuters + Bloomberg : breaking news overnight, discours BC, géopolitique'},
+   {id:'r6',time:'6h30 · 5min',label:"Forex Factory → aujourd'hui : confirmer les events du jour + heure exacte GMT"},
+   {id:'r7',time:'6h45 · 5min',label:'TradingView → DXY + VIX en live : mouvement asiatique overnight, gap, tendance ?'},
+   {id:'r8',time:'7h00 · 10min',label:"TradingView → paires ciblées : structure H4/H1, zones OB/FVG, niveaux d'entrée potentiels"}
+ ]},
+ {group:'📰 Après une publication importante (5–10 min)',steps:[
+   {id:'r9',time:'~3min',label:'BLS / BEA / Eurostat (source primaire) : chiffre exact, révision du précédent, composantes détaillées'},
+   {id:'r10',time:'~5min',label:'TradingView → réaction prix immédiate : la réaction confirme-t-elle la surprise vs consensus ?'}
+ ]},
+ {group:'📊 Chaque vendredi soir (20 min)',steps:[
+   {id:'r11',time:'18h · 10min',label:'CFTC → nouveau COT publié : évolution du positionnement vs semaine précédente'},
+   {id:'r12',time:'18h · 5min',label:'AAII Sentiment + CNN Fear & Greed : sentiment retail extrême ? Signal contrarian à noter'},
+   {id:'r13',time:'18h · 5min',label:'TradingEconomics → agenda semaine prochaine : préparer le template du dimanche'}
+ ]}
+];
+function getRoutineState(){try{return JSON.parse(localStorage.getItem('marketSourceRoutine')||'{}')}catch{return{}}}
+function toggleRoutine(id){const s=getRoutineState();s[id]=!s[id];localStorage.setItem('marketSourceRoutine',JSON.stringify(s));renderRoutine()}
+function resetRoutine(){if(confirm('Décocher toute la routine ?')){localStorage.removeItem('marketSourceRoutine');renderRoutine()}}
+function renderRoutine(){
+  const s=getRoutineState();
+  $('routineBox').innerHTML=ROUTINE.map(g=>`<div class="routine-group"><h4>${g.group}</h4>${g.steps.map(st=>`
+    <div class="routine-item ${s[st.id]?'done':''}">
+      <input type="checkbox" ${s[st.id]?'checked':''} onchange="toggleRoutine('${st.id}')">
+      <span class="rtime">${escapeHtml(st.time)}</span>
+      <span class="rlabel">${escapeHtml(st.label)}</span>
+    </div>`).join('')}</div>`).join('');
+}
+function populateSitesFilters(){
+  const cats=[...new Set(RES_SITES.map(s=>s[2]))];
+  $('sitesCat').innerHTML='<option value="ALL">Toutes catégories</option>'+cats.map(c=>`<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
+}
+function resourceLink(value){
+  const raw=String(value||'');
+  const m=raw.match(/(https?:\/\/[^ )]+|(?:[a-z0-9-]+\.)+[a-z]{2,}(?:\/[^ )]*)?)/i);
+  if(!m)return escapeHtml(raw);
+  const url=m[1].startsWith('http')?m[1]:'https://'+m[1];
+  return `<a class="linkbtn" href="${url}" target="_blank" rel="noopener noreferrer">↗ ${escapeHtml(raw)}</a>`;
+}
+function renderSites(){
+  const q=($('sitesSearch').value||'').toLowerCase();
+  const cat=$('sitesCat').value;const prio=$('sitesPrio').value;
+  const rows=RES_SITES.filter(s=>{
+    const [name,url,c,when,access,p]=s;
+    if(cat!=='ALL'&&c!==cat)return false;
+    if(prio!=='ALL'&&p!==prio)return false;
+    if(q&&!(name.toLowerCase().includes(q)||url.toLowerCase().includes(q)||when.toLowerCase().includes(q)))return false;
+    return true;
+  });
+  $('sitesCount').textContent=rows.length+' / '+RES_SITES.length+' sites';
+  $('sitesTable').innerHTML=rows.map(([name,url,c,when,access,p])=>{const href=url.startsWith('http')?url:'https://'+url;return `<tr><td><b>${escapeHtml(name)}</b></td><td><a class="linkbtn" href="${href}" target="_blank" rel="noopener noreferrer">↗ ${escapeHtml(url)}</a></td><td>${escapeHtml(c)}</td><td>${escapeHtml(when)}</td><td>${escapeHtml(access)}</td><td>${escapeHtml(p)}</td></tr>`}).join('');
+}
+function renderGuide(){
+  $('guideTable').innerHTML=RES_GUIDE.map(([section,q,s1,s2,s3,key,pitfall])=>`<tr><td><b>${escapeHtml(q)}</b></td><td>${resourceLink(s1)}</td><td>${resourceLink(s2)}</td><td>${resourceLink(s3)}</td><td class="muted">${escapeHtml(key)}</td><td class="warn">${escapeHtml(pitfall)}</td></tr>`).join('');
+}
+function renderTop15(){
+  $('top15Table').innerHTML=RES_TOP15.map(([rank,name,url,why,freq,cat])=>`<tr><td>${rank}</td><td><b>${escapeHtml(name)}</b><br>${resourceLink(url)}</td><td>${escapeHtml(why)}</td><td>${escapeHtml(freq)}</td><td>${escapeHtml(cat)}</td></tr>`).join('');
+}
+function renderResources(){
+  if(!$('sitesCat').options.length||$('sitesCat').options.length===1)populateSitesFilters();
+  renderSites();renderGuide();renderTop15();renderRoutine();
+  $('goldenRules').innerHTML=GOLDEN_RULES.map(r=>escapeHtml(r)).join('<br><br>');
+}
+
+const NEWS_SOURCES=[
+  {name:'Forex Factory',cat:'CALENDAR',desc:'Calendrier économique et événements à fort impact.',url:'https://www.forexfactory.com/calendar/'},
+  {name:'FXStreet Economic Calendar',cat:'CALENDAR',desc:'Calendrier macro par devise et impact.',url:'https://www.fxstreet.com/economic-calendar'},
+  {name:'Investing Economic Calendar',cat:'CALENDAR',desc:'Calendrier économique filtrable par pays et devise.',url:'https://www.investing.com/economic-calendar/'},
+  {name:'Reuters Finance',cat:'NEWS',desc:'Actualités financières et macroéconomiques.',url:'https://www.reuters.com/business/finance/'},
+  {name:'Federal Reserve',cat:'CENTRAL_BANK',desc:'Communiqués FOMC, discours, décisions et données Fed.',url:'https://www.federalreserve.gov/'},
+  {name:'ECB',cat:'CENTRAL_BANK',desc:'Décisions et communication de la BCE.',url:'https://www.ecb.europa.eu/'},
+  {name:'Bank of England',cat:'CENTRAL_BANK',desc:"MPC, taux et rapports d'inflation britanniques.",url:'https://www.bankofengland.co.uk/'},
+  {name:'Bank of Japan',cat:'CENTRAL_BANK',desc:'Politique monétaire et décisions de la BoJ.',url:'https://www.boj.or.jp/en/'},
+  {name:'Bank of Canada',cat:'CENTRAL_BANK',desc:'Décisions et rapports de politique monétaire.',url:'https://www.bankofcanada.ca/'},
+  {name:'Swiss National Bank',cat:'CENTRAL_BANK',desc:'Politique monétaire et franc suisse.',url:'https://www.snb.ch/en/'},
+  {name:'Reserve Bank of Australia',cat:'CENTRAL_BANK',desc:'Décisions de taux et politique monétaire australienne.',url:'https://www.rba.gov.au/'},
+  {name:'Reserve Bank of New Zealand',cat:'CENTRAL_BANK',desc:'Décisions de taux et politique monétaire NZD.',url:'https://www.rbnz.govt.nz/'},
+  {name:'BLS',cat:'OFFICIAL',desc:'NFP, CPI, PPI et données de travail américaines.',url:'https://www.bls.gov/'},
+  {name:'BEA',cat:'OFFICIAL',desc:'PIB, PCE et revenus personnels américains.',url:'https://www.bea.gov/'},
+  {name:'Eurostat',cat:'OFFICIAL',desc:'CPI, PIB, emploi et statistiques officielles européennes.',url:'https://ec.europa.eu/eurostat/'}
+];
+const RATE_PROBABILITIES=[
+  {ccy:'USD',bank:'Fed',rate:'3,50%–3,75%',source:'CME FedWatch',url:'https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html'},
+  {ccy:'EUR',bank:'BCE',rate:'2,25% / 2,40% / 2,65%',source:'BCE + marché',url:'https://www.ecb.europa.eu/'},
+  {ccy:'GBP',bank:'BoE',rate:'3,75%',source:'BoE + marché',url:'https://www.bankofengland.co.uk/monetary-policy'},
+  {ccy:'JPY',bank:'BoJ',rate:'1,00%',source:'BoJ + marché',url:'https://www.boj.or.jp/en/mopo/mpmdeci/index.htm'},
+  {ccy:'CHF',bank:'BNS',rate:'0,00%',source:'BNS + marché',url:'https://www.snb.ch/en/iabout/monpol/id/monpol_current'},
+  {ccy:'CAD',bank:'BoC',rate:'2,25%',source:'BoC + marché',url:'https://www.bankofcanada.ca/core-functions/monetary-policy/key-interest-rate/'},
+  {ccy:'AUD',bank:'RBA',rate:'4,35%',source:'RBA + marché',url:'https://www.rba.gov.au/monetary-policy/rba-board-minutes/'},
+  {ccy:'NZD',bank:'RBNZ',rate:'2,25%',source:'RBNZ + marché',url:'https://www.rbnz.govt.nz/monetary-policy/official-cash-rate'}
+];
+
+function renderPositioning(){
+  const pair=$('positionPair')?.value||'EURUSD'; const cot=state.positioning?.cot||[]; const retail=state.positioning?.retail||null;
+  $('positionTitle').textContent=labels(pair)||pair;
+  $('cotStatus').textContent=cot.length?`CFTC · ${cot[0].date}`:'CFTC · indisponible';
+  $('positionDataDate').textContent=cot.length?`Rapport ${cot[0].date}`:'Aucune donnée';
+  if(!cot.length){$('cotBox').innerHTML='<div class="empty">COT indisponible. Ouvre Source Manager pour voir le détail de la connexion.</div>'; $('cotChart').innerHTML='<div class="empty">Historique COT indisponible.</div>';} else {
+    const x=cot[0], prev=cot[1];
+    const fmt=n=>Number(n||0).toLocaleString('fr-FR');
+    const delta=(a,b)=>b==null?'—':((a-b>=0?'+':'')+fmt(a-b));
+    $('cotBox').innerHTML=`<div class="tablewrap"><table class="table cot-table"><thead><tr><th>Classe</th><th>Long</th><th>Short</th><th>Net</th><th>Δ net</th></tr></thead><tbody>
+      <tr><td>Asset Manager</td><td>${fmt(x.assetLong)}</td><td>${fmt(x.assetShort)}</td><td class="${x.assetNet>=0?'good':'bad'}"><b>${fmt(x.assetNet)}</b></td><td>${delta(x.assetNet,prev?.assetNet)}</td></tr>
+      <tr><td>Leveraged Money</td><td>${fmt(x.levLong)}</td><td>${fmt(x.levShort)}</td><td class="${x.levNet>=0?'good':'bad'}"><b>${fmt(x.levNet)}</b></td><td>${delta(x.levNet,prev?.levNet)}</td></tr>
+      <tr><td>Non-reportable</td><td>${fmt(x.nonRepLong)}</td><td>${fmt(x.nonRepShort)}</td><td>${fmt(x.nonRepNet)}</td><td>${delta(x.nonRepNet,prev?.nonRepNet)}</td></tr>
+      <tr><td>Open interest</td><td colspan="4"><b>${fmt(x.openInterest)}</b></td></tr></tbody></table></div><div class="mini">Net = Long − Short. Les chiffres sont des contrats, pas des lots retail.</div>`;
+    const max=Math.max(...cot.map(x=>Math.abs(x.levNet)),...cot.map(x=>Math.abs(x.assetNet)),1);
+    $('cotChart').innerHTML=`<svg viewBox="0 0 720 210" preserveAspectRatio="none"><line x1="20" x2="700" y1="105" y2="105" stroke="currentColor" opacity=".18"/>${cot.slice().reverse().map((r,i)=>{const x=35+i*90;const y=105-(r.levNet/max)*82;return `<circle cx="${x}" cy="${y}" r="4" fill="currentColor"/><text x="${x}" y="198" text-anchor="middle" font-size="9" fill="currentColor" opacity=".65">${String(r.date).slice(5)}</text>`}).join('')}<polyline fill="none" stroke="currentColor" stroke-width="2" points="${cot.slice().reverse().map((r,i)=>{const x=35+i*90,y=105-(r.levNet/max)*82;return `${x},${y}`}).join(' ')}"/></svg>`;
+  }
+  $('retailStatus').textContent=retail?'Myfxbook · live-ish':'Non configuré';
+  if(!retail){$('retailBox').innerHTML='<div class="empty">Ajoute une session Myfxbook dans Source Manager pour afficher Long/Short.</div>';} else {
+    const lp=Number(retail.longPercentage||0),sp=Number(retail.shortPercentage||0);
+    $('retailBox').innerHTML=`<div class="metric"><span>Long</span><b class="good">${lp.toFixed(1)}%</b></div><div class="progress"><i style="width:${Math.min(100,lp)}%"></i></div><div class="metric"><span>Short</span><b class="bad">${sp.toFixed(1)}%</b></div><div class="progress"><i style="width:${Math.min(100,sp)}%"></i></div><div class="metric"><span>Positions Long</span><b>${Number(retail.longPositions||0).toLocaleString('fr-FR')}</b></div><div class="metric"><span>Positions Short</span><b>${Number(retail.shortPositions||0).toLocaleString('fr-FR')}</b></div>`;
+  }
+  const latest=cot[0]; let score=50; if(latest){score=50+(latest.levNet>=0?15:-15)+(latest.assetNet>=0?15:-15); if(retail){const lp=Number(retail.longPercentage||0);if(lp>=70)score-=10;if(lp<=30)score+=10;} score=Math.max(0,Math.min(100,score));}
+  $('positionSummary').querySelector('.score-ring').style.setProperty('--score',score+'%'); $('positionSummary').querySelector('.score-ring b').textContent=score;
+  $('positionSummaryText').textContent=latest?`Asset Manager ${latest.assetNet>=0?'net long':'net short'} · Leveraged Money ${latest.levNet>=0?'net long':'net short'}${retail?' · Retail connecté':' · Retail non configuré'}`:'Données insuffisantes';
+  $('positionBars').innerHTML=latest?`<div class="posbar"><span>Asset Manager net</span><div class="track"><i class="${latest.assetNet<0?'neg':''}" style="width:${Math.min(100,Math.abs(latest.assetNet)/Math.max(latest.openInterest,1)*100*4)}%"></i></div><b>${fmtSigned(latest.assetNet)}</b></div><div class="posbar"><span>Leveraged Money net</span><div class="track"><i class="${latest.levNet<0?'neg':''}" style="width:${Math.min(100,Math.abs(latest.levNet)/Math.max(latest.openInterest,1)*100*4)}%"></i></div><b>${fmtSigned(latest.levNet)}</b></div>`:'';
+}
+function fmtSigned(n){return (Number(n)>=0?'+':'')+Number(n||0).toLocaleString('fr-FR')}
+function detectPositioningDivergence(pair,cot,retail,priceRows){
+  const out=[];
+  if(cot?.length>=2&&priceRows?.length>=2){
+    const cotNow=cot[0].levNet,cotPrev=cot[1].levNet;
+    const priceNow=priceRows.at(-1).close,pricePrev=priceRows[0].close;
+    const priceDir=Math.sign(priceNow-pricePrev),cotDir=Math.sign(cotNow-cotPrev);
+    if(priceDir>0&&cotDir<0)out.push({type:'bear',title:'Divergence baissière — prix ↑ / Lev. Money net ↓',text:'Le prix progresse sur la fenêtre analysée alors que le positionnement Leveraged Money se détériore.'});
+    if(priceDir<0&&cotDir>0)out.push({type:'bull',title:'Divergence haussière — prix ↓ / Lev. Money net ↑',text:'Le prix recule alors que le positionnement Leveraged Money s’améliore.'});
+    if(cot.length>=3){
+      const a=cot[0].levNet,b=cot[2].levNet;
+      if(Math.sign(a-b)!==Math.sign(cot[0].assetNet-cot[2].assetNet))out.push({type:'neutral',title:'Divergence interne COT',text:'Asset Managers et Leveraged Money évoluent dans des directions différentes sur les derniers rapports.'});
+    }
+  }
+  if(retail){
+    const long=Number(retail.longPercentage||0),short=Number(retail.shortPercentage||0);
+    if(long>=70)out.push({type:'bear',title:'Retail fortement long',text:`${long.toFixed(1)}% long : biais contrariant potentiellement baissier, à confirmer par le prix.`});
+    if(short>=70)out.push({type:'bull',title:'Retail fortement short',text:`${short.toFixed(1)}% short : biais contrariant potentiellement haussier, à confirmer par le prix.`});
+  }
+  if(!out.length)out.push({type:'neutral',title:'Pas de divergence forte détectée',text:'Les données disponibles ne présentent pas de divergence suffisamment nette selon les règles actuelles.'});
+  return out;
+}
+async function refreshPositioning(){
+  const pair=$('positionPair')?.value||'EURUSD';
+  $('cotBox').innerHTML='<div class="empty">Chargement CFTC…</div>';
+  $('retailBox').innerHTML='<div class="empty">Chargement sentiment…</div>';
+  try{
+    const cotProvider=SourceRegistry.get('cftc-cot-public');
+    const cot=await cotProvider.getPositions(pair);
+    state.positioning=state.positioning||{};state.positioning.cot=cot;
+  }catch(e){state.positioning=state.positioning||{};state.positioning.cot=[];log('ERROR','CFTC COT: '+e.message);}
+  try{
+    const p=SourceRegistry.get('myfxbook-community-outlook'), all=await p.getSentiment();
+    const symbol=pair==='EURUSD'?'EURUSD':pair==='GBPUSD'?'GBPUSD':pair==='USDJPY'?'USDJPY':pair==='USDCHF'?'USDCHF':pair==='USDCAD'?'USDCAD':pair==='AUDUSD'?'AUDUSD':'NZDUSD';
+    state.positioning=state.positioning||{};state.positioning.retail=all.find(x=>String(x.name).toUpperCase()===symbol)||null;
+  }catch(e){state.positioning=state.positioning||{};state.positioning.retail=null;log('WARNING','Myfxbook sentiment: '+e.message);}
+  renderPositioning();
+  try{
+    const sym=yahooSymbolFromKey(pair);
+    const series=await fetchCandles(sym,state.tf,'5d');
+    const div=detectPositioningDivergence(pair,state.positioning.cot,state.positioning.retail,series.bars);
+    $('divergenceBox').innerHTML=div.map(d=>`<div class="divergence ${d.type}"><b>${escapeHtml(d.title)}</b><div class="mini">${escapeHtml(d.text)}</div></div>`).join('');
+    const parts=div.filter(d=>d.type!=='neutral').map(d=>d.title);
+    $('positionInterpretation').textContent=parts.length?parts.join(' · '):'Confluence neutre : attendre la confirmation par structure, liquidité et news.';
+  }catch(e){$('divergenceBox').innerHTML='<div class="empty">Prix indisponible pour calculer les divergences.</div>';log('ERROR','Divergence: '+e.message);}
+}
+
+async function refreshNewsFeed(){
+  const el=$('liveNews'); if(!el)return;
+  el.innerHTML='<div class="empty">Chargement des news macro…</div>';
+  try{
+    const provider=new GdeltNewsProvider();
+    const rows=await provider.getNews();
+    state.liveNews=rows;
+    if(!rows.length){el.innerHTML='<div class="empty">Aucune news trouvée.</div>';return;}
+    el.innerHTML=rows.map(x=>`<article class="news-item"><h4>${escapeHtml(x.title)}</h4><div class="news-meta">${escapeHtml(x.domain)} · ${escapeHtml(x.seendate||'')}</div><a class="linkbtn" href="${escapeHtml(x.url)}" target="_blank" rel="noopener noreferrer">↗ Lire la source</a></article>`).join('');
+    log('INFO',`GDELT: ${rows.length} actualités récupérées`);
+  }catch(e){
+    el.innerHTML=`<div class="empty">Flux news indisponible : ${escapeHtml(e.message)}</div>`;
+    log('ERROR','GDELT news: '+e.message);
+  }
+}
+
+async function refreshFredSnapshot(){
+  const key=getApiConfig().fredApiKey;
+  if(!key){log('INFO','FRED: clé non configurée');return;}
+  try{
+    const p=new FredProvider();
+    const [dff,cpi,unrate]=await Promise.all([
+      p.getSeries('DFF'), p.getSeries('CPIAUCSL'), p.getSeries('UNRATE')
+    ]);
+    state.macro={dff:dff[0]?.value,cpi:cpi[0]?.value,unrate:unrate[0]?.value,updated:new Date().toISOString()};
+    log('INFO','FRED: DFF/CPI/UNRATE récupérés');
+    renderSourceManager();
+  }catch(e){log('ERROR','FRED: '+e.message)}
+}
+
+async function refreshRateProbabilities(){
+  const c=getApiConfig();
+  if(!c.cmeApiKey){
+    renderRateProbabilities();
+    toast('CME FedWatch API non configurée');
+    log('INFO','CME FedWatch: clé non configurée — aucun pourcentage inventé');
+    return;
+  }
+  // CME FedWatch API requires authenticated access. Endpoint/path can vary by CME contract.
+  // Keep the connector isolated so it can be updated without touching the rest of the app.
+  try{
+    const r=await fetch('https://markets.api.cmegroup.com/fedwatch/v1/forecasts',{
+      headers:{'Authorization':'Bearer '+c.cmeApiKey,'Accept':'application/json'},
+      cache:'no-store'
+    });
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const j=await r.json();
+    state.rateProbabilities=j;
+    renderRateProbabilities();
+    log('INFO','CME FedWatch: probabilités récupérées');
+    toast('Probabilités CME actualisées');
+  }catch(e){
+    log('ERROR','CME FedWatch: '+e.message);
+    toast('CME FedWatch indisponible');
+  }
+}
+
+function renderNews(){
+  const q=($('newsSearch')?.value||'').toLowerCase(),cat=$('newsCat')?.value||'ALL';
+  const rows=NEWS_SOURCES.filter(x=>(cat==='ALL'||x.cat===cat)&&(!q||x.name.toLowerCase().includes(q)||x.desc.toLowerCase().includes(q)));
+  $('newsGrid').innerHTML=rows.map(x=>`<article class="news-item"><h4>${escapeHtml(x.name)}</h4><div class="news-meta">${escapeHtml(x.cat)}</div><div>${escapeHtml(x.desc)}</div><a class="linkbtn source-link" href="${x.url}" target="_blank" rel="noopener noreferrer">↗ Ouvrir la source</a></article>`).join('');
+}
+function renderRateProbabilities(){
+  const data=state.rateProbabilities;
+  const meeting=data?.payload?.[0];
+  $('rateProbGrid').innerHTML=RATE_PROBABILITIES.map(x=>{
+    let cut='—',hold='—',hike='—',status='NON CONFIGURÉ';
+    if(x.ccy==='USD'&&meeting?.rateRange){
+      const probs=meeting.rateRange;
+      // CME payload gives probabilities per target range. We classify moves relative to the current range.
+      const total=probs.reduce((s,z)=>s+Number(z.probability||0),0)||1;
+      const vals=probs.map(z=>({lo:Number(z.lowerRt),hi:Number(z.upperRt),p:Number(z.probability||0)/total}));
+      const current=Number(x.rate)||0;
+      const curBps=current*100;
+      const cutP=vals.filter(z=>z.hi<=curBps).reduce((s,z)=>s+z.p,0);
+      const hikeP=vals.filter(z=>z.lo>=curBps+25).reduce((s,z)=>s+z.p,0);
+      const holdP=Math.max(0,1-cutP-hikeP);
+      cut=(cutP*100).toFixed(1)+'%';hold=(holdP*100).toFixed(1)+'%';hike=(hikeP*100).toFixed(1)+'%';status='CME FEDWATCH';
+    }
+    return `<article class="rate-card"><div class="rate-head"><span class="rate-ccy">${x.ccy}</span><span class="badge ${status==='CME FEDWATCH'?'buy':'wait'}">${status}</span></div><div class="sub">${escapeHtml(x.bank)} · taux de référence : ${escapeHtml(x.rate)}</div><div class="section"><div class="prob-row"><span>Baisse</span><div class="probbar"><i style="width:${cut==='—'?0:parseFloat(cut)}%"></i></div><b>${cut}</b></div><div class="prob-row"><span>Maintien</span><div class="probbar"><i style="width:${hold==='—'?0:parseFloat(hold)}%"></i></div><b>${hold}</b></div><div class="prob-row"><span>Hausse</span><div class="probbar"><i style="width:${hike==='—'?0:parseFloat(hike)}%"></i></div><b>${hike}</b></div></div><div class="note"><a class="linkbtn" href="${x.url}" target="_blank" rel="noopener noreferrer">↗ Source / FedWatch</a></div></article>`;
+  }).join('');
+}
+
 const providers=[
   new FrankfurterProvider(),
   new BinanceProvider(),
+  new TwelveDataProvider(),
   new YahooChartProvider(),
   new NotConfiguredProvider({id:'news-provider-slot',name:'News Provider Slot',category:CATEGORY.NEWS_DATA}),
   new CuratedManualProvider({id:'fx-fundamental-matrix-curated',name:'Matrice fondamentale FX (curée, 01/07/2026)',category:CATEGORY.ECONOMIC_DATA}),
   new CuratedManualProvider({id:'central-banks-curated',name:'Tableau de bord banques centrales (curé, 01/07/2026)',category:CATEGORY.CENTRAL_BANK_DATA}),
-  new NotConfiguredProvider({id:'market-expectations-slot',name:'Market Expectations Slot',category:CATEGORY.MARKET_EXPECTATIONS})
+  new NotConfiguredProvider({id:'market-expectations-slot',name:'Market Expectations Slot',category:CATEGORY.MARKET_EXPECTATIONS}),
+  new CftcCotProvider(),
+  new MyfxbookSentimentProvider()
 ];
 
 const SourceRegistry={
@@ -351,8 +937,9 @@ const SourceRegistry={
 
 const SourceManager={
   async request(category,method,args=[]){
-    const candidates=this.byPriority(category);
-    if(!candidates.length){log('WARNING',`${category}: aucun provider configuré`);return {ok:false,status:DATA_STATUS.UNAVAILABLE};}
+    let candidates=this.byPriority(category);
+    candidates=candidates.filter(p=>typeof p[method]==='function' && p[method]!==BaseProvider.prototype[method] && p[method]!==MarketDataProvider.prototype[method]);
+    if(!candidates.length){log('WARNING',`${category}: aucun provider configuré pour ${method}`);return {ok:false,status:DATA_STATUS.UNAVAILABLE};}
     let lastError=null;
     for(let i=0;i<candidates.length;i++){
       const p=candidates[i];
@@ -465,7 +1052,7 @@ async function loadCandles(){
     drawChart(state.candles,a);updateDecision(a);$('srcCandle').textContent=`${series.dataStatus} · ${series.source}`;
   }catch(e){$('marketInfo').textContent='🟡 Bougies indisponibles : '+e.message;$('srcCandle').textContent='UNAVAILABLE';state.candles=[]}
 }
-function setTF(tf){state.tf=tf;$('m5btn').classList.toggle('active',tf==='5m');$('m15btn').classList.toggle('active',tf==='15m');loadCandles()}
+function setTF(tf){state.tf=tf;document.querySelectorAll('[data-tf]').forEach(b=>b.classList.toggle('active',b.dataset.tf===tf));loadCandles()}
 function selectInstrument(){loadCandles()}
 function openInstrument(k){showView('markets');$('instrument').value=labels(k);loadCandles()}
 function updateDecision(a){
@@ -494,6 +1081,30 @@ function renderJournal(){const rows=getJournal();$('journalTable').innerHTML=row
 function addJournal(){const row={date:new Date().toLocaleString('fr-FR'),symbol:$('jSymbol').value||'EUR/USD',side:$('jSide').value,entry:$('jEntry').value,exit:$('jExit').value,risk:$('jRisk').value,reason:$('jReason').value};const rows=getJournal();rows.unshift(row);localStorage.setItem('marketSourceJournal',JSON.stringify(rows));renderJournal();toast('Trade ajouté au journal')}
 function clearJournal(){if(confirm('Effacer tout le journal local ?')){localStorage.removeItem('marketSourceJournal');renderJournal()}}
 
+
+function v151PairCurrencies(pair){return pair==='GBPUSD'?['GBP','USD']:pair==='USDJPY'?['USD','JPY']:['EUR','USD'];}
+function v151Macro(pair){const [a,b]=v151PairCurrencies(pair);const x=CENTRAL_BANKS.find(z=>z.ccy===a)?.score,y=CENTRAL_BANKS.find(z=>z.ccy===b)?.score;if(!Number.isFinite(x)||!Number.isFinite(y))return{dir:0,ok:false,text:'Non configuré / indisponible'};const d=x-y;return{dir:d>3?1:d<-3?-1:0,ok:true,text:`${a} ${x}/100 · ${b} ${y}/100`};}
+function v151News(){const n=Array.isArray(state.liveNews)?state.liveNews.length:0;return{dir:0,ok:n>0,text:n?`${n} événement(s) chargé(s) · direction non forcée`:'Non configuré / indisponible'};}
+function v151Cot(){const c=state.positioning?.cot;if(!c||!Array.isArray(c)||!c.length)return{dir:0,ok:false,text:'Non configuré / indisponible'};const n=Number(c[0].levNet);return{dir:n>0?1:n<0?-1:0,ok:true,text:`Leveraged Money net ${fmtSigned(n)}`};}
+function v151Rates(){const ok=!!state.rateProbabilities;return{dir:0,ok,text:ok?'Données disponibles · interprétation prudente':'Non configuré / indisponible'};}
+async function runV151(){
+ const pair=$('v151Pair')?.value||'EURUSD',tf=$('v151Tf')?.value||'5m',guards=[];let series=null,analysis=null;
+ $('v151Decision').textContent='CALCUL…';$('v151Decision').className='badge wait';
+ try{series=await fetchCandles(yahooSymbolFromKey(pair),tf,'1d');analysis=analyze(series.bars);}catch(e){guards.push('Données M5/M15 indisponibles.');log('WARNING',`V1.5.1 market data ${pair}: ${e.message}`);}
+ const technical=analysis?{dir:analysis.trend==='HAUSSIER'?1:analysis.trend==='BAISSIER'?-1:0,ok:true,text:`${analysis.trend} · BOS ${analysis.bos} · CHOCH ${analysis.choch}`}:{dir:0,ok:false,text:'Structure indisponible'};
+ const macro=v151Macro(pair),news=v151News(),cot=v151Cot(),rates=v151Rates();
+ const factors=[{name:'Technique',weight:40,...technical},{name:'Macro',weight:25,...macro},{name:'News',weight:10,...news},{name:'COT',weight:15,...cot},{name:'Taux',weight:10,...rates}];
+ if(!technical.ok)guards.push('Structure technique non validée.');if(!state.quotes[pair])guards.push('Quote de référence indisponible.');if(!macro.ok)guards.push('Macro non suffisamment configurée.');if(!news.ok)guards.push('News non configurées : validation news impossible.');if(!cot.ok)guards.push('COT non disponible.');if(!rates.ok)guards.push('Probabilités de taux non configurées.');if(analysis&&(analysis.trend==='NEUTRE'||analysis.bos==='AUCUN'||analysis.bos==='N/D'))guards.push('BOS / structure directionnelle non confirmés.');
+ const weighted=factors.reduce((s,f)=>s+f.dir*f.weight,0),score=Math.max(0,Math.min(100,Math.round(50+weighted/2))),active=factors.filter(f=>f.ok&&f.dir!==0).length;
+ const decision=guards.length===0&&active>=2&&score>=68?'ACHAT':guards.length===0&&active>=2&&score<=32?'VENTE':'ATTENDRE',bias=weighted>0?'HAUSSIER':weighted<0?'BAISSIER':'NEUTRE';
+ $('v151Score').textContent=score;$('v151Ring').style.setProperty('--score',score+'%');$('v151Decision').textContent=decision;$('v151Decision').className='badge '+(decision==='ACHAT'?'buy':decision==='VENTE'?'sell':'wait');$('v151Bias').textContent=bias;$('v151Bias').className=weighted>0?'good':weighted<0?'bad':'muted';$('v151Reason').textContent=decision==='ATTENDRE'?'Données ou confluence insuffisantes : aucune décision forcée.':'Confluence validée par les règles V1.5.1.';
+ $('v151MarketStatus').textContent=series?'PARTIEL / ACTIF':'INDISPONIBLE';$('v151Fx').textContent=state.quotes[pair]?'Disponible':'—';$('v151Candles').textContent=series?`${series.dataStatus} · ${series.source}`:'—';$('v151Btc').textContent=state.quotes.BTCUSD?'Disponible':'—';$('v151Freshness').textContent=series?.updatedAt?freshness(series.updatedAt):'—';
+ $('v151MacroStatus').textContent=(macro.ok||news.ok||cot.ok||rates.ok)?'PARTIEL':'INCOMPLET';$('v151Macro').textContent=macro.ok?macro.text:'Non configuré';$('v151News').textContent=news.text;$('v151Cot').textContent=cot.text;$('v151Rates').textContent=rates.text;
+ $('v151Factors').innerHTML=factors.map(f=>{const cls=f.dir>0?'good':f.dir<0?'bad':'muted',b=f.dir>0?'HAUSSIER':f.dir<0?'BAISSIER':'NEUTRE';return `<div class="metric"><span>${f.name}</span><b class="${cls}">${b}</b><span class="mini">${escapeHtml(f.text)} · poids ${f.weight}</span></div>`}).join('');
+ $('v151Guards').innerHTML=guards.length?guards.map(g=>`<div class="divergence neutral">⚠️ ${escapeHtml(g)}</div>`).join(''):'<div class="divergence bull">✓ Aucun garde-fou bloquant.</div>';
+ const now=new Date().toISOString();$('v151Updated').textContent=new Date(now).toLocaleString('fr-FR');state.lastV151={pair,tf,decision,bias,score,guards,factors,updated:now};log('INFO',`V1.5.1 ${pair} ${tf}: ${decision} · score ${score}/100 · guards ${guards.length}`);
+}
+
 async function refreshAll(){
   $('statusText').textContent='Actualisation…';$('statusDot').className='dot';
   try{
@@ -503,8 +1114,15 @@ async function refreshAll(){
 }
 
 $('instrument').value='EUR/USD';
-renderJournal();renderSourceManager();log('INFO','Source Manager initialized');log('INFO','Curated fundamental dataset loaded (28-pair matrix + 8 central banks, snapshot 2026-07-01)');
+loadApiConfigUi();renderJournal();renderSourceManager();renderNews();renderRateProbabilities();
+log('INFO','Source Manager initialized');
+log('INFO','V1.5.1 API Gateway: Twelve Data + FRED secrets via Cloudflare Worker; public fallback APIs retained');
 refreshAll();
+refreshNewsFeed();
+refreshFredSnapshot();
+refreshRateProbabilities();
+refreshPositioning();
+runV151();
 </script>
 </body>
 </html>
